@@ -17,6 +17,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from "axios";
+import { message } from "antd";
 
 function Copyright(props) {
   return (
@@ -41,6 +43,21 @@ export default function SignUp() {
       email: data.get('email'),
       password: data.get('password'),
     });
+    axios.post("http://localhost:8080/user/register", {
+      email: data.get('email'),
+      password: data.get('password'),
+      name: `${data.get('firstName')} ${data.get('lastName')}`,
+      title: 'Mr.',
+    }).then(res => {
+      const {data, code, message: resMessage} = res.data;
+      if (code > 299) {
+        message.error("Fail to register");
+        message.error(`${resMessage}, the email has been registered`);
+        return;
+      }
+      message.success(`Sign up successfully.`);
+      message.success(`Your uuid is ${data.id}`)
+    }).catch(err => message.error(err.message));
   };
 
   return (

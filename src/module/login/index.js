@@ -17,6 +17,8 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from "axios";
+import { message } from "antd";
 
 function Copyright(props) {
   return (
@@ -41,6 +43,19 @@ export default function SignInSide() {
       email: data.get('email'),
       password: data.get('password'),
     });
+    axios.post("http://localhost:8080/user/login", {
+      email: data.get('email'),
+      password: data.get('password'),
+    }).then(res => {
+      const {data, code, message: resMessage} = res.data;
+      if (code > 299) {
+        message.error("Fail to login");
+        message.error(resMessage);
+        return;
+      }
+      message.success(`Login successfully`);
+      message.success(`Welcome ${data.title} ${data.name}!`)
+    }).catch(err => console.error(err.message));
   };
 
   return (
