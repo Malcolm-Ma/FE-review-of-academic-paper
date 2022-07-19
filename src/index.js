@@ -6,8 +6,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from "react-redux";
 
-import Layout from "./layout";
+import Layout from "src/layout";
+import store from "src/reducer";
 
 import 'antd/dist/antd.less';
 import '@fontsource/roboto/300.css';
@@ -18,11 +20,11 @@ import '@fontsource/roboto/700.css';
 import './index.less';
 
 const App = () => (
-  <React.StrictMode>
+  <Provider store={store}>
     <BrowserRouter>
       <Layout />
     </BrowserRouter>
-  </React.StrictMode>
+  </Provider>
 );
 
 ReactDOM.render(<App />, document.getElementById('root'));

@@ -8,6 +8,7 @@ import _ from 'lodash';
 import { message } from 'antd';
 
 import { SERVICE_BASE_URL } from 'src/constants/constants';
+import authUtil from "src/uril/authUtil";
 
 export class Api {
   constructor() {
@@ -15,8 +16,10 @@ export class Api {
       baseURL: SERVICE_BASE_URL,
     });
 
-    // Allow cookie
-    this.axiosInstance.defaults.withCredentials = true;
+    this.axiosInstance.interceptors.request.use((request) => {
+      request.headers = { ...request.headers, ...authUtil.getAuthToken() };
+      return request;
+    })
 
     this.axiosInstance.interceptors.response.use((response) => {
       if (response.status === 200) {

@@ -19,6 +19,8 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from "axios";
 import { message } from "antd";
+import actions from "src/actions";
+import { useDispatch } from "react-redux";
 
 function Copyright(props) {
   return (
@@ -36,6 +38,9 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignInSide() {
+
+  const dispatch = useDispatch();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -43,18 +48,11 @@ export default function SignInSide() {
       email: data.get('email'),
       password: data.get('password'),
     });
-    axios.post("http://localhost:8080/user/login", {
+    actions.login({
       email: data.get('email'),
       password: data.get('password'),
     }).then(res => {
-      const {data, code, message: resMessage} = res.data;
-      if (code > 299) {
-        message.error("Fail to login");
-        message.error(resMessage);
-        return;
-      }
-      message.success(`Login successfully`);
-      message.success(`Welcome ${data.title} ${data.name}!`)
+      dispatch(actions.getUserInfo());
     }).catch(err => console.error(err.message));
   };
 
