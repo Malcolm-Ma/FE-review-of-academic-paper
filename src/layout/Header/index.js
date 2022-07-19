@@ -12,11 +12,15 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import _ from "lodash";
+import { Stack } from "@mui/material";
 
 const pages = ['Submission', 'Reviews', 'Status', 'Bidding'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = (props) => {
+  const { userInfo } = props;
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -39,7 +43,7 @@ const ResponsiveAppBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}/>
           <Typography
             variant="h6"
             noWrap
@@ -67,7 +71,7 @@ const ResponsiveAppBar = () => {
               onClick={handleOpenNavMenu}
               color="inherit"
             >
-              <MenuIcon />
+              <MenuIcon/>
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -94,7 +98,7 @@ const ResponsiveAppBar = () => {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}/>
           <Typography
             variant="h5"
             noWrap
@@ -126,35 +130,45 @@ const ResponsiveAppBar = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Button color="inherit" href="/login">Login</Button>
-            <Button variant="outlined" color="inherit" href="/register">Register</Button>
-            {/*<Tooltip title="Open settings">*/}
-            {/*  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>*/}
-            {/*    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />*/}
-            {/*  </IconButton>*/}
-            {/*</Tooltip>*/}
-            {/*<Menu*/}
-            {/*  sx={{ mt: '45px' }}*/}
-            {/*  id="menu-appbar"*/}
-            {/*  anchorEl={anchorElUser}*/}
-            {/*  anchorOrigin={{*/}
-            {/*    vertical: 'top',*/}
-            {/*    horizontal: 'right',*/}
-            {/*  }}*/}
-            {/*  keepMounted*/}
-            {/*  transformOrigin={{*/}
-            {/*    vertical: 'top',*/}
-            {/*    horizontal: 'right',*/}
-            {/*  }}*/}
-            {/*  open={Boolean(anchorElUser)}*/}
-            {/*  onClose={handleCloseUserMenu}*/}
-            {/*>*/}
-            {/*  {settings.map((setting) => (*/}
-            {/*    <MenuItem key={setting} onClick={handleCloseUserMenu}>*/}
-            {/*      <Typography textAlign="center">{setting}</Typography>*/}
-            {/*    </MenuItem>*/}
-            {/*  ))}*/}
-            {/*</Menu>*/}
+            {
+              !_.get(userInfo, 'id', null)
+                ? <Stack spacing={1} direction="row">
+                  <Button color="inherit" href="/register">Sign up</Button>
+                  <Button variant="outlined" color="inherit" href="/login">Login</Button>
+                </Stack>
+                : <>
+                  <Tooltip title="Open settings">
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      <Avatar
+                        alt={_.get(userInfo, 'name', 'A')}
+                        src={_.get(userInfo, 'avatar') || '#'}
+                      />
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                    sx={{ mt: '45px' }}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    {settings.map((setting) => (
+                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                        <Typography textAlign="center">{setting}</Typography>
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </>
+            }
           </Box>
         </Toolbar>
       </Container>

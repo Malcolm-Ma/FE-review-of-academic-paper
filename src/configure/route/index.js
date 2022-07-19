@@ -20,7 +20,7 @@ export default [
   {
     path: '/login',
     component: loadable({
-      loader: () => import(/* webpackChunkName: 'user' */ /* webpackMode: 'lazy' */ 'src/module/login'),
+      loader: () => import(/* webpackChunkName: 'user' */ /* webpackMode: 'lazy' */ 'src/module/user/login'),
       loading: Loading,
     }),
     exact: true,
@@ -28,7 +28,7 @@ export default [
   {
     path: '/register',
     component: loadable({
-      loader: () => import(/* webpackChunkName: 'user' */ /* webpackMode: 'lazy' */ 'src/module/register'),
+      loader: () => import(/* webpackChunkName: 'user' */ /* webpackMode: 'lazy' */ 'src/module/user/register'),
       loading: Loading,
     }),
     exact: true,

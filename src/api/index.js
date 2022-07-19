@@ -23,11 +23,11 @@ export class Api {
 
     this.axiosInstance.interceptors.response.use((response) => {
       if (response.status === 200) {
-        const { code, message, data } = response.data;
+        const { code, message: resMessage, data } = response.data;
         // Error in response
         if (code >= 400) {
-          message.error('Error! ' + message);
-          return Promise.reject(new Error(message));
+          // message.error('Error! ' + resMessage);
+          return Promise.reject(new Error(resMessage));
         }
         // return success data
         return data;

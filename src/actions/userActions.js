@@ -13,8 +13,8 @@ export const register = params => api.post(apiConfig.user.register, params);
 
 export const login = async (params) => {
   try {
-    const { token, tokenHead: token_head } = await api.post(apiConfig.user.login, params);
-    const fullToken = token_head + token;
+    const { token, token_head: tokenHead } = await api.post(apiConfig.user.login, params);
+    const fullToken = tokenHead + token;
     await authUtil.setAuthToken(fullToken);
   } catch (e) {
     console.error('login error');
@@ -22,6 +22,5 @@ export const login = async (params) => {
 }
 
 export const getUserInfo = createAsyncThunk('user/getUserInfo', async () => {
-  const resp = await api.get(apiConfig.user.info);
-  return resp;
+  return api.get(apiConfig.user.info);
 })

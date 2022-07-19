@@ -21,12 +21,13 @@ import axios from "axios";
 import { message } from "antd";
 import actions from "src/actions";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="/">
+      <Link color="inherit" href="/Users/mingzema/Desktop/acad-paper-reviewer/web_app/public">
         Apex
       </Link>{' '}
       {new Date().getFullYear()}
@@ -41,6 +42,8 @@ export default function SignInSide() {
 
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -53,6 +56,9 @@ export default function SignInSide() {
       password: data.get('password'),
     }).then(res => {
       dispatch(actions.getUserInfo());
+      message.success('Login successfully!');
+      navigate('/');
+
     }).catch(err => console.error(err.message));
   };
 
@@ -125,7 +131,7 @@ export default function SignInSide() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <Link href="src/module/user/login/index#" variant="body2">
                     Forgot password?
                   </Link>
                 </Grid>

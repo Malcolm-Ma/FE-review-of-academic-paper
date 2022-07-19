@@ -19,12 +19,13 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from "axios";
 import { message } from "antd";
+import actions from "src/actions";
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="/">
+      <Link color="inherit" href="/Users/mingzema/Desktop/acad-paper-reviewer/web_app/public">
         Apex
       </Link>{' '}
       {new Date().getFullYear()}
@@ -43,21 +44,19 @@ export default function SignUp() {
       email: data.get('email'),
       password: data.get('password'),
     });
-    axios.post("http://localhost:8080/user/register", {
+    actions.register({
       email: data.get('email'),
       password: data.get('password'),
       name: `${data.get('firstName')} ${data.get('lastName')}`,
       title: 'Mr.',
     }).then(res => {
-      const {data, code, message: resMessage} = res.data;
-      if (code > 299) {
-        message.error("Fail to register");
-        message.error(`${resMessage}, the email has been registered`);
-        return;
-      }
       message.success(`Sign up successfully.`);
-      message.success(`Your uuid is ${data.id}`)
-    }).catch(err => message.error(err.message));
+      message.success(`Your uuid is ${res.id}`)
+    }).catch(err => {
+      message.error("Fail to register");
+      message.error(err.message);
+      // message.error(`${resMessage}, the email has been registered`);
+    });
   };
 
   return (
