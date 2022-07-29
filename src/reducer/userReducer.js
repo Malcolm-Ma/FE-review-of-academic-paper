@@ -7,7 +7,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getUserInfo } from "src/actions/userActions";
 
 const initialState = {
-  userInfo: {}
+  userInfo: {},
+  loginStatus: false,
 }
 
 const userSlice = createSlice({
@@ -18,6 +19,7 @@ const userSlice = createSlice({
     builder
       .addCase(getUserInfo.fulfilled, (state, action) => {
         state.userInfo = action.payload;
+        state.loginStatus = true;
       })
   }
 });

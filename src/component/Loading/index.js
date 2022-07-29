@@ -3,9 +3,11 @@
  * @author Mingze Ma
  */
 
+import { Spin } from "antd";
+
 export default (props) => {
 
   return (
-    <div></div>
+    <Spin size="large"/>
   );
 };

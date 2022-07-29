@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import _ from "lodash";
-import { Stack } from "@mui/material";
+import { Divider, Stack } from "@mui/material";
 
 const pages = ['Submission', 'Reviews', 'Status', 'Bidding'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -161,6 +161,15 @@ const ResponsiveAppBar = (props) => {
                     open={Boolean(anchorElUser)}
                     onClose={handleCloseUserMenu}
                   >
+                    <MenuItem disabled={true}>
+                      <Typography
+                        variant="body1"
+                        textAlign="left"
+                      >
+                        Hi, {_.get(userInfo, 'title')} {_.get(userInfo, 'full_name')}
+                      </Typography>
+                    </MenuItem>
+                    <Divider />
                     {settings.map((setting) => (
                       <MenuItem key={setting} onClick={handleCloseUserMenu}>
                         <Typography textAlign="center">{setting}</Typography>

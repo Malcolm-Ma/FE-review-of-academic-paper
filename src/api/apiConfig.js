@@ -12,4 +12,8 @@ export default {
   file: {
     upload: '/upload',
   },
+  org: {
+    orgListByUser: '/org/list/get',
+    createOrg: '/org/create'
+  },
 };

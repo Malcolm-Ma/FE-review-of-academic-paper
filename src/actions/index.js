@@ -4,7 +4,9 @@
  */
 
 import * as userActions from './userActions';
+import * as orgActions from './orgActions';
 
 export default {
   ...userActions,
+  ...orgActions,
 };

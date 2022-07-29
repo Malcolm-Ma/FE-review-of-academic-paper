@@ -27,7 +27,8 @@ export class Api {
         // Error in response
         if (code >= 400) {
           // message.error('Error! ' + resMessage);
-          return Promise.reject(new Error(resMessage));
+          const error = new Error(resMessage);
+          return Promise.reject(error);
         }
         // return success data
         return data;
