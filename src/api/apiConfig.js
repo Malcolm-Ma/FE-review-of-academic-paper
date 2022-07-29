@@ -8,6 +8,7 @@ export default {
     login: '/user/login',
     register: '/user/register',
     info: '/user/info/get',
+    logout: 'user/logout',
   },
   file: {
     upload: '/upload',

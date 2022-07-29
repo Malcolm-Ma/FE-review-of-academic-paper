@@ -16,7 +16,12 @@ const setAuthToken = async (token) => {
   await localStorage.setItem(AUTH_TOKEN_KEY, token);
 };
 
+const removeAuthToken = () => {
+  localStorage.removeItem(AUTH_TOKEN_KEY);
+};
+
 export default {
   getAuthToken,
   setAuthToken,
+  removeAuthToken,
 };

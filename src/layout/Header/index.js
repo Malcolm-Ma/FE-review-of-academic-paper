@@ -14,12 +14,20 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import _ from "lodash";
 import { Divider, Stack } from "@mui/material";
+import { useCallback } from "react";
+import actions from "src/actions";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const pages = ['Submission', 'Reviews', 'Status', 'Bidding'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = (props) => {
   const { userInfo } = props;
+
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -38,6 +46,21 @@ const ResponsiveAppBar = (props) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleSettingClick = useCallback(async (value) => {
+    switch (value) {
+      case 'Logout': {
+        try {
+          await dispatch(actions.logout());
+          message.success('Sign out successfully')
+          navigate('/login');
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+    handleCloseUserMenu();
+  }, []);
 
   return (
     <AppBar position="static">
@@ -171,7 +194,7 @@ const ResponsiveAppBar = (props) => {
                     </MenuItem>
                     <Divider />
                     {settings.map((setting) => (
-                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                      <MenuItem key={setting} onClick={() => handleSettingClick(setting)}>
                         <Typography textAlign="center">{setting}</Typography>
                       </MenuItem>
                     ))}

@@ -23,7 +23,7 @@ export default () => {
   const [orgList, setOrgList] = useState([]);
 
   useEffect(() => {
-    (async () => {
+    loginStatus && (async () => {
       try {
         const res = await actions.getOrgListByUserId({user_id: _.get(userInfo, 'id')});
         setOrgList(res);
@@ -31,7 +31,7 @@ export default () => {
         message.error(e.message);
       }
     })();
-  }, [userInfo]);
+  }, [loginStatus, userInfo]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -59,7 +59,7 @@ export default () => {
             </>
             : <>
               <Typography variant="h3">
-                Welcome to Apex, the App for review of academic papers.
+                Welcome to Apex, the App for review of academic papers.<br/>
                 Please Sign in first.
               </Typography>
             </>

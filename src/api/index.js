@@ -8,7 +8,7 @@ import _ from 'lodash';
 import { message } from 'antd';
 
 import { SERVICE_BASE_URL } from 'src/constants/constants';
-import authUtil from "src/uril/authUtil";
+import authUtil from "src/util/authUtil";
 
 export class Api {
   constructor() {

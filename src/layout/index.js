@@ -14,6 +14,7 @@ import actions from "src/actions";
 import { message } from "antd";
 import ignoredAuthCheckUrls from "src/configure/ignoredAuthCheckUrls";
 import _ from "lodash";
+import authUtil from "src/util/authUtil";
 
 export default () => {
 
@@ -26,6 +27,7 @@ export default () => {
   useEffect(() => {
     dispatch(actions.getUserInfo()).unwrap()
       .catch(e => {
+        authUtil.removeAuthToken();
         if (!_.some(ignoredAuthCheckUrls, (item) => item === location.pathname)) {
           message.warn(e.message);
           navigate('/login');

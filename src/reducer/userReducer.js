@@ -4,7 +4,8 @@
  */
 
 import { createSlice } from '@reduxjs/toolkit';
-import { getUserInfo } from "src/actions/userActions";
+import { getUserInfo, logout } from "src/actions/userActions";
+import authUtil from "src/util/authUtil";
 
 const initialState = {
   userInfo: {},
@@ -20,6 +21,11 @@ const userSlice = createSlice({
       .addCase(getUserInfo.fulfilled, (state, action) => {
         state.userInfo = action.payload;
         state.loginStatus = true;
+      })
+      .addCase(logout.fulfilled, (state, action) => {
+        authUtil.removeAuthToken();
+        state.userInfo = {};
+        state.loginStatus = false;
       })
   }
 });
