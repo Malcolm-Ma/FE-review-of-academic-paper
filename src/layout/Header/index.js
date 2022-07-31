@@ -19,6 +19,7 @@ import actions from "src/actions";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { message } from "antd";
+import { APPBAR_DESKTOP, APPBAR_MOBILE } from "src/constants/constants";
 
 const pages = ['Submission', 'Reviews', 'Status', 'Bidding'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -68,7 +69,15 @@ const ResponsiveAppBar = (props) => {
   return (
     <AppBar>
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar
+          disableGutters
+          sx={(theme) => ({
+            minHeight: APPBAR_MOBILE,
+            [theme.breakpoints.up('lg')]: {
+              minHeight: APPBAR_DESKTOP
+            },
+          })}
+        >
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}/>
           <Typography
             variant="h6"

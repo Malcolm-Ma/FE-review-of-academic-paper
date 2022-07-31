@@ -15,3 +15,7 @@ export const USER_TYPE = {
 };
 
 export const EMAIL_PATTERN = /^\S+@\S+$/i;
+
+export const APPBAR_MOBILE = 64;
+
+export const APPBAR_DESKTOP = 72;

@@ -2,20 +2,23 @@
  * @file layout index
  * @author Mingze Ma
  */
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import _ from "lodash";
+import { message } from "antd";
+import Box from "@mui/material/Box";
+
+import actions from "src/actions";
+import ignoredAuthCheckUrls from "src/configure/ignoredAuthCheckUrls";
+import authUtil from "src/util/authUtil";
+import MyThemeProvider from "src/theme";
+import { APPBAR_DESKTOP, APPBAR_MOBILE } from "src/constants/constants";
 
 import Header from "./Header";
 import Main from "./Main";
 
 import './index.less';
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useEffect } from "react";
-import actions from "src/actions";
-import { message } from "antd";
-import ignoredAuthCheckUrls from "src/configure/ignoredAuthCheckUrls";
-import _ from "lodash";
-import authUtil from "src/util/authUtil";
-import MyThemeProvider from "src/theme";
 
 export default () => {
 
@@ -40,9 +43,20 @@ export default () => {
     <MyThemeProvider>
       <div className="apr-frame">
         <Header userInfo={userInfo} />
-        <div className="frame-content">
+        <Box sx={(theme) => ({
+          flexGrow: 1,
+          overflow: 'auto',
+          minHeight: '100%',
+          paddingTop: APPBAR_MOBILE + 24 + 'px',
+          paddingBottom: theme.spacing(10),
+          [theme.breakpoints.up('lg')]: {
+            paddingTop: APPBAR_DESKTOP + 24 + 'px',
+            paddingLeft: theme.spacing(2),
+            paddingRight: theme.spacing(2)
+          }
+        })}>
           <Main />
-        </div>
+        </Box>
       </div>
     </MyThemeProvider>
   );
