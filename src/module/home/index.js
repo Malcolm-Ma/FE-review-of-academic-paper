@@ -39,11 +39,11 @@ export default () => {
         {
           loginStatus
             ? <>
-              <Typography variant="h3">
+              <Typography variant="h4">
                 Welcome, {_.get(userInfo, 'title')} {_.get(userInfo, 'full_name')}
               </Typography>
               <Container disableGutters={true} sx={{pt: 3}}>
-                <Typography variant="h4">
+                <Typography variant="h5">
                   Please select a conference to continue:
                 </Typography>
                 {!_.isEmpty(orgList) && <Grid container spacing={4} sx={{pt: 3}}>

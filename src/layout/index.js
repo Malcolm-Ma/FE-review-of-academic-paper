@@ -15,6 +15,7 @@ import { message } from "antd";
 import ignoredAuthCheckUrls from "src/configure/ignoredAuthCheckUrls";
 import _ from "lodash";
 import authUtil from "src/util/authUtil";
+import MyThemeProvider from "src/theme";
 
 export default () => {
 
@@ -36,11 +37,13 @@ export default () => {
   }, [dispatch, location.pathname, navigate]);
 
   return (
-    <div className="apr-frame">
-      <Header userInfo={userInfo} />
-      <div className="frame-content">
-        <Main />
+    <MyThemeProvider>
+      <div className="apr-frame">
+        <Header userInfo={userInfo} />
+        <div className="frame-content">
+          <Main />
+        </div>
       </div>
-    </div>
+    </MyThemeProvider>
   );
 };

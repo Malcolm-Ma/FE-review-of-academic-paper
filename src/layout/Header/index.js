@@ -13,11 +13,12 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import _ from "lodash";
-import { Divider, Stack } from "@mui/material";
+import { Divider, Stack, useTheme } from "@mui/material";
 import { useCallback } from "react";
 import actions from "src/actions";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { message } from "antd";
 
 const pages = ['Submission', 'Reviews', 'Status', 'Bidding'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -28,6 +29,8 @@ const ResponsiveAppBar = (props) => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
+
+  const theme = useTheme();
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -48,6 +51,7 @@ const ResponsiveAppBar = (props) => {
   };
 
   const handleSettingClick = useCallback(async (value) => {
+    handleCloseUserMenu();
     switch (value) {
       case 'Logout': {
         try {
@@ -59,11 +63,10 @@ const ResponsiveAppBar = (props) => {
         }
       }
     }
-    handleCloseUserMenu();
   }, [dispatch, navigate]);
 
   return (
-    <AppBar position="static">
+    <AppBar>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}/>
@@ -116,7 +119,7 @@ const ResponsiveAppBar = (props) => {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography variant="h6" textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
