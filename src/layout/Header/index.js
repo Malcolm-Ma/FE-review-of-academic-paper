@@ -60,7 +60,7 @@ const ResponsiveAppBar = (props) => {
       }
     }
     handleCloseUserMenu();
-  }, []);
+  }, [dispatch, navigate]);
 
   return (
     <AppBar position="static">

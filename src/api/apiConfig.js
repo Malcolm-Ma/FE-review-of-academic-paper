@@ -9,6 +9,7 @@ export default {
     register: '/user/register',
     info: '/user/info/get',
     logout: 'user/logout',
+    searchUser: '/user/search',
   },
   file: {
     upload: '/upload',

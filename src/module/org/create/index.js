@@ -3,42 +3,40 @@
  * @author Mingze Ma
  */
 
-import { Button, Form, Input, message } from 'antd';
-import React from 'react';
+import { message } from 'antd';
+import React, { useState } from 'react';
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import actions from "src/actions";
 import { useNavigate } from "react-router-dom";
+import SearchUser from "src/component/SearchUser";
+import { createTheme } from "@mui/material/styles";
+import { Box, Button, ThemeProvider } from "@mui/material";
+import CssBaseline from "@mui/material/CssBaseline";
+import BusinessIcon from '@mui/icons-material/Business';
+import Avatar from "@mui/material/Avatar";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import { useForm } from 'react-hook-form';
+import { EMAIL_PATTERN } from "src/constants/constants";
+import _ from "lodash";
 
-const layout = {
-  labelCol: {
-    span: 6,
-  },
-  wrapperCol: {
-    span: 12,
-  },
-};
-
-const validateMessages = {
-  required: '${label} is required!',
-  types: {
-    email: '${label} is not a valid email!',
-    number: '${label} is not a valid number!',
-  },
-  number: {
-    range: '${label} must be between ${min} and ${max}',
-  },
-};
+const theme = createTheme();
 
 export default () => {
 
   const navigate = useNavigate();
 
-  const onFinish = async (values) => {
+  const { register, handleSubmit: handleSubmitHook, formState: { errors } } = useForm();
+
+  const [userList, setUserList] = useState([]);
+
+  const handleSubmit = async (values) => {
     console.log(values);
     try {
       const res = await actions.createOrg({
-        ...values
+        ...values,
+        user_id_list: _.map(userList, 'id'),
       });
       message.success("Create conference successfully!");
       navigate('/');
@@ -48,52 +46,71 @@ export default () => {
   };
 
   return (
-    <Container sx={{pt: 3}}>
-      <Typography variant="h4" sx={{pb: 5}}>
-        Create Conference
-      </Typography>
-      <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
-        <Form.Item
-          name={['name']}
-          label="Name"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="sm">
+        <CssBaseline/>
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
         >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name={['email']}
-          label="Email"
-          rules={[
-            {
-              type: 'email',
-              required: true,
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name={['description']}
-          label="Description"
-        >
-          <Input.TextArea />
-        </Form.Item>
-        <Form.Item
-          name={['user_id_list']}
-          label="Initial Users"
-        >
-          <Input.TextArea />
-        </Form.Item>
-        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 10 }}>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
-    </Container>
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <BusinessIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Create Conference
+          </Typography>
+          <Box component="form" sx={{mt: 3}} onSubmit={handleSubmitHook(handleSubmit)}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  {...register('name', { required: true })}
+                  required
+                  fullWidth
+                  label="Organization Name"
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  {...register('email', { required: true, pattern: EMAIL_PATTERN })}
+                  required
+                  fullWidth
+                  label="Organization Email"
+                  helperText={!!errors.email && 'Incorrect email.'}
+                  error={!!errors.email}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  {...register('description', { required: true })}
+                  required
+                  fullWidth
+                  label="Description"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <SearchUser
+                  label="Add Users"
+                  value={userList}
+                  onChange={(val) => setUserList(val)}
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Create Conference
+            </Button>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 };

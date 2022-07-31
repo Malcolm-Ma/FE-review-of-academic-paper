@@ -29,3 +29,5 @@ export const logout = createAsyncThunk('user/logout', async (params) => {
 export const getUserInfo = createAsyncThunk('user/getUserInfo', async () => {
   return api.get(apiConfig.user.info);
 });
+
+export const searchUsers = params => api.post(apiConfig.user.searchUser, params);

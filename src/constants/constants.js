@@ -13,3 +13,5 @@ export const USER_TYPE = {
   3: 'Owner',
   0: 'Disabled',
 };
+
+export const EMAIL_PATTERN = /^\S+@\S+$/i;
