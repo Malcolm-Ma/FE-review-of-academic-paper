@@ -59,7 +59,7 @@ export default function SignInSide() {
       message.success('Login successfully!');
       navigate('/');
 
-    }).catch(err => console.error(err.message));
+    }).catch(err => message.error(err.message));
   };
 
   return (

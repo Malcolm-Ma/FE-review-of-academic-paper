@@ -76,6 +76,7 @@ export default (props) => {
       value={value || resultValue}
       onChange={handleChange}
       getOptionLabel={(option) => _.get(option, 'full_name', '')}
+      getOptionDisabled={(option) => _.get(option, 'enable_status', 1) === 0}
       onInputChange={handleInputChange}
       renderInput={(params) => (
         <TextField {...params} label={label} placeholder="Search User"/>

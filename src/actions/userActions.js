@@ -19,6 +19,7 @@ export const login = async (params) => {
     await authUtil.setAuthToken(fullToken);
   } catch (e) {
     console.error('login error');
+    throw e;
   }
 };
 

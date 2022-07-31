@@ -10,6 +10,8 @@ import Typography from "@mui/material/Typography";
 import { USER_TYPE } from "src/constants/constants";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Button from "@mui/material/Button";
+import { useNavigate, Link } from "react-router-dom";
+import { useMemo } from "react";
 
 const theme = createTheme();
 
@@ -17,12 +19,20 @@ export default (props) => {
 
   const { orgInfo } = props;
 
+  const navigate = useNavigate();
+
+  const orgUrl = useMemo(() => (`/org/${_.get(orgInfo, 'id')}`), []);
+
   return (
     <ThemeProvider theme={theme}>
       <Card raised={true} sx={{ borderRadius: 2, p: 1 }}>
         <CardHeader
           avatar={<Avatar src={orgIcon} alt=".org"/>}
-          title={<Typography variant="h5">{_.get(orgInfo, 'name')}</Typography>}
+          title={
+            <Link to={orgUrl}>
+              <Typography variant="h5">{_.get(orgInfo, 'name')}</Typography>
+            </Link>
+          }
           subheader={_.get(orgInfo, 'email')}
         />
         <CardContent>
@@ -31,10 +41,9 @@ export default (props) => {
             Type: {USER_TYPE[_.get(orgInfo, 'user_type')]}</Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">Learn More</Button>
+          <Button size="small" onClick={() => navigate(orgUrl)}>Learn More</Button>
         </CardActions>
       </Card>
     </ThemeProvider>
   );
-
 }

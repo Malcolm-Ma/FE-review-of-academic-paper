@@ -15,7 +15,7 @@ import Container from "@mui/material/Container";
 export default () => {
 
   return (
-    <Container maxWidth="lg" disableGutters={true} sx={{pt: 3, pb: 3}}>
+    <Container maxWidth="xl" disableGutters={true}>
       <Routes>
         {
           _.map(route, (item) => {

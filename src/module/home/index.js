@@ -35,7 +35,7 @@ export default () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container>
+      <Container sx={{ pt: 3 }} maxWidth="lg">
         {
           loginStatus
             ? <>

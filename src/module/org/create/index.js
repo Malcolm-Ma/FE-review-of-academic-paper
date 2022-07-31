@@ -64,7 +64,13 @@ export default () => {
             Create Conference
           </Typography>
           <Box component="form" sx={{mt: 3}} onSubmit={handleSubmitHook(handleSubmit)}>
-            <Grid container spacing={2}>
+            <Grid
+              container
+              spacing={3}
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+            >
               <Grid item xs={12} sm={6}>
                 <TextField
                   {...register('name', { required: true })}
@@ -99,15 +105,17 @@ export default () => {
                   onChange={(val) => setUserList(val)}
                 />
               </Grid>
+              <Grid item xs={12}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 1, mb: 2 }}
+                >
+                  Create Conference
+                </Button>
+              </Grid>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Create Conference
-            </Button>
           </Box>
         </Box>
       </Container>
