@@ -2,6 +2,7 @@
  * @file layout index
  * @author Mingze Ma
  */
+
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";

@@ -2,6 +2,7 @@
  * @file search user component
  * @author Mingze Ma
  */
+
 import { Autocomplete, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { useCallback, useEffect, useMemo, useState } from "react";

@@ -2,6 +2,7 @@
  * @file root reducer
  * @author Mingze Ma
  */
+
 import { configureStore } from "@reduxjs/toolkit";
 
 import userReducer from "./userReducer";

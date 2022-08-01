@@ -2,6 +2,7 @@
  * @file home page
  * @author Mingze Ma
  */
+
 import Container from "@mui/material/Container";
 import { useDispatch, useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";

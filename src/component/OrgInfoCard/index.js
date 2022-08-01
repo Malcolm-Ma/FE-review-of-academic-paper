@@ -2,6 +2,7 @@
  * @file card for org info
  * @author Mingze Ma
  */
+
 import { Card, CardActions, CardContent, CardHeader } from "@mui/material";
 import orgIcon from 'src/assets/org.svg';
 import _ from "lodash";
@@ -21,7 +22,7 @@ export default (props) => {
 
   const navigate = useNavigate();
 
-  const orgUrl = useMemo(() => (`/org/${_.get(orgInfo, 'id')}`), []);
+  const orgUrl = useMemo(() => (`/org/${_.get(orgInfo, 'id')}/dashboard`), []);
 
   return (
     <ThemeProvider theme={theme}>

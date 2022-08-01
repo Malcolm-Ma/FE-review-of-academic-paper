@@ -3,24 +3,22 @@
  * @author Mingze Ma
  */
 
-import loadable from 'react-loadable';
+import loadable from '@loadable/component';
 import Loading from "src/component/Loading";
 
 export default [
   {
     path: '/login',
-    component: loadable({
-      loader: () => import(/* webpackChunkName: 'user' */ /* webpackMode: 'lazy' */ 'src/module/user/login'),
-      loading: Loading,
-    }),
+    component: loadable(
+      () => import(/* webpackChunkName: 'user' */ /* webpackMode: 'lazy' */ 'src/module/user/login')
+    ),
     exact: true,
   },
   {
     path: '/register',
-    component: loadable({
-      loader: () => import(/* webpackChunkName: 'user' */ /* webpackMode: 'lazy' */ 'src/module/user/register'),
-      loading: Loading,
-    }),
+    component: loadable(
+      () => import(/* webpackChunkName: 'user' */ /* webpackMode: 'lazy' */ 'src/module/user/register')
+    ),
     exact: true,
   },
 ];

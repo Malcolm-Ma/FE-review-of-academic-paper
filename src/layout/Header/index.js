@@ -150,7 +150,7 @@ const ResponsiveAppBar = (props) => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            APEX
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
@@ -172,45 +172,50 @@ const ResponsiveAppBar = (props) => {
                   <Button variant="outlined" color="inherit" href="/login">Login</Button>
                 </Stack>
                 : <>
-                  <Tooltip title="Open settings">
-                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                      <Avatar
-                        alt={_.get(userInfo, 'name', 'A')}
-                        src={_.get(userInfo, 'avatar') || '#'}
-                      />
-                    </IconButton>
-                  </Tooltip>
-                  <Menu
-                    sx={{ mt: '45px' }}
-                    id="menu-appbar"
-                    anchorEl={anchorElUser}
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    open={Boolean(anchorElUser)}
-                    onClose={handleCloseUserMenu}
-                  >
-                    <MenuItem disabled={true}>
-                      <Typography
-                        variant="body1"
-                        textAlign="left"
-                      >
-                        Hi, {_.get(userInfo, 'title')} {_.get(userInfo, 'full_name')}
-                      </Typography>
-                    </MenuItem>
-                    <Divider />
-                    {settings.map((setting) => (
-                      <MenuItem key={setting} onClick={() => handleSettingClick(setting)}>
-                        <Typography textAlign="center">{setting}</Typography>
+                  <Stack spacing={3} direction="row">
+                    <Button color="inherit" variant="outlined">
+                      New Review
+                    </Button>
+                    <Tooltip title="Open settings">
+                      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                        <Avatar
+                          alt={_.get(userInfo, 'name', 'A')}
+                          src={_.get(userInfo, 'avatar') || '#'}
+                        />
+                      </IconButton>
+                    </Tooltip>
+                    <Menu
+                      sx={{ mt: '45px' }}
+                      id="menu-appbar"
+                      anchorEl={anchorElUser}
+                      anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                      }}
+                      keepMounted
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                      }}
+                      open={Boolean(anchorElUser)}
+                      onClose={handleCloseUserMenu}
+                    >
+                      <MenuItem disabled={true}>
+                        <Typography
+                          variant="body1"
+                          textAlign="left"
+                        >
+                          Hi, {_.get(userInfo, 'title')} {_.get(userInfo, 'full_name')}
+                        </Typography>
                       </MenuItem>
-                    ))}
-                  </Menu>
+                      <Divider/>
+                      {settings.map((setting) => (
+                        <MenuItem key={setting} onClick={() => handleSettingClick(setting)}>
+                          <Typography textAlign="center">{setting}</Typography>
+                        </MenuItem>
+                      ))}
+                    </Menu>
+                  </Stack>
                 </>
             }
           </Box>

@@ -3,19 +3,18 @@
  * @author Mingze Ma
  */
 
-import loadable from 'react-loadable';
+import loadable from '@loadable/component';
 import Loading from "src/component/Loading";
 
 import user from "src/configure/route/user";
-import org from "src/component/Loading/org";
+import org from "src/configure/route/org";
 
 export default [
   {
     path: '/',
-    component: loadable({
-      loader: () => import(/* webpackChunkName: 'home' */ /* webpackMode: 'lazy' */ 'src/module/home'),
-      loading: Loading,
-    }),
+    component: loadable(
+      () => import(/* webpackChunkName: 'home' */ /* webpackMode: 'lazy' */ 'src/module/home'),
+    ),
     exact: true,
   },
   ...user,
