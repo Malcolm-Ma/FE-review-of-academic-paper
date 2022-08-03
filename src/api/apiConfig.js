@@ -19,4 +19,8 @@ export default {
     createOrg: '/org/create',
     orgInfo: 'org/detail/get',
   },
+  review: {
+    createReview: '/review/create',
+    submissionList: '/review/submission_list/get'
+  },
 };

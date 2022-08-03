@@ -13,6 +13,8 @@ import { useParams } from "react-router-dom";
 import Loading from "src/component/Loading";
 import { Alert } from "@mui/material";
 import _ from "lodash";
+import Grid from "@mui/material/Grid";
+import SubmissionList from "../../../component/SubmissionList";
 
 export default (props) => {
 
@@ -38,6 +40,11 @@ export default (props) => {
                 <Typography variant="h4">
                   Hi {_.get(userInfo, 'full_name', '')}, Welcome back
                 </Typography>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <SubmissionList />
+                  </Grid>
+                </Grid>
               </Box>
             </>
               : <Alert severity="error">Invalid organization id, please try again.</Alert>
