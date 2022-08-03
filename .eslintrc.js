@@ -4,111 +4,37 @@
  */
 
 const TS_OVERRIDE = {
-  files: ['**/*.ts', '**/*.tsx'],
+  files: ['src/**/*.ts', 'src/**/*.tsx'],
   parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: './tsconfig.json',
+    tsconfigRootDir: __dirname,
+  },
   plugins: ['@typescript-eslint'],  // typescript语法检查
   rules: {
-    /** code cc */
-    '@typescript-eslint/adjacent-overload-signatures': ['error'],
-    '@typescript-eslint/class-literal-property-style': [
-      'error',
-      'fields',
-    ],
-    '@typescript-eslint/consistent-type-assertions': [
+    '@typescript-eslint/naming-convention': [
       'error',
       {
-        assertionStyle: 'as',
-        objectLiteralTypeAssertions: 'never',
-      },
-    ],
-    '@typescript-eslint/consistent-type-definitions': ['off'],
-    '@typescript-eslint/explicit-member-accessibility': ['warn'],
-    '@typescript-eslint/member-ordering': [
-      'error',
-      {
-        default: [
-          'public-static-field',
-          'protected-static-field',
-          'private-static-field',
-          'static-field',
-          'public-static-method',
-          'protected-static-method',
-          'private-static-method',
-          'static-method',
-          'public-instance-field',
-          'protected-instance-field',
-          'private-instance-field',
-          'public-field',
-          'protected-field',
-          'private-field',
-          'instance-field',
-          'field',
-          'constructor',
-          'public-instance-method',
-          'protected-instance-method',
-          'private-instance-method',
-          'public-method',
-          'protected-method',
-          'private-method',
-          'instance-method',
-          'method',
+        selector: 'variableLike',
+        format: [
+          'camelCase',
+          'PascalCase',
+          'UPPER_CASE',
         ],
+        leadingUnderscore: 'allow', // for unused function parameter
+        trailingUnderscore: 'forbid',
       },
-    ],
-    '@typescript-eslint/method-signature-style': ['off'],
-    '@typescript-eslint/no-empty-interface': ['error'],
-    '@typescript-eslint/no-inferrable-types': ['warn'],
-    '@typescript-eslint/no-namespace': [
-      'error',
       {
-        allowDeclarations: true,
-        allowDefinitionFiles: true,
+        selector: 'typeLike',
+        format: [
+          'camelCase',
+          'PascalCase',
+          'UPPER_CASE',
+        ],
+        leadingUnderscore: 'forbid',
+        trailingUnderscore: 'forbid',
       },
     ],
-    '@typescript-eslint/no-non-null-asserted-optional-chain': ['error'],
-    '@typescript-eslint/no-parameter-properties': ['off'],
-    '@typescript-eslint/no-require-imports': ['error'],
-    '@typescript-eslint/no-this-alias': [
-      'error',
-      {
-        allowDestructuring: true,
-      },
-    ],
-    '@typescript-eslint/no-unused-expressions': [
-      'error',
-      {
-        allowShortCircuit: true,
-        allowTernary: true,
-        allowTaggedTemplates: true,
-      },
-    ],
-    '@typescript-eslint/no-useless-constructor': ['warn'],
-    '@typescript-eslint/prefer-for-of': ['warn'],
-    '@typescript-eslint/prefer-function-type': ['warn'],
-    '@typescript-eslint/prefer-namespace-keyword': ['error'],
-    '@typescript-eslint/prefer-optional-chain': ['error'],
-    '@typescript-eslint/triple-slash-reference': [
-      'error',
-      {
-        path: 'never',
-        types: 'always',
-        lib: 'always',
-      },
-    ],
-    '@typescript-eslint/type-annotation-spacing': ['error'],
-    '@typescript-eslint/typedef': [
-      'error',
-      {
-        arrayDestructuring: false,
-        arrowParameter: false,
-        memberVariableDeclaration: false,
-        objectDestructuring: false,
-        parameter: false,
-        propertyDeclaration: true,
-        variableDeclaration: false,
-      },
-    ],
-    '@typescript-eslint/unified-signatures': ['error'],
   },
 };
 

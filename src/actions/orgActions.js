@@ -11,3 +11,8 @@ import apiConfig from "src/api/apiConfig";
 export const getOrgListByUserId = params => api.get(apiConfig.org.orgListByUser, params);
 
 export const createOrg = params => api.post(apiConfig.org.createOrg, params);
+
+export const getOrgInfo = createAsyncThunk(
+  'org/getOrgInfo',
+  async (params) => api.get(apiConfig.org.orgInfo, params)
+)

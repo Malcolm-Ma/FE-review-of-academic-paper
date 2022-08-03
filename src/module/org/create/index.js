@@ -10,9 +10,7 @@ import Typography from "@mui/material/Typography";
 import actions from "src/actions";
 import { useNavigate } from "react-router-dom";
 import SearchUser from "src/component/SearchUser";
-import { createTheme } from "@mui/material/styles";
-import { Box, Button, ThemeProvider } from "@mui/material";
-import CssBaseline from "@mui/material/CssBaseline";
+import { Box, Button } from "@mui/material";
 import BusinessIcon from '@mui/icons-material/Business';
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
@@ -20,8 +18,6 @@ import TextField from "@mui/material/TextField";
 import { useForm } from 'react-hook-form';
 import { EMAIL_PATTERN } from "src/constants/constants";
 import _ from "lodash";
-
-const theme = createTheme();
 
 export default () => {
 
@@ -47,7 +43,6 @@ export default () => {
 
   return (
     <Container component="main" maxWidth="sm">
-      <CssBaseline/>
       <Box
         sx={{
           marginTop: 8,

@@ -8,6 +8,7 @@ import Loading from "src/component/Loading";
 
 import user from "src/configure/route/user";
 import org from "src/configure/route/org";
+import review from "src/configure/route/review";
 
 export default [
   {
@@ -19,4 +20,5 @@ export default [
   },
   ...user,
   ...org,
+  ...review,
 ];

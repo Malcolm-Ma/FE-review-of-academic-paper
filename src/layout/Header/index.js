@@ -13,11 +13,11 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import _ from "lodash";
-import { Divider, Stack, useTheme } from "@mui/material";
+import { Divider, Stack } from "@mui/material";
 import { useCallback } from "react";
 import actions from "src/actions";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { message } from "antd";
 import { APPBAR_DESKTOP, APPBAR_MOBILE } from "src/constants/constants";
 
@@ -30,8 +30,7 @@ const ResponsiveAppBar = (props) => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-
-  const theme = useTheme();
+  const { orgInfo } = useSelector(state => state.org);
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -65,6 +64,15 @@ const ResponsiveAppBar = (props) => {
       }
     }
   }, [dispatch, navigate]);
+
+  const handleCreateReviewNavigate = useCallback(() => {
+    const orgId = _.get(orgInfo, 'id', null);
+    if (orgId) {
+      navigate(`/org/${orgId}/review/create`);
+      return;
+    }
+    navigate(`/review/create`);
+  }, [navigate, orgInfo]);
 
   return (
     <AppBar>
@@ -173,7 +181,7 @@ const ResponsiveAppBar = (props) => {
                 </Stack>
                 : <>
                   <Stack spacing={3} direction="row">
-                    <Button color="inherit" variant="outlined">
+                    <Button color="inherit" variant="outlined" onClick={handleCreateReviewNavigate}>
                       New Review
                     </Button>
                     <Tooltip title="Open settings">

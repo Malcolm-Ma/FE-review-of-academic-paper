@@ -16,6 +16,7 @@ export default {
   },
   org: {
     orgListByUser: '/org/list/get',
-    createOrg: '/org/create'
+    createOrg: '/org/create',
+    orgInfo: 'org/detail/get',
   },
 };
