@@ -21,9 +21,9 @@ import MenuItem from "@mui/material/MenuItem";
 import { useSelector } from "react-redux";
 import { DatePicker, DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
-import { InboxOutlined } from '@ant-design/icons';
 import useFormValue from "src/hook/useFormValue";
 import PaperUpload from "./PaperUpload";
+import Button from "@mui/material/Button";
 
 export default (props) => {
 
@@ -40,8 +40,11 @@ export default (props) => {
     initialValue: '',
     valueFromEvent: true,
   });
-  const [deadline, handleDeadlineChange, deadlineProps] = useFormValue({ valueIndex: 0 });
-  const [publishedTime, handlePublishedTimeChange, publishedTimeProps] = useFormValue({ valueIndex: 0 });
+  const [deadline, handleDeadlineChange, deadlineProps] = useFormValue({ valueIndex: 0, initialValue: null });
+  const [publishedTime, handlePublishedTimeChange, publishedTimeProps] = useFormValue({
+    valueIndex: 0,
+    initialValue: null,
+  });
   const [paperUrl, handlePaperUrlChange] = useFormValue({
     initialValue: '',
     valueIndex: 0,
@@ -49,9 +52,22 @@ export default (props) => {
 
   const handleSubmit = async (values) => {
     console.log(values);
+    console.log('--deadline, publishedTime, paperUrl--\n', deadline, publishedTime, paperUrl);
     try {
+      const res = await actions.createReview({
+        ...values,
+        deadline,
+        org_id: orgId,
+        published_time: publishedTime,
+        resource_url: paperUrl,
+      });
+      console.log('--res--\n', res);
       message.success("Create conference successfully!");
-      // navigate('/');
+      if (orgId) {
+        navigate(`/org/${orgId}`);
+      } else {
+        navigate('/');
+      }
     } catch (e) {
       message.error(e.message);
     }
@@ -98,7 +114,7 @@ export default (props) => {
   }, [userInfo.id]);
 
   return (
-    <Container component="main" maxWidth="md">
+    <Container component="main" maxWidth="sm">
       <Box
         sx={{
           mt: 2,
@@ -112,9 +128,9 @@ export default (props) => {
           <RateReviewIcon/>
         </Avatar>
         <Typography component="h1" variant="h4">
-          Create New Review
+          Create New Submission
         </Typography>
-        <Box component="form" sx={{mt: 4}} onSubmit={handleSubmitHook(handleSubmit)}>
+        <Box component="form" sx={{ mt: 4 }} onSubmit={handleSubmitHook(handleSubmit)}>
           <LocalizationProvider dateAdapter={AdapterMoment}>
             <Grid
               container
@@ -145,10 +161,10 @@ export default (props) => {
                   disablePast
                   label="Deadline of Reviewing"
                   {...deadlineProps}
-                  renderInput={(params) => <TextField {...params} fullWidth />}
+                  renderInput={(params) => <TextField {...params} fullWidth/>}
                 />
               </Grid>
-              <Grid item xs={12} sx={{mt: 1}}>
+              <Grid item xs={12} sx={{ mt: 1 }}>
                 <Typography variant="h6" align="center">
                   Paper Information
                 </Typography>
@@ -193,8 +209,8 @@ export default (props) => {
                   required
                   fullWidth
                   label="Contact Email"
-                  helperText={!!errors.email && 'Incorrect email.'}
-                  error={!!errors.email}
+                  helperText={!!errors.contact_email && 'Incorrect email.'}
+                  error={!!errors.contact_email}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -202,21 +218,29 @@ export default (props) => {
                   disableFuture
                   label="Published Date"
                   {...publishedTimeProps}
-                  renderInput={(params) => <TextField {...params} fullWidth />}
+                  renderInput={(params) => <TextField {...params} fullWidth/>}
                 />
               </Grid>
-              <Grid item xs={12} sx={{mt: 1}}>
+              <Grid item xs={12} sx={{ mt: 1 }}>
                 <Typography variant="h6" align="center">
                   Paper Uploading
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <PaperUpload onChange={handlePaperUrlChange} />
+                <PaperUpload onChange={handlePaperUrlChange}/>
               </Grid>
             </Grid>
           </LocalizationProvider>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 4 }}
+          >
+            Submit
+          </Button>
         </Box>
-        </Box>
+      </Box>
     </Container>
   );
 };

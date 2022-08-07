@@ -13,7 +13,7 @@ import Box from "@mui/material/Box";
 import actions from "src/actions";
 import ignoredAuthCheckUrls from "src/configure/ignoredAuthCheckUrls";
 import authUtil from "src/util/authUtil";
-import MyThemeProvider from "src/theme";
+import MyThemeProvider from "src/configure/theme";
 import { APPBAR_DESKTOP, APPBAR_MOBILE } from "src/constants/constants";
 
 import Header from "./Header";

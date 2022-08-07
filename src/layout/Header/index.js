@@ -65,13 +65,13 @@ const ResponsiveAppBar = (props) => {
     }
   }, [dispatch, navigate]);
 
-  const handleCreateReviewNavigate = useCallback(() => {
+  const handleCreateSubmissionNavigate = useCallback(() => {
     const orgId = _.get(orgInfo, 'id', null);
     if (orgId) {
-      navigate(`/org/${orgId}/review/create`);
+      navigate(`/org/${orgId}/submission/create`);
       return;
     }
-    navigate(`/review/create`);
+    navigate(`/submission/create`);
   }, [navigate, orgInfo]);
 
   return (
@@ -181,8 +181,8 @@ const ResponsiveAppBar = (props) => {
                 </Stack>
                 : <>
                   <Stack spacing={3} direction="row">
-                    <Button color="inherit" variant="outlined" onClick={handleCreateReviewNavigate}>
-                      New Review
+                    <Button color="inherit" variant="outlined" onClick={handleCreateSubmissionNavigate}>
+                      New Submission
                     </Button>
                     <Tooltip title="Open settings">
                       <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

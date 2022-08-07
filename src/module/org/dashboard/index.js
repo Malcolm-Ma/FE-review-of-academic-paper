@@ -16,6 +16,7 @@ import _ from "lodash";
 import Grid from "@mui/material/Grid";
 import SubmissionList from "src/component/SubmissionList";
 import Button from "@mui/material/Button";
+import SubmissionCard from "./SubmissionCard";
 
 export default (props) => {
 
@@ -26,14 +27,8 @@ export default (props) => {
   const { orgInfo, hasError, fetched } = useSelector(state => state.org);
   const { userInfo } = useSelector(state => state.user);
 
-  const handleSubmissionListAction = useCallback(() => {
-    navigate(`org/${orgId}/submissions`);
-  }, [navigate, orgId]);
-
   useEffect(() => {
-    dispatch(actions.getOrgInfo({
-      org_id: orgId,
-    }));
+    dispatch(actions.getOrgInfo({ org_id: orgId }));
   }, [dispatch, orgId]);
 
   return (
@@ -48,13 +43,7 @@ export default (props) => {
                   </Typography>
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
-                      <Card>
-                        <CardHeader
-                          title="Submission List"
-                          action={<Button onClick={handleSubmissionListAction}>More</Button>}
-                        />
-                        <SubmissionList sx={{ px: 2 }}/>
-                      </Card>
+                      <SubmissionCard orgInfo={orgInfo} />
                     </Grid>
                   </Grid>
                 </Box>

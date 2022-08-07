@@ -14,6 +14,7 @@ import IconButton from "@mui/material/IconButton";
 import DriveFileMoveIcon from '@mui/icons-material/DriveFileMove';
 import moment from "moment";
 import { DATE_FORMAT, DATETIME_FORMAT } from "src/constants/constants";
+import { useParams } from "react-router-dom";
 
 const columnConfig = ({ payloads }) => {
 
@@ -59,11 +60,11 @@ const columnConfig = ({ payloads }) => {
       title: 'Operations',
       key: 'action',
       fixed: 'right',
-      width: 200,
+      width: 150,
       render: (_text, record) => {
         return (
           <>
-            <Button variant="text">Details</Button>
+            <Button variant="text" onClick={showDrawer}>Details</Button>
             {isAdmin && <Button variant="text">Manage</Button>}
           </>
         );
@@ -81,7 +82,9 @@ const DescriptionItem = ({ title, content }) => (
 
 export default (props) => {
 
-  const { sx: sxProps } = props;
+  const { fullHeight } = props;
+
+  const { orgId } = useParams();
 
   const { orgInfo } = useSelector(state => state.org);
   const { userInfo } = useSelector(state => state.user);
@@ -95,7 +98,7 @@ export default (props) => {
   const getSubmissionList = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await actions.getSubmissionList({ org_id: _.get(orgInfo, 'id') });
+      const res = await actions.getSubmissionList({ org_id: orgId });
       console.log('--res--\n', res);
       if (_.get(res, 'length', 0) > 0) {
         const sortedList = _.sortBy(res, (item) => {
@@ -106,11 +109,11 @@ export default (props) => {
       }
       setList([]);
     } catch (e) {
-      message.error(e.message);
+      message.error("Invalid organization id, please check your URL");
     } finally {
       setLoading(false);
     }
-  }, [orgInfo]);
+  }, [orgId]);
 
   const showDrawer = () => {
     setVisible(true);
@@ -143,7 +146,7 @@ export default (props) => {
             loading={loading}
             dataSource={list}
             columns={columnConfig({ payloads })}
-            scroll={{ y: 400, x: 1500 }}
+            scroll={{ y: !fullHeight ? 400 : null , x: 1500 }}
             pagination={{
               showSizeChanger: true,
               style: { paddingRight: '16px' }

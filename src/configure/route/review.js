@@ -8,16 +8,23 @@ import Loading from "src/component/Loading";
 
 export default [
   {
-    path: '/org/:orgId/review/create',
+    path: '/org/:orgId/submissions',
     component: loadable(
-      () => import(/* webpackChunkName: 'review' */ /* webpackMode: 'lazy' */ 'src/module/review/create')
+      () => import(/* webpackChunkName: 'org' */ /* webpackMode: 'lazy' */ 'src/module/submission')
     ),
     exact: true,
   },
   {
-    path: '/review/create',
+    path: '/org/:orgId/submission/create',
     component: loadable(
-      () => import(/* webpackChunkName: 'review' */ /* webpackMode: 'lazy' */ 'src/module/review/create')
+      () => import(/* webpackChunkName: 'review' */ /* webpackMode: 'lazy' */ 'src/module/submission/create')
+    ),
+    exact: true,
+  },
+  {
+    path: '/submission/create',
+    component: loadable(
+      () => import(/* webpackChunkName: 'review' */ /* webpackMode: 'lazy' */ 'src/module/submission/create')
     ),
     exact: true,
   },
