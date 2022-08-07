@@ -18,11 +18,15 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(getUserInfo.pending, (state) => {
+        state.userInfo = {};
+        state.loginStatus = false;
+      })
       .addCase(getUserInfo.fulfilled, (state, action) => {
         state.userInfo = action.payload;
         state.loginStatus = true;
       })
-      .addCase(logout.fulfilled, (state, action) => {
+      .addCase(logout.fulfilled, (state) => {
         authUtil.removeAuthToken();
         state.userInfo = {};
         state.loginStatus = false;

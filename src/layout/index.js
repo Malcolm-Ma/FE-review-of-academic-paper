@@ -34,7 +34,7 @@ export default () => {
       .catch(e => {
         authUtil.removeAuthToken();
         if (!_.some(ignoredAuthCheckUrls, (item) => item === location.pathname)) {
-          message.warn(e.message);
+          message.warn('Account has timed out, please log in again');
           navigate('/login');
         }
       })

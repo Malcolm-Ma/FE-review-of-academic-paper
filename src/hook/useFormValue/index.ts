@@ -10,11 +10,12 @@ interface useFormValueProps {
   initialValue?: any,
   valueFromEvent?: boolean,
   debug?: boolean,
+  formatValue?: (value: any) => any
 }
 
 const useFormValue = (props: useFormValueProps = {}) => {
 
-  const { valueIndex = 1, initialValue, debug, valueFromEvent } = props;
+  const { valueIndex = 1, initialValue, debug, valueFromEvent, formatValue } = props;
 
   const [value, setValue] = useState<any>(initialValue);
 
@@ -27,8 +28,13 @@ const useFormValue = (props: useFormValueProps = {}) => {
       setValue(args[0].target.value);
       return;
     }
+    if (formatValue) {
+      const newValue = formatValue(args[valueIndex]);
+      setValue(newValue);
+      return;
+    }
     setValue(args[valueIndex]);
-  }, [debug, valueFromEvent, valueIndex]);
+  }, [debug, formatValue, valueFromEvent, valueIndex]);
 
   const formProps = useMemo(() => ({
     value,
