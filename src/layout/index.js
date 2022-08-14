@@ -49,6 +49,7 @@ export default () => {
           overflow: 'auto',
           minHeight: '100%',
           paddingTop: APPBAR_MOBILE + 24 + 'px',
+          bgcolor: 'background.default',
           paddingBottom: theme.spacing(10),
           [theme.breakpoints.up('lg')]: {
             paddingTop: APPBAR_DESKTOP + 24 + 'px',

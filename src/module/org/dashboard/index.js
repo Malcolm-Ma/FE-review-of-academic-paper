@@ -17,6 +17,9 @@ import Grid from "@mui/material/Grid";
 import SubmissionList from "src/component/SubmissionList";
 import Button from "@mui/material/Button";
 import SubmissionCard from "./SubmissionCard";
+import InfoDisplay from "./InfoDisplay";
+import ReviewStatus from "./ReviewStatus";
+import ProcessDetail from "./ProcessDetail";
 
 export default (props) => {
 
@@ -32,16 +35,25 @@ export default (props) => {
   }, [dispatch, orgId]);
 
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="lg">
       {
         fetched
           ? <>{
             !hasError ? <>
                 <Box sx={{ pb: 5 }}>
-                  <Typography variant="h4" sx={{ mb: 4 }}>
-                    Hi {_.get(userInfo, 'full_name', '')}, Welcome back
+                  <Typography variant="h4" sx={{ mb: 3 }}>
+                    Welcome back, {_.get(userInfo, 'title', '')} {_.get(userInfo, 'full_name', '')}
                   </Typography>
-                  <Grid container spacing={2}>
+                  <Grid container spacing={3}>
+                    <Grid item xs={6}>
+                      <InfoDisplay orgInfo={orgInfo} />
+                    </Grid>
+                    <Grid item xs={3}>
+                      <ReviewStatus orgInfo={orgInfo} />
+                    </Grid>
+                    <Grid item xs={3}>
+                      <ProcessDetail orgInfo={orgInfo} />
+                    </Grid>
                     <Grid item xs={12}>
                       <SubmissionCard orgInfo={orgInfo} />
                     </Grid>

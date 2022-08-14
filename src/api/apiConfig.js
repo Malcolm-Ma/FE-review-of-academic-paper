@@ -18,6 +18,7 @@ export default {
     orgListByUser: '/org/list/get',
     createOrg: '/org/create',
     orgInfo: 'org/detail/get',
+    submissionCount: '/org/submission_count/get',
   },
   review: {
     createReview: '/review/create',

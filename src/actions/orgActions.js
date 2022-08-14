@@ -16,3 +16,5 @@ export const getOrgInfo = createAsyncThunk(
   'org/getOrgInfo',
   async (params) => api.get(apiConfig.org.orgInfo, params)
 )
+
+export const getSubmissionCount = params => api.get(apiConfig.org.submissionCount, params);

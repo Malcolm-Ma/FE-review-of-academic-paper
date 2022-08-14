@@ -25,7 +25,7 @@ export default (props) => {
         title="Submissions"
         action={<Button onClick={handleSubmissionListAction}>More</Button>}
       />
-      <SubmissionList />
+      <SubmissionList fullDetail={false} />
     </Card>
   );
 };

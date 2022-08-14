@@ -19,13 +19,14 @@ import SubmissionDetail from "./SubmissionDetail";
 
 const columnConfig = ({ payloads }) => {
 
-  const { showDrawer, isAdmin } = payloads;
+  const { showDrawer, isAdmin, fullDetail } = payloads;
 
-  return [
+  const config = [
     {
       title: 'Title',
       dataIndex: ['paper_info', 'title'],
       width: 400,
+      ellipsis: !fullDetail,
       render: (text, record) => (
         <a href='#'>{text}</a>
       ),
@@ -58,10 +59,11 @@ const columnConfig = ({ payloads }) => {
       },
     },
     {
-      title: 'Operations',
+      title: 'Actions',
       key: 'action',
+      align: 'center',
       fixed: 'right',
-      width: 150,
+      width: 100 + (isAdmin ? 60 : 0),
       render: (_text, record) => {
         return (
           <>
@@ -72,11 +74,22 @@ const columnConfig = ({ payloads }) => {
       },
     },
   ];
+
+  if (!fullDetail) {
+    return _.map(config, (item) => {
+      if (_.includes(['Title', 'Authors'], item.title)) {
+        _.unset(item, 'width');
+      }
+      return item;
+    });
+  }
+
+  return config;
 };
 
 export default (props) => {
 
-  const { fullHeight } = props;
+  const { fullHeight, fullDetail = true } = props;
 
   const { orgId } = useParams();
 
@@ -132,6 +145,7 @@ export default (props) => {
   const payloads = {
     // arguments
     isAdmin,
+    fullDetail,
     // functions
     showDrawer,
   };
@@ -142,10 +156,12 @@ export default (props) => {
           loading={loading}
           dataSource={list}
           columns={columnConfig({ payloads })}
-          scroll={{ y: !fullHeight ? 400 : null , x: 1500 }}
+          scroll={{ y: !fullHeight ? 400 : null , x: fullDetail ? 1500 : null }}
           pagination={{
-            showSizeChanger: true,
-            style: { paddingRight: '16px' }
+            showSizeChanger: fullDetail,
+            style: { paddingRight: '16px' },
+            total: _.get(list, 'length'),
+            showTotal: total => `Total ${total} submissions`
           }}
         />
       </Box>
