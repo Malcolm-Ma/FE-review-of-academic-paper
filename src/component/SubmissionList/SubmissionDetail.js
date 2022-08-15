@@ -7,7 +7,7 @@ import { Col, Divider, Drawer, Row } from "antd";
 import Typography from "@mui/material/Typography";
 import _ from "lodash";
 import moment from "moment";
-import { DATE_FORMAT, DATETIME_FORMAT } from "../../constants/constants";
+import { DATE_FORMAT, DATETIME_FORMAT } from "src/constants/constants";
 import IconButton from "@mui/material/IconButton";
 import DriveFileMoveIcon from "@mui/icons-material/DriveFileMove";
 
@@ -35,32 +35,24 @@ export default (props) => {
         Submission Detail
       </Typography>
       <Typography variant="h6" sx={{ pb: 2 }}>Paper Information</Typography>
-      <Row>
+      <Row gutter={[16, 16]}>
         <Col span={24}>
           <DescriptionItem title="Title" content={_.get(detail, 'paper_info.title', '')}/>
         </Col>
-      </Row>
-      <Row>
         <Col span={24}>
           <DescriptionItem title="Authors" content={_.get(detail, 'paper_info.authors', '')}/>
         </Col>
-      </Row>
-      <Row>
         <Col span={24}>
           <DescriptionItem title="Abstract" content={_.get(detail, 'paper_info.abstracts', '')}/>
         </Col>
-      </Row>
-      <Row>
         <Col span={12}>
           <DescriptionItem title="Keywords" content={_.get(detail, 'paper_info.keywords', 'N/A')}/>
         </Col>
         <Col span={12}>
           <DescriptionItem
             title="Published Time"
-            content={moment(_.get(detail, 'paper_info.published_time', 'N/A')).format(DATE_FORMAT)}/>
+            content={moment(_.get(detail, 'paper_info.published_time')).format(DATE_FORMAT)}/>
         </Col>
-      </Row>
-      <Row>
         <Col span={12}>
           <DescriptionItem title="Contact Email" content={_.get(detail, 'paper_info.contact_email', 'N/A')}/>
         </Col>
@@ -80,19 +72,17 @@ export default (props) => {
       </Row>
       <Divider/>
       <Typography variant="h6" sx={{ pb: 2 }}>Submitter Information</Typography>
-      <Row>
+      <Row gutter={[16, 16]}>
         <Col span={12}>
           <DescriptionItem title="Title" content={_.get(detail, 'user_info.title', 'N/A')}/>
         </Col>
         <Col span={12}>
           <DescriptionItem title="Name" content={_.get(detail, 'user_info.full_name', 'N/A')}/>
         </Col>
-      </Row>
-      <Row>
         <Col span={24}>
           <DescriptionItem
             title="Created Time"
-            content={moment(_.get(detail, 'user_info.created_time', 'N/A')).format(DATETIME_FORMAT)}
+            content={moment(_.get(detail, 'user_info.created_time')).format(DATETIME_FORMAT)}
           />
         </Col>
       </Row>

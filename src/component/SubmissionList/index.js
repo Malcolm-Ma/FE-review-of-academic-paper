@@ -7,7 +7,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import actions from "../../actions";
 import { useSelector } from "react-redux";
 import _ from "lodash";
-import { message, Table, Drawer, Row, Col, Divider } from "antd";
+import { message, Table } from "antd";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
@@ -27,9 +27,6 @@ const columnConfig = ({ payloads }) => {
       dataIndex: ['paper_info', 'title'],
       width: 400,
       ellipsis: !fullDetail,
-      render: (text, record) => (
-        <a href='#'>{text}</a>
-      ),
     },
     {
       title: 'Authors',
@@ -54,7 +51,7 @@ const columnConfig = ({ payloads }) => {
       width: 75,
       render: (text, record) => {
         return (
-          <IconButton onClick={() => window.open(text)}><DriveFileMoveIcon /></IconButton>
+          <IconButton onClick={() => window.open(text)}><DriveFileMoveIcon/></IconButton>
         );
       },
     },
@@ -107,10 +104,9 @@ export default (props) => {
     try {
       setLoading(true);
       const res = await actions.getSubmissionList({ org_id: orgId });
-      console.log('--res--\n', res);
       if (_.get(res, 'length', 0) > 0) {
         const sortedList = _.sortBy(res, (item) => {
-          return -moment(_.get(item, 'review_task.created_time'));
+          return -moment(_.get(item, 'review_task.created_time')).valueOf();
         });
         setList(sortedList);
         return;
@@ -156,7 +152,7 @@ export default (props) => {
           loading={loading}
           dataSource={list}
           columns={columnConfig({ payloads })}
-          scroll={{ y: !fullHeight ? 400 : null , x: fullDetail ? 1500 : null }}
+          scroll={{ y: !fullHeight ? 400 : null, x: fullDetail ? 1500 : null }}
           pagination={{
             showSizeChanger: fullDetail,
             style: { paddingRight: '16px' },
@@ -165,7 +161,7 @@ export default (props) => {
           }}
         />
       </Box>
-      <SubmissionDetail detail={focusedItem} onClose={onClose} visible={visible} />
+      {!_.isEmpty(list) && <SubmissionDetail detail={focusedItem} onClose={onClose} visible={visible}/>}
     </>
   );
 };
