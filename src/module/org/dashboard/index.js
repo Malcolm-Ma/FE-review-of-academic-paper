@@ -20,50 +20,37 @@ import SubmissionCard from "./SubmissionCard";
 import InfoDisplay from "./InfoDisplay";
 import ReviewStatus from "./ReviewStatus";
 import ProcessDetail from "./ProcessDetail";
+import useOrgInfo from "src/hook/useOrgInfo";
 
 export default (props) => {
+  const { orgInfo, OrgPage } = useOrgInfo();
 
-  const { orgId } = useParams();
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const { orgInfo, hasError, fetched } = useSelector(state => state.org);
   const { userInfo } = useSelector(state => state.user);
 
-  useEffect(() => {
-    dispatch(actions.getOrgInfo({ org_id: orgId }));
-  }, [dispatch, orgId]);
-
   return (
-    <Container maxWidth="lg">
-      {
-        fetched
-          ? <>{
-            !hasError ? <>
-                <Box sx={{ pb: 5 }}>
-                  <Typography variant="h4" sx={{ mb: 3 }}>
-                    Welcome back, {_.get(userInfo, 'title', '')} {_.get(userInfo, 'full_name', '')}
-                  </Typography>
-                  <Grid container spacing={3}>
-                    <Grid item xs={6}>
-                      <InfoDisplay orgInfo={orgInfo} />
-                    </Grid>
-                    <Grid item xs={3}>
-                      <ReviewStatus orgInfo={orgInfo} />
-                    </Grid>
-                    <Grid item xs={3}>
-                      <ProcessDetail orgInfo={orgInfo} />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <SubmissionCard orgInfo={orgInfo} />
-                    </Grid>
-                  </Grid>
-                </Box>
-              </>
-              : <Alert severity="error">Invalid organization id, please try again.</Alert>
-          }</>
-          : <Loading/>
-      }
-    </Container>
+    <OrgPage maxWidth="lg">
+      <Box sx={{ pb: 5 }}>
+        <Typography variant="h4" sx={{ mb: 3 }}>
+          Welcome back, {_.get(userInfo, 'title', '')} {_.get(userInfo, 'full_name', '')}
+        </Typography>
+        <Grid container spacing={3}>
+          <Grid item xs={6}>
+            <InfoDisplay orgInfo={orgInfo} />
+          </Grid>
+          <Grid item xs={3}>
+            <ReviewStatus orgInfo={orgInfo} />
+          </Grid>
+          <Grid item xs={3}>
+            <ProcessDetail orgInfo={orgInfo} />
+          </Grid>
+          <Grid item xs={12}>
+            <SubmissionCard orgInfo={orgInfo} />
+          </Grid>
+        </Grid>
+      </Box>
+    </OrgPage>
   );
 };

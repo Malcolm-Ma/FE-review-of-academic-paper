@@ -21,7 +21,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { message } from "antd";
 import { APPBAR_DESKTOP, APPBAR_MOBILE } from "src/constants/constants";
 
-const pages = ['Submission', 'Reviews', 'Status', 'Bidding'];
+const pages = [
+  {
+    name: 'Submission',
+    url: 'submissions'
+  },
+  {
+    name: 'Reviews',
+    url: 'reviews',
+  },
+  {
+    name: 'Status',
+    url: 'status',
+  },
+  {
+    name: 'Bidding',
+    url: 'bidding',
+  },
+];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = (props) => {
@@ -30,7 +47,7 @@ const ResponsiveAppBar = (props) => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const { orgInfo } = useSelector(state => state.org);
+  const { orgInfo, fetched } = useSelector(state => state.org);
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -42,8 +59,9 @@ const ResponsiveAppBar = (props) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (url) => {
     setAnchorElNav(null);
+    navigate(`/org/${_.get(orgInfo, 'id')}/${url}`);
   };
 
   const handleCloseUserMenu = () => {
@@ -116,7 +134,7 @@ const ResponsiveAppBar = (props) => {
             >
               <MenuIcon/>
             </IconButton>
-            <Menu
+            {fetched && <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
@@ -135,11 +153,11 @@ const ResponsiveAppBar = (props) => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography variant="h6" textAlign="center">{page}</Typography>
+                <MenuItem key={page.name} onClick={() => handleCloseNavMenu(page.url)}>
+                  <Typography variant="h6" textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
-            </Menu>
+            </Menu>}
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}/>
           <Typography
@@ -161,13 +179,13 @@ const ResponsiveAppBar = (props) => {
             APEX
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {fetched && pages.map((page) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={page.name}
+                onClick={() => handleCloseNavMenu(page.url)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>

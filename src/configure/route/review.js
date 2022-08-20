@@ -28,4 +28,11 @@ export default [
     ),
     exact: true,
   },
+  {
+    path: '/org/:orgId/bidding',
+    component: loadable(
+      () => import(/* webpackChunkName: 'org' */ /* webpackMode: 'lazy' */ 'src/module/bidding')
+    ),
+    exact: true,
+  },
 ];
