@@ -21,6 +21,10 @@ import Main from "./Main";
 
 import './index.less';
 
+message.config({
+  top: 88,
+});
+
 export default () => {
 
   const dispatch = useDispatch();

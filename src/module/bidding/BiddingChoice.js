@@ -9,11 +9,12 @@ import actions from "src/actions";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import _ from "lodash";
+import { message } from "antd";
 
 export default (props) => {
-  const { submissionId } = props;
+  const { submissionId, value = '' } = props;
 
-  const [pref, setPref] = useState('');
+  const [pref, setPref] = useState(value);
 
   const { orgId } = useParams();
 
@@ -28,10 +29,11 @@ export default (props) => {
         submission_id: submissionId,
         bidding_pref: val,
       });
+      message.success('Successfully bid interest');
     } catch (e) {
       console.error(e.message);
     }
-  }, []);
+  }, [orgId, submissionId, userInfo]);
 
   return (
     <ToggleButtonGroup

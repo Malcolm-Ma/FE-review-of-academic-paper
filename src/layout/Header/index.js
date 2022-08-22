@@ -199,7 +199,12 @@ const ResponsiveAppBar = (props) => {
                 </Stack>
                 : <>
                   <Stack spacing={3} direction="row">
-                    <Button color="inherit" variant="outlined" onClick={handleCreateSubmissionNavigate}>
+                    <Button
+                      color="inherit"
+                      variant="outlined"
+                      onClick={handleCreateSubmissionNavigate}
+                      sx={{ display: { xs: 'none', md: 'flex' } }}
+                    >
                       New Submission
                     </Button>
                     <Tooltip title="Open settings">

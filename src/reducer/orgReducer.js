@@ -24,6 +24,7 @@ const orgSlice = createSlice({
       .addCase(getOrgInfo.fulfilled, (state, action) => {
         state.orgInfo = action.payload;
         state.fetched = true;
+        state.hasError = false;
       })
       .addCase(getOrgInfo.rejected, (state, action) => {
         state.orgInfo = action.payload || {};

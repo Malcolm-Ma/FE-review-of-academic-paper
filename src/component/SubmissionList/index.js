@@ -184,7 +184,7 @@ export default forwardRef((props, ref) => {
           columns={columnConfig({ payloads })}
           scroll={{ y: !fullHeight ? 400 : null, x: fullDetail ? 1500 : null }}
           pagination={{
-            showSizeChanger: fullDetail,
+            showSizeChanger: fullHeight,
             style: { paddingRight: '16px' },
             total: _.get(list, 'length'),
             showTotal: total => `Total ${total} submissions`
