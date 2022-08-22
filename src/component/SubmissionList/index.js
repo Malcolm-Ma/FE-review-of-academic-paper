@@ -3,7 +3,7 @@
  * @author Mingze Ma
  */
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useState } from "react";
 import actions from "../../actions";
 import { useSelector } from "react-redux";
 import _ from "lodash";
@@ -19,25 +19,32 @@ import SubmissionDetail from "./SubmissionDetail";
 
 const columnConfig = ({ payloads }) => {
 
-  const { showDrawer, isAdmin, fullDetail } = payloads;
+  const {
+    showDrawer,
+    isAdmin,
+    fullDetail,
+    prefixColumns,
+    unsetColumns,
+    fixedAction,
+  } = payloads;
 
-  const config = [
+  let config = [
     {
       title: 'Title',
-      dataIndex: ['paper_info', 'title'],
+      dataIndex: ['submission_info', 'title'],
       width: 400,
       ellipsis: !fullDetail,
     },
     {
       title: 'Authors',
-      dataIndex: ['paper_info', 'authors'],
+      dataIndex: ['submission_info', 'authors'],
       width: 400,
       ellipsis: true,
     },
     {
       title: 'Published Time',
       width: 120,
-      dataIndex: ['paper_info', 'published_time'],
+      dataIndex: ['submission_info', 'published_time'],
       render: (text, record) => {
         return (
           <p>{moment(text).format(DATE_FORMAT)}</p>
@@ -46,7 +53,7 @@ const columnConfig = ({ payloads }) => {
     },
     {
       title: 'Paper',
-      dataIndex: ['paper_info', 'resource_url'],
+      dataIndex: ['submission_info', 'resource_url'],
       align: 'center',
       width: 75,
       render: (text, record) => {
@@ -59,7 +66,7 @@ const columnConfig = ({ payloads }) => {
       title: 'Actions',
       key: 'action',
       align: 'center',
-      fixed: 'right',
+      ...fixedAction && ({ fixed: 'right' }),
       width: 100 + (isAdmin ? 60 : 0),
       render: (_text, record) => {
         return (
@@ -73,20 +80,32 @@ const columnConfig = ({ payloads }) => {
   ];
 
   if (!fullDetail) {
-    return _.map(config, (item) => {
+    config =  _.map(config, (item) => {
       if (_.includes(['Title', 'Authors'], item.title)) {
         _.unset(item, 'width');
       }
       return item;
     });
   }
+  if (!_.isEmpty(prefixColumns)) {
+    config = [...prefixColumns, ...config];
+  }
+  if (!_.isEmpty(unsetColumns)) {
+    config = _.filter(config, ({ title }) => !_.includes(unsetColumns, title));
+  }
 
   return config;
 };
 
-export default (props) => {
+export default forwardRef((props, ref) => {
 
-  const { fullHeight, fullDetail = true } = props;
+  const {
+    fullHeight,
+    fullDetail = true,
+    fixedAction = true,
+    prefixColumns,
+    unsetColumns
+  } = props;
 
   const { orgId } = useParams();
 
@@ -129,6 +148,10 @@ export default (props) => {
     setFocusedItem({});
   };
 
+  const refresh = useCallback(() => {
+    getSubmissionList();
+  }, [getSubmissionList]);
+
   const isAdmin = useMemo(() => {
     const managerIdList = _.map(_.get(orgInfo, 'manager_list', []), 'id');
     return _.includes(managerIdList, _.get(userInfo, 'id'));
@@ -138,10 +161,17 @@ export default (props) => {
     getSubmissionList();
   }, [getSubmissionList]);
 
+  useImperativeHandle(ref, () => ({
+    refresh,
+  }));
+
   const payloads = {
     // arguments
     isAdmin,
     fullDetail,
+    unsetColumns,
+    prefixColumns,
+    fixedAction,
     // functions
     showDrawer,
   };
@@ -164,4 +194,4 @@ export default (props) => {
       {!_.isEmpty(list) && <SubmissionDetail detail={focusedItem} onClose={onClose} visible={visible}/>}
     </>
   );
-};
+});

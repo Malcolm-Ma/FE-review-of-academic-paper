@@ -37,24 +37,24 @@ export default (props) => {
       <Typography variant="h6" sx={{ pb: 2 }}>Paper Information</Typography>
       <Row gutter={[16, 16]}>
         <Col span={24}>
-          <DescriptionItem title="Title" content={_.get(detail, 'paper_info.title', '')}/>
+          <DescriptionItem title="Title" content={_.get(detail, 'submission_info.title', '')}/>
         </Col>
         <Col span={24}>
-          <DescriptionItem title="Authors" content={_.get(detail, 'paper_info.authors', '')}/>
+          <DescriptionItem title="Authors" content={_.get(detail, 'submission_info.authors', '')}/>
         </Col>
         <Col span={24}>
-          <DescriptionItem title="Abstract" content={_.get(detail, 'paper_info.abstracts', '')}/>
+          <DescriptionItem title="Abstract" content={_.get(detail, 'submission_info.abstracts', '')}/>
         </Col>
         <Col span={12}>
-          <DescriptionItem title="Keywords" content={_.get(detail, 'paper_info.keywords', 'N/A')}/>
+          <DescriptionItem title="Keywords" content={_.get(detail, 'submission_info.keywords', 'N/A')}/>
         </Col>
         <Col span={12}>
           <DescriptionItem
             title="Published Time"
-            content={moment(_.get(detail, 'paper_info.published_time')).format(DATE_FORMAT)}/>
+            content={moment(_.get(detail, 'submission_info.published_time')).format(DATE_FORMAT)}/>
         </Col>
         <Col span={12}>
-          <DescriptionItem title="Contact Email" content={_.get(detail, 'paper_info.contact_email', 'N/A')}/>
+          <DescriptionItem title="Contact Email" content={_.get(detail, 'submission_info.contact_email', 'N/A')}/>
         </Col>
         <Col span={12}>
           <DescriptionItem
@@ -62,7 +62,7 @@ export default (props) => {
             content={
               <IconButton
                 sx={{ p: 0 }}
-                onClick={() => window.open(_.get(detail, 'paper_info.resource_url', '#'))}
+                onClick={() => window.open(_.get(detail, 'submission_info.resource_url', '#'))}
               >
                 <DriveFileMoveIcon/>
               </IconButton>

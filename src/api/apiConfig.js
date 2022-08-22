@@ -21,7 +21,8 @@ export default {
     submissionCount: '/org/submission_count/get',
   },
   review: {
-    createReview: '/review/create',
-    submissionList: '/review/submission_list/get'
+    createReview: '/review/submission/create',
+    submissionList: '/review/submission_list/get',
+    biddingPref: '/review/bidding/pref/set',
   },
 };
