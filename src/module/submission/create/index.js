@@ -51,8 +51,6 @@ export default (props) => {
   });
 
   const handleSubmit = async (values) => {
-    console.log(values);
-    console.log('--deadline, publishedTime, paperUrl--\n', deadline, publishedTime, paperUrl);
     try {
       const res = await actions.createReview({
         ...values,
@@ -61,7 +59,6 @@ export default (props) => {
         published_time: publishedTime,
         resource_url: paperUrl,
       });
-      console.log('--res--\n', res);
       message.success("Create conference successfully!");
       if (orgId) {
         navigate(`/org/${orgId}`);

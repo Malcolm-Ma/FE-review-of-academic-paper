@@ -42,7 +42,6 @@ export default (props) => {
   }, [resultValue]);
 
   const handleInputChange = useCallback(async (_e, val, reason) => {
-    console.log('--val, reason--\n', val, reason);
     // set resultList to empty to show the loading tips
     if (reason === 'reset') {
       await searchUserAsync();
@@ -52,7 +51,6 @@ export default (props) => {
   }, [searchUserAsync]);
 
   const handleChange = useCallback((_e, val) => {
-    console.log('--val--\n', val);
     onChange?.(val);
     setResultValue(val);
   }, [onChange]);
@@ -60,11 +58,6 @@ export default (props) => {
   useEffect(() => {
     searchUserAsync();
   }, [searchUserAsync]);
-
-  useEffect(() => {
-    console.log('--resultValue--\n', resultValue);
-    console.log('--searchResultList--\n', searchResultList);
-  }, [resultValue, searchResultList]);
 
   return (
     <Autocomplete

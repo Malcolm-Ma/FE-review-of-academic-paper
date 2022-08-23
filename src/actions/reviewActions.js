@@ -13,3 +13,5 @@ export const getSubmissionList = params => api.post(apiConfig.review.submissionL
 export const createReview = params => api.post(apiConfig.review.createReview, params);
 
 export const setBiddingPref = params => api.post(apiConfig.review.biddingPref, params);
+
+export const getBiddingPrefSummary = params => api.get(apiConfig.review.biddingPrefSummary, params);

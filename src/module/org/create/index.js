@@ -28,7 +28,6 @@ export default () => {
   const [userList, setUserList] = useState([]);
 
   const handleSubmit = async (values) => {
-    console.log(values);
     try {
       const res = await actions.createOrg({
         ...values,

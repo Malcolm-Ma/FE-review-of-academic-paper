@@ -7,12 +7,14 @@ import Typography from "@mui/material/Typography";
 import useOrgInfo from "src/hook/useOrgInfo";
 import _ from "lodash";
 import SubmissionList from "src/component/SubmissionList";
-import { Alert, AlertTitle, Card, CardContent } from "@mui/material";
+import { Alert, AlertTitle, Card, CardContent, CardHeader } from "@mui/material";
 import BiddingChoice from "src/module/bidding/BiddingChoice";
 import { useRef } from "react";
 import Grid from "@mui/material/Grid";
+import PrefSummary from "src/module/bidding/PrefSummary";
 
 const prefixColumns = () => {
+
   return [
     {
       title: 'Bidding Choice',
@@ -41,14 +43,19 @@ export default (props) => {
       <Typography variant="h4" sx={{ mb: 3 }}>
         {_.get(orgInfo, 'name')} Paper Bidding
       </Typography>
-      <Alert severity="info" sx={{ mb: 3 }} color="info">
-        <AlertTitle>Bidding Guidance</AlertTitle>
-        Enter your <strong>reviewing preference</strong> by clicking <u>yes</u> / <u>maybe</u> / <u>no</u> below.
-        <br/>
-        Declare <strong>conflict of interests</strong> as you see fit (e.g. in case one of the authors is from your
-        organisation).
-      </Alert>
       <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Alert severity="info" color="info">
+            <AlertTitle>Bidding Guidance</AlertTitle>
+            Enter your <strong>reviewing preference</strong> by clicking <u>yes</u> / <u>maybe</u> / <u>no</u> below.
+            <br/>
+            Declare <strong>conflict of interests</strong> as you see fit (e.g. in case one of the authors is from your
+            organisation).
+          </Alert>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <PrefSummary orgInfo={orgInfo}/>
+        </Grid>
         <Grid item xs={12}>
           <Card>
             <SubmissionList
@@ -64,4 +71,4 @@ export default (props) => {
       </Grid>
     </OrgPage>
   );
-}
+};

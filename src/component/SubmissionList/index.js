@@ -159,6 +159,9 @@ export default forwardRef((props, ref) => {
 
   useEffect(() => {
     getSubmissionList();
+    return () => {
+      setLoading(false);
+    };
   }, [getSubmissionList]);
 
   useImperativeHandle(ref, () => ({

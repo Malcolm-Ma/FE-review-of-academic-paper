@@ -6,10 +6,11 @@
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useCallback, useState } from "react";
 import actions from "src/actions";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import _ from "lodash";
 import { message } from "antd";
+import { notifyUpdate } from "src/reducer/reviewReducer";
 
 export default (props) => {
   const { submissionId, value = '' } = props;
@@ -18,6 +19,7 @@ export default (props) => {
 
   const { orgId } = useParams();
 
+  const dispatch = useDispatch();
   const { userInfo } = useSelector(state => state.user);
 
   const handleAlignment = useCallback(async (event, val) => {
@@ -29,11 +31,12 @@ export default (props) => {
         submission_id: submissionId,
         bidding_pref: val,
       });
+      dispatch(notifyUpdate());
       message.success('Successfully bid interest');
     } catch (e) {
       console.error(e.message);
     }
-  }, [orgId, submissionId, userInfo]);
+  }, [dispatch, orgId, submissionId, userInfo]);
 
   return (
     <ToggleButtonGroup
