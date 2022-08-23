@@ -4,14 +4,15 @@
  */
 
 import Typography from "@mui/material/Typography";
-import { Table } from "antd";
-import { Card } from "@mui/material";
+import { Progress, Table } from "antd";
+import { Card, CardContent } from "@mui/material";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import _ from "lodash";
 import actions from "src/actions";
 import useOrgInfo from "src/hook/useOrgInfo";
 import { useDispatch, useSelector } from "react-redux";
 import { resetFlag } from "src/reducer/reviewReducer";
+import Grid from "@mui/material/Grid";
 
 const summaryTableConfig = [
   {
@@ -80,6 +81,13 @@ export default (props) => {
     ];
   }, [summary]);
 
+  const percent = useMemo(() => {
+    if (summary.total === 0) {
+      return 0;
+    }
+    return _.round(((summary.total - _.get(summary, 'unsigned', 0)) * 100) / summary.total)
+  }, [summary]);
+
   useEffect(() => {
     !_.isEmpty(orgInfo) && fetchSummaryData();
   }, [fetchSummaryData, orgInfo]);
@@ -92,15 +100,34 @@ export default (props) => {
   }, [dispatch, fetchSummaryData, summaryShouldUpdate]);
 
   return (
-    <Card>
-      <Typography variant="h6" sx={{ p: 2 }}>Bidding Summary</Typography>
-      <Table
-        dataSource={summaryData}
-        columns={summaryTableConfig}
-        rowKey={record => record.choice}
-        size="small"
-        pagination={false}
-      />
-    </Card>
+    <Grid container spacing={3}>
+      <Grid item xs={12} md={3}>
+        <Card sx={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <CardContent>
+            {!_.isEmpty(summary) && <Progress type="circle" percent={percent}/>}
+            <Typography
+              variant="h6"
+              align="center"
+              sx={{ pt: 1 }}
+            >
+              {summary.total - summary.unsigned} / {summary.total}
+            </Typography>
+            <Typography variant="subtitle2" sx={{ pt: 1 }}>Bidding Progress</Typography>
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid item xs={12} md={9}>
+        <Card>
+          <Typography variant="h6" sx={{ p: 2 }}>Bidding Summary</Typography>
+          <Table
+            dataSource={summaryData}
+            columns={summaryTableConfig}
+            rowKey={record => record.choice}
+            size="small"
+            pagination={false}
+          />
+        </Card>
+      </Grid>
+    </Grid>
   );
 };

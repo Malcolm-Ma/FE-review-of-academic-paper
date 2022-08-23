@@ -51,9 +51,11 @@ export default (props) => {
             <br/>
             Declare <strong>conflict of interests</strong> as you see fit (e.g. in case one of the authors is from your
             organisation).
+            <br/>
+            All the <strong>unsigned papers</strong> will be marked as <u>maybe</u>.
           </Alert>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12}>
           <PrefSummary orgInfo={orgInfo}/>
         </Grid>
         <Grid item xs={12}>
