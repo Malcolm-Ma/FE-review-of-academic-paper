@@ -89,8 +89,9 @@ export default (props) => {
   }, [summary]);
 
   useEffect(() => {
-    !_.isEmpty(orgInfo) && fetchSummaryData();
-  }, [fetchSummaryData, orgInfo]);
+    (!_.isEmpty(orgInfo) && !_.isEmpty(userInfo)) && fetchSummaryData();
+    return () => setSummary({});
+  }, [fetchSummaryData, orgInfo, userInfo]);
 
   useEffect(() => {
     if (summaryShouldUpdate) {

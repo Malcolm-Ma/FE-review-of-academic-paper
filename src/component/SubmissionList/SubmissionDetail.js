@@ -10,6 +10,7 @@ import moment from "moment";
 import { DATE_FORMAT, DATETIME_FORMAT } from "src/constants/constants";
 import IconButton from "@mui/material/IconButton";
 import DriveFileMoveIcon from "@mui/icons-material/DriveFileMove";
+import { useEffect } from "react";
 
 const DescriptionItem = ({ title, content }) => (
   <div className="site-description-item-profile-wrapper">
@@ -29,6 +30,7 @@ export default (props) => {
       placement="right"
       closable={false}
       zIndex={10000}
+      destroyOnClose={true}
       {...drawerProps}
     >
       <Typography variant="h5" sx={{ pb: 3 }}>

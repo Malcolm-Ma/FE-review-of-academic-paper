@@ -161,6 +161,7 @@ export default forwardRef((props, ref) => {
     getSubmissionList();
     return () => {
       setLoading(false);
+      setVisible(false);
     };
   }, [getSubmissionList]);
 

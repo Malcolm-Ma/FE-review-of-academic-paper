@@ -23,6 +23,10 @@ import { APPBAR_DESKTOP, APPBAR_MOBILE } from "src/constants/constants";
 
 const pages = [
   {
+    name: 'Dashboard',
+    url: 'dashboard'
+  },
+  {
     name: 'Submission',
     url: 'submissions'
   },

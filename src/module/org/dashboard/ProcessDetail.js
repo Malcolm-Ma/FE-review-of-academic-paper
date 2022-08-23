@@ -27,7 +27,8 @@ const SubmittingDetail = ({ orgInfo }) => {
         console.error(e.message);
       }
     })();
-  }, [orgInfo.id]);
+    return () => setCount(0);
+  }, [orgInfo]);
 
   return (
     <Box>
