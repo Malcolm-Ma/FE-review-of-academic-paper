@@ -21,6 +21,7 @@ import InfoDisplay from "./InfoDisplay";
 import ReviewStatus from "./ReviewStatus";
 import ProcessDetail from "./ProcessDetail";
 import useOrgInfo from "src/hook/useOrgInfo";
+import ManageOrg from "src/module/org/dashboard/ManageOrg";
 
 export default (props) => {
   const { orgInfo, OrgPage } = useOrgInfo();
@@ -37,17 +38,20 @@ export default (props) => {
           Welcome back, {_.get(userInfo, 'title', '')} {_.get(userInfo, 'full_name', '')}
         </Typography>
         <Grid container spacing={3}>
-          <Grid item xs={6}>
-            <InfoDisplay orgInfo={orgInfo} />
+          <Grid item xs={6} lg={8}>
+            <InfoDisplay orgInfo={orgInfo}/>
           </Grid>
-          <Grid item xs={3}>
-            <ReviewStatus orgInfo={orgInfo} />
+          <Grid item xs={3} lg={2}>
+            <ReviewStatus orgInfo={orgInfo}/>
           </Grid>
-          <Grid item xs={3}>
-            <ProcessDetail orgInfo={orgInfo} />
+          <Grid item xs={3} lg={2}>
+            <ProcessDetail orgInfo={orgInfo}/>
           </Grid>
           <Grid item xs={12}>
-            <SubmissionCard orgInfo={orgInfo} />
+            <ManageOrg orgInfo={orgInfo}/>
+          </Grid>
+          <Grid item xs={12}>
+            <SubmissionCard orgInfo={orgInfo}/>
           </Grid>
         </Grid>
       </Box>

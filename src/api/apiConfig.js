@@ -19,6 +19,7 @@ export default {
     createOrg: '/org/create',
     orgInfo: 'org/detail/get',
     submissionCount: '/org/submission_count/get',
+    changeProcess: '/org/process/change',
   },
   review: {
     createReview: '/review/submission/create',
