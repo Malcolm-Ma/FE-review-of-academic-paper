@@ -21,4 +21,11 @@ export default [
     ),
     exact: true,
   },
+  {
+    path: '/org/:orgId',
+    component: loadable(
+      () => import(/* webpackChunkName: 'org' */ /* webpackMode: 'lazy' */ 'src/module/org/dashboard')
+    ),
+    exact: true,
+  },
 ];

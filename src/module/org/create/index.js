@@ -34,7 +34,7 @@ export default () => {
         user_id_list: _.map(userList, 'id'),
       });
       message.success("Create conference successfully!");
-      navigate('/');
+      navigate('/org/' + res.id);
     } catch (e) {
       message.error(e.message);
     }

@@ -18,6 +18,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { message } from "antd";
 import actions from "src/actions";
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -33,17 +34,25 @@ function Copyright(props) {
 }
 
 export default function SignUp() {
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     actions.register({
       email: data.get('email'),
       password: data.get('password'),
-      name: `${data.get('firstName')} ${data.get('lastName')}`,
+      first_name: data.get('firstName'),
+      last_name: data.get('lastName'),
       title: 'Mr.',
     }).then(res => {
       message.success(`Sign up successfully.`);
-      message.success(`Your uuid is ${res.id}`)
+      actions.login({
+        email: data.get('email'),
+        password: data.get('password'),
+      }).then(() => {
+        navigate('/');
+      });
     }).catch(err => {
       message.error("Fail to register");
       message.error(err.message);

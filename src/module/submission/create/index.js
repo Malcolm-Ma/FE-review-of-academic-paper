@@ -59,7 +59,7 @@ export default (props) => {
         published_time: publishedTime,
         resource_url: paperUrl,
       });
-      message.success("Create conference successfully!");
+      message.success("Create submission successfully!");
       if (orgId) {
         navigate(`/org/${orgId}`);
       } else {

@@ -102,7 +102,7 @@ export default (props) => {
 
   return (
     <Grid container spacing={3}>
-      <Grid item xs={12} md={3}>
+      <Grid item xs={12} md={3} sm={6}>
         <Card sx={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <CardContent>
             {!_.isEmpty(summary) && <Progress type="circle" percent={percent}/>}
@@ -113,11 +113,19 @@ export default (props) => {
             >
               {summary.total - summary.unsigned} / {summary.total}
             </Typography>
-            <Typography variant="subtitle2" sx={{ pt: 1 }}>Bidding Progress</Typography>
+            <Typography variant="subtitle2" sx={{ pt: 1, opacity: 0.72 }}>Bidding Progress</Typography>
           </CardContent>
         </Card>
       </Grid>
-      <Grid item xs={12} md={9}>
+      <Grid item xs={12} md={3} sm={6}>
+        <Card sx={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <CardContent>
+            <Typography variant="h5">Sep. 7th, 2022</Typography>
+            <Typography variant="subtitle2" align="center" sx={{ pt: 2, opacity: 0.72 }}>Bidding Deadline</Typography>
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid item xs={12} md={6}>
         <Card>
           <Typography variant="h6" sx={{ p: 2 }}>Bidding Summary</Typography>
           <Table

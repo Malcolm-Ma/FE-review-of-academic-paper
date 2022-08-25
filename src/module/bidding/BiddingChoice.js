@@ -13,7 +13,7 @@ import { message } from "antd";
 import { notifyUpdate } from "src/reducer/reviewReducer";
 
 export default (props) => {
-  const { submissionId, value = '' } = props;
+  const { submissionId, value = '', disabled } = props;
 
   const [pref, setPref] = useState(value);
 
@@ -44,6 +44,7 @@ export default (props) => {
       exclusive
       onChange={handleAlignment}
       size="small"
+      disabled={disabled}
     >
       <ToggleButton value="YES">
         Yes
