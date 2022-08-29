@@ -116,7 +116,6 @@ export default forwardRef((props, ref) => {
   const [focusedItem, setFocusedItem] = useState({});
 
   const [loading, setLoading] = useState(true);
-
   const [visible, setVisible] = useState(false);
 
   const getSubmissionList = useCallback(async () => {
@@ -138,15 +137,15 @@ export default forwardRef((props, ref) => {
     }
   }, [orgId]);
 
-  const showDrawer = (item) => {
+  const showDrawer = useCallback((item) => {
     setFocusedItem(item);
     setVisible(true);
-  };
+  }, []);
 
-  const onClose = () => {
+  const onClose = useCallback(() => {
     setVisible(false);
     setFocusedItem({});
-  };
+  }, []);
 
   const refresh = useCallback(() => {
     getSubmissionList();

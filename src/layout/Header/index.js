@@ -32,7 +32,7 @@ const pages = [
   },
   {
     name: 'Reviews',
-    url: 'reviews',
+    url: 'review_task',
   },
   {
     name: 'Status',

@@ -26,5 +26,6 @@ export default {
     submissionList: '/review/submission_list/get',
     biddingPref: '/review/bidding/pref/set',
     biddingPrefSummary: '/review/bidding/pref/summary',
+    getReviewTask: 'review/task/get',
   },
 };

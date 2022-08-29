@@ -23,6 +23,9 @@ export default (props) => {
   const { userInfo } = useSelector(state => state.user);
 
   const handleAlignment = useCallback(async (event, val) => {
+    if (val === null) {
+      return;
+    }
     setPref(val);
     try {
       const res = await actions.setBiddingPref({

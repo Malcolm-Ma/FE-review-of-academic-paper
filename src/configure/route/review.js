@@ -10,7 +10,7 @@ export default [
   {
     path: '/org/:orgId/submissions',
     component: loadable(
-      () => import(/* webpackChunkName: 'org' */ /* webpackMode: 'lazy' */ 'src/module/submission')
+      () => import(/* webpackChunkName: 'review' */ /* webpackMode: 'lazy' */ 'src/module/submission')
     ),
     exact: true,
   },
@@ -31,7 +31,14 @@ export default [
   {
     path: '/org/:orgId/bidding',
     component: loadable(
-      () => import(/* webpackChunkName: 'org' */ /* webpackMode: 'lazy' */ 'src/module/bidding')
+      () => import(/* webpackChunkName: 'review' */ /* webpackMode: 'lazy' */ 'src/module/bidding')
+    ),
+    exact: true,
+  },
+  {
+    path: '/org/:orgId/review_task',
+    component: loadable(
+      () => import(/* webpackChunkName: 'review' */ /* webpackMode: 'lazy' */ 'src/module/review')
     ),
     exact: true,
   },
