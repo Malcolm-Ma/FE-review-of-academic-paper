@@ -22,10 +22,11 @@ export default {
     changeProcess: '/org/process/change',
   },
   review: {
-    createReview: '/review/submission/create',
+    createSubmission: '/review/submission/create',
     submissionList: '/review/submission_list/get',
     biddingPref: '/review/bidding/pref/set',
     biddingPrefSummary: '/review/bidding/pref/summary',
-    getReviewTask: 'review/task/get',
+    getReviewTask: '/review/task/get',
+    createNewReview: 'review/create',
   },
 };

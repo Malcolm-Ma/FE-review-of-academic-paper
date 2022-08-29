@@ -52,7 +52,7 @@ export default (props) => {
 
   const handleSubmit = async (values) => {
     try {
-      const res = await actions.createReview({
+      const res = await actions.createSubmission({
         ...values,
         deadline,
         org_id: orgId,

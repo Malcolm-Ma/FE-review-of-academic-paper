@@ -4,22 +4,19 @@
  */
 import {
   Card,
-  CardContent,
   Divider,
-  FormControl, FormHelperText,
+  FormControl,
   FormLabel,
-  Input,
-  InputLabel, OutlinedInput,
   Radio,
   RadioGroup
 } from "@mui/material";
 import Grid from "@mui/material/Grid";
-import { useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { CONFIDENCE, OVERALL_EVALUATION } from "src/constants/evaluation";
 import _ from "lodash";
 import Typography from "@mui/material/Typography";
+import Checkbox from "@mui/material/Checkbox";
 
 export default (props) => {
   const {
@@ -32,7 +29,7 @@ export default (props) => {
       <Grid
         container
         spacing={1}
-        sx={{p: 3}}
+        sx={{ p: 3 }}
       >
         <Grid item xs={12}>
           <FormControl>
@@ -42,7 +39,7 @@ export default (props) => {
               Both the score and the review text are required.
             </Typography>
             <RadioGroup
-              {...register('overall_evaluation', { required: true })}
+              {...register('overall_evaluation')}
             >
               {_.map(OVERALL_EVALUATION, ({ label, value }) => (
                 <FormControlLabel
@@ -66,12 +63,12 @@ export default (props) => {
             error={!!errors.evaluation_content}
           />
         </Grid>
-        <Grid item xs={12} sx={{ mt: 3, mb: 2 }}><Divider /></Grid>
+        <Grid item xs={12} sx={{ mt: 3, mb: 2 }}><Divider/></Grid>
         <Grid item xs={12}>
           <FormControl>
             <FormLabel required={true}>Reviewer's Confidence</FormLabel>
             <RadioGroup
-              {...register('confidence', { required: true })}
+              {...register('confidence')}
             >
               {_.map(CONFIDENCE, ({ label, value }) => (
                 <FormControlLabel
@@ -85,20 +82,32 @@ export default (props) => {
           </FormControl>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="subtitle1" color="grey.600" sx={{ opacity: 0.72 }}>Confidential remarks for the program committee</Typography>
+          <Typography variant="subtitle1" color="grey.600">Confidential remarks for the program committee</Typography>
           <Typography variant="body2" color="grey.600">
             If you wish to add any remarks intended only for committee members, please write then below.
             These remarks will only be seen by the members having access to reviews for this submission.
             They will not be sent to authors. This field is optional.
           </Typography>
           <TextField
-            sx={{mt: 2}}
+            sx={{ mt: 2 }}
             {...register('confidence_remark')}
             multiline
             fullWidth
             minRows={4}
             label="Confidential Remarks"
-            error={!!errors.confidence_remark}
+          />
+        </Grid>
+        <Grid item xs={12} sx={{ mt: 2 }}>
+          <Typography variant="body1" color="grey.600" sx={{ mb: 1 }}>Accept as a short paper</Typography>
+          <Typography variant="body2" color="grey.600">
+            Short papers are limited to 2 pages.
+            A longer paper than this, which is rejected as a full 10 page paper can,
+            nevertheless, be accepted as a short paper, which will be limited to 2 pages in the proceedings.
+          </Typography>
+          <FormControlLabel
+            control={<Checkbox {...register('as_short_paper')} />}
+            sx={{ color: 'grey.600' }}
+            label="Recommended acceptance as a short paper"
           />
         </Grid>
       </Grid>

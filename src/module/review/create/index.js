@@ -34,9 +34,29 @@ export default (props) => {
     navigate(`/org/${orgInfo.id}/review_task`);
   }, [navigate, orgInfo]);
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = useCallback(async (values) => {
     console.log('--values--\n', values);
-  };
+    const confidence = _.get(values, 'confidence');
+    const overallEvaluation = _.get(values, 'overall_evaluation');
+    const asShortPaper = _.get(values, 'as_short_paper');
+    if (!confidence) {
+      message.warn('Reviewer\'s Confidence must not be null');
+      return;
+    }
+    if (!overallEvaluation) {
+      message.warn('Overall evaluation score must not be null');
+      return;
+    }
+    try {
+      const res = await actions.createNewReview({
+        ...values,
+        as_short_paper: asShortPaper ? 1 : 0,
+        review_id: reviewId,
+      });
+    } catch (e) {
+      message.error(e.message);
+    }
+  }, []);
 
   useEffect(() => {
     orgInfo.id && (async () => {

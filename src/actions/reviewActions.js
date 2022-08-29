@@ -10,10 +10,13 @@ import apiConfig from "src/api/apiConfig";
 
 export const getSubmissionList = params => api.post(apiConfig.review.submissionList, params);
 
-export const createReview = params => api.post(apiConfig.review.createReview, params);
+export const createSubmission = params => api.post(apiConfig.review.createSubmission, params);
 
 export const setBiddingPref = params => api.post(apiConfig.review.biddingPref, params);
 
 export const getBiddingPrefSummary = params => api.get(apiConfig.review.biddingPrefSummary, params);
 
 export const getReviewTask = params => api.post(apiConfig.review.getReviewTask, params);
+
+export const createNewReview = params => api.post(apiConfig.review.createNewReview, params);
+
