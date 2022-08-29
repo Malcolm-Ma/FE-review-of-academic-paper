@@ -42,4 +42,11 @@ export default [
     ),
     exact: true,
   },
+  {
+    path: '/org/:orgId/review_task/:reviewId/new',
+    component: loadable(
+      () => import(/* webpackChunkName: 'review' */ /* webpackMode: 'lazy' */ 'src/module/review/create')
+    ),
+    exact: true,
+  },
 ];

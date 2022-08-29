@@ -12,7 +12,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export default (props) => {
 
-  const { actionList } = props;
+  const { actionList, id } = props;
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -22,10 +22,10 @@ export default (props) => {
 
   const handleClose = useCallback((action) => {
     if (_.isFunction(action)) {
-      action();
+      action(id);
     }
     setAnchorEl(null);
-  }, []);
+  }, [id]);
 
   return (
     <>

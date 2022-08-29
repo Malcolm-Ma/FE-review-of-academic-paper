@@ -3,7 +3,7 @@
  * @author Mingze Ma
  */
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import actions from "src/actions";
@@ -66,7 +66,7 @@ const columns = (payloads) => {
       fixed: 'right',
       render: (text, record) => {
         return (
-          <DropDownAction actionList={actionList}/>
+          <DropDownAction actionList={actionList} id={record.id} />
         );
       },
     },
@@ -75,6 +75,7 @@ const columns = (payloads) => {
 
 export default () => {
   const { orgId } = useParams();
+  const navigate = useNavigate();
 
   const { orgInfo } = useSelector(state => state.org);
   const { userInfo } = useSelector(state => state.user);
@@ -112,6 +113,10 @@ export default () => {
     console.log('click')
   }, []);
 
+  const handleNewReviewClick = useCallback((id) => {
+    navigate(`/org/${orgId}/review_task/${id}/new`);
+  }, [navigate, orgId]);
+
   const actionList = useMemo(() => [
     {
       label: 'Show Reviews',
@@ -119,9 +124,9 @@ export default () => {
     },
     {
       label: 'Add Review',
-      onClick: () => handleActionClick,
+      onClick: handleNewReviewClick,
     }
-  ], [handleActionClick]);
+  ], [handleActionClick, handleNewReviewClick]);
 
   useEffect(() => {
     getReviewTask();
