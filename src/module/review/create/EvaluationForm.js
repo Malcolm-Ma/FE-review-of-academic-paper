@@ -17,12 +17,23 @@ import { CONFIDENCE, OVERALL_EVALUATION } from "src/constants/evaluation";
 import _ from "lodash";
 import Typography from "@mui/material/Typography";
 import Checkbox from "@mui/material/Checkbox";
+import useFormValue from "src/hook/useFormValue";
+import { forwardRef, useImperativeHandle } from "react";
 
-export default (props) => {
-  const {
-    register,
-    formState: { errors }
-  } = props;
+export default forwardRef((props, ref) => {
+  const [score, handleScore, scoreProps] = useFormValue();
+  const [evaluationContent, handleEvaluationContent, evaluationContentProps] = useFormValue({ valueFromEvent: true });
+  const [confidence, handleConfidence, confidenceProps] = useFormValue();
+  const [remarks, handleRemarks, remarksProps] = useFormValue({ valueFromEvent: true });
+  const [asShortPaper, handleAsShortPaper, asShortPaperProps] = useFormValue({ initialValue: false });
+
+  useImperativeHandle(ref, () => ({
+    score,
+    evaluationContent,
+    confidence,
+    remarks,
+    asShortPaper
+  }));
 
   return (
     <Card>
@@ -33,13 +44,13 @@ export default (props) => {
       >
         <Grid item xs={12}>
           <FormControl>
-            <FormLabel required={true}>Overall Evaluation</FormLabel>
+            <FormLabel required>Overall Evaluation</FormLabel>
             <Typography variant="body2" color="grey.600" sx={{ pb: 1, pt: 2 }}>
               Please provide a detailed review, including a justification for your scores.
               Both the score and the review text are required.
             </Typography>
             <RadioGroup
-              {...register('overall_evaluation')}
+              {...scoreProps}
             >
               {_.map(OVERALL_EVALUATION, ({ label, value }) => (
                 <FormControlLabel
@@ -54,13 +65,12 @@ export default (props) => {
         </Grid>
         <Grid item xs={12}>
           <TextField
-            {...register('evaluation_content', { required: true })}
-            required
             multiline
+            required
             fullWidth
             minRows={4}
             label="Review Text"
-            error={!!errors.evaluation_content}
+            {...evaluationContentProps}
           />
         </Grid>
         <Grid item xs={12} sx={{ mt: 3, mb: 2 }}><Divider/></Grid>
@@ -68,7 +78,7 @@ export default (props) => {
           <FormControl>
             <FormLabel required={true}>Reviewer's Confidence</FormLabel>
             <RadioGroup
-              {...register('confidence')}
+              {...confidenceProps}
             >
               {_.map(CONFIDENCE, ({ label, value }) => (
                 <FormControlLabel
@@ -90,7 +100,7 @@ export default (props) => {
           </Typography>
           <TextField
             sx={{ mt: 2 }}
-            {...register('confidence_remark')}
+            {...remarksProps}
             multiline
             fullWidth
             minRows={4}
@@ -105,7 +115,7 @@ export default (props) => {
             nevertheless, be accepted as a short paper, which will be limited to 2 pages in the proceedings.
           </Typography>
           <FormControlLabel
-            control={<Checkbox {...register('as_short_paper')} />}
+            control={<Checkbox {...asShortPaperProps} />}
             sx={{ color: 'grey.600' }}
             label="Recommended acceptance as a short paper"
           />
@@ -113,4 +123,4 @@ export default (props) => {
       </Grid>
     </Card>
   );
-}
+})

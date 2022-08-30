@@ -24,7 +24,7 @@ export default (props) => {
 
   const { orgInfo, OrgPage } = useOrgInfo();
 
-  const { register, handleSubmit: handleSubmitHook, formState } = useForm();
+  const formRef = useRef(null);
 
   const [loading, setLoading] = useState(true);
 
@@ -34,29 +34,38 @@ export default (props) => {
     navigate(`/org/${orgInfo.id}/review_task`);
   }, [navigate, orgInfo]);
 
-  const handleSubmit = useCallback(async (values) => {
+  const handleSubmit = useCallback(async () => {
+    const values = formRef.current || {};
     console.log('--values--\n', values);
     const confidence = _.get(values, 'confidence');
-    const overallEvaluation = _.get(values, 'overall_evaluation');
-    const asShortPaper = _.get(values, 'as_short_paper');
+    const overallEvaluation = _.get(values, 'score');
+    const asShortPaper = _.get(values, 'asShortPaper');
     if (!confidence) {
       message.warn('Reviewer\'s Confidence must not be null');
       return;
     }
     if (!overallEvaluation) {
-      message.warn('Overall evaluation score must not be null');
+      message.warn('Please select an overall evaluation score');
+      return;
+    }
+    if (!values.evaluationContent) {
+      message.warn('Review text must not be empty');
       return;
     }
     try {
       const res = await actions.createNewReview({
-        ...values,
+        confidence,
+        overall_evaluation: overallEvaluation,
+        evaluation_content: values.evaluationContent,
         as_short_paper: asShortPaper ? 1 : 0,
         review_id: reviewId,
+        confidence_remark: values.remarks,
       });
+      message.success('Your review has been submitted successfully');
     } catch (e) {
       message.error(e.message);
     }
-  }, []);
+  }, [reviewId]);
 
   useEffect(() => {
     orgInfo.id && (async () => {
@@ -83,8 +92,6 @@ export default (props) => {
             Create a New Review of <i>{_.get(reviewInfo, 'submission_info.title')}</i>
           </Typography>
           <Grid
-            component="form"
-            onSubmit={handleSubmitHook(handleSubmit)}
             container
             spacing={3}
             sx={{
@@ -95,7 +102,7 @@ export default (props) => {
               <PaperDesc submissionInfo={_.get(reviewInfo, 'submission_info')} />
             </Grid>
             <Grid item xs={12}>
-              <EvaluationForm register={register} formState={formState} />
+              <EvaluationForm ref={formRef} />
             </Grid>
             <Grid
               item
@@ -104,7 +111,7 @@ export default (props) => {
               display="flex"
             >
               <Button fullWidth variant="outlined" sx={{ mr: 2 }} onClick={handleBack}>Cancel</Button>
-              <Button fullWidth type="submit" variant="contained">Submit</Button>
+              <Button fullWidth variant="contained" onClick={handleSubmit}>Submit</Button>
             </Grid>
           </Grid>
           </Box>

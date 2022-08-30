@@ -15,7 +15,7 @@ interface useFormValueProps {
 
 const useFormValue = (props: useFormValueProps = {}) => {
 
-  const { valueIndex = 1, initialValue, debug, valueFromEvent, formatValue } = props;
+  const { valueIndex = 1, initialValue = '', debug, valueFromEvent, formatValue } = props;
 
   const [value, setValue] = useState<any>(initialValue);
 
