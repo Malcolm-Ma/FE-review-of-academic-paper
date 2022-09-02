@@ -22,6 +22,7 @@ import DropDownAction from "src/component/DropDownAction";
 const columns = (payloads) => {
   const {
     actionList,
+    reviewProcess,
     showDrawer,
   } = payloads;
 
@@ -66,14 +67,15 @@ const columns = (payloads) => {
       fixed: 'right',
       render: (text, record) => {
         return (
-          <DropDownAction actionList={actionList} id={record.id} />
+          <DropDownAction disabled={!reviewProcess} actionList={actionList} id={record.id}/>
         );
       },
     },
   ];
 }
 
-export default () => {
+export default (props) => {
+  const { reviewProcess } = props;
   const { orgId } = useParams();
   const navigate = useNavigate();
 
@@ -139,6 +141,7 @@ export default () => {
   const payloads = {
     // payloads
     actionList,
+    reviewProcess,
     // custom functions
     showDrawer,
   };

@@ -23,3 +23,7 @@ export const createNewReview = params => api.post(apiConfig.review.createNewRevi
 export const getReviewSummary = params => api.post(apiConfig.review.reviewSummary, params);
 
 export const getConflictInterestUsers = params => api.get(apiConfig.review.conflictInterest, params);
+
+export const allocateBidding = params => api.post(apiConfig.review.allocateBidding, params);
+
+export const getBiddingResult = params => api.get(apiConfig.review.biddingResult, params);

@@ -12,17 +12,17 @@ import { Alert } from "@mui/material";
 
 const NotStartAlert = ({ processIndex }) => {
   const alertText = (() => {
-    if (processIndex < 2) {
+    if (processIndex < 3) {
       return 'The organization is not ready for reviewing papers. Please come back later'
     }
-    if (processIndex > 2) {
+    if (processIndex > 3) {
       return 'Paper reviewing is over'
     }
   })();
 
   return (
     <>
-      <Alert severity="warning">
+      <Alert severity="warning" sx={{ mb: 3 }}>
         <Typography variant="subtitle1">{alertText}</Typography>
       </Alert>
     </>
@@ -38,10 +38,10 @@ export default () => {
       <Typography variant="h4" sx={{ mb: 3 }}>
         Reviews of Submissions Assigned to Me
       </Typography>
-      {reviewProcess ? <Paper>
-        <ReviewTaskList />
+      {!reviewProcess && <NotStartAlert processIndex={_.get(orgInfo, 'review_process', 0)}/>}
+      <Paper>
+        <ReviewTaskList reviewProcess={reviewProcess}/>
       </Paper>
-      : <NotStartAlert processIndex={_.get(orgInfo, 'review_process', 0)} />}
     </OrgPage>
   );
 };

@@ -25,10 +25,12 @@ export default {
     createSubmission: '/review/submission/create',
     submissionList: '/review/submission_list/get',
     biddingPref: '/review/bidding/pref/set',
+    allocateBidding: '/review/bidding/allocate',
     biddingPrefSummary: '/review/bidding/pref/summary',
     getReviewTask: '/review/task/get',
     createNewReview: 'review/create',
     reviewSummary: '/review/summary/get',
     conflictInterest: '/review/conflict_interest/get',
+    biddingResult: '/review/allocation_result/get',
   },
 };

@@ -36,6 +36,13 @@ export default [
     exact: true,
   },
   {
+    path: '/org/:orgId/bidding/result',
+    component: loadable(
+      () => import(/* webpackChunkName: 'review' */ /* webpackMode: 'lazy' */ 'src/module/bidding/result')
+    ),
+    exact: true,
+  },
+  {
     path: '/org/:orgId/review_task',
     component: loadable(
       () => import(/* webpackChunkName: 'review' */ /* webpackMode: 'lazy' */ 'src/module/review')
