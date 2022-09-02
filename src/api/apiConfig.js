@@ -28,5 +28,7 @@ export default {
     biddingPrefSummary: '/review/bidding/pref/summary',
     getReviewTask: '/review/task/get',
     createNewReview: 'review/create',
+    reviewSummary: '/review/summary/get',
+    conflictInterest: '/review/conflict_interest/get',
   },
 };

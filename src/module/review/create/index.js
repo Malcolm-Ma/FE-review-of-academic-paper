@@ -40,6 +40,7 @@ export default (props) => {
     const confidence = _.get(values, 'confidence');
     const overallEvaluation = _.get(values, 'score');
     const asShortPaper = _.get(values, 'asShortPaper');
+    // Check param
     if (!confidence) {
       message.warn('Reviewer\'s Confidence must not be null');
       return;
@@ -52,6 +53,7 @@ export default (props) => {
       message.warn('Review text must not be empty');
       return;
     }
+    // submit reviews
     try {
       const res = await actions.createNewReview({
         confidence,
@@ -62,10 +64,11 @@ export default (props) => {
         confidence_remark: values.remarks,
       });
       message.success('Your review has been submitted successfully');
+      handleBack();
     } catch (e) {
       message.error(e.message);
     }
-  }, [reviewId]);
+  }, [handleBack, reviewId]);
 
   useEffect(() => {
     orgInfo.id && (async () => {

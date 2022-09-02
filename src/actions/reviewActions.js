@@ -20,3 +20,6 @@ export const getReviewTask = params => api.post(apiConfig.review.getReviewTask, 
 
 export const createNewReview = params => api.post(apiConfig.review.createNewReview, params);
 
+export const getReviewSummary = params => api.post(apiConfig.review.reviewSummary, params);
+
+export const getConflictInterestUsers = params => api.get(apiConfig.review.conflictInterest, params);

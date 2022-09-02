@@ -31,3 +31,8 @@ export const REVIEW_PROCESS = {
   3: 'Reviewing',
   4: 'Finished',
 };
+
+export const EVALUATION_TYPE = {
+  0: 'Comment',
+  1: 'Review',
+};

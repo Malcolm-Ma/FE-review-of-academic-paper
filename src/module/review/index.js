@@ -8,18 +8,40 @@ import _ from "lodash";
 import Typography from "@mui/material/Typography";
 import ReviewTaskList from "src/component/ReviewTaskList";
 import Paper from "@mui/material/Paper";
+import { Alert } from "@mui/material";
+
+const NotStartAlert = ({ processIndex }) => {
+  const alertText = (() => {
+    if (processIndex < 2) {
+      return 'The organization is not ready for reviewing papers. Please come back later'
+    }
+    if (processIndex > 2) {
+      return 'Paper reviewing is over'
+    }
+  })();
+
+  return (
+    <>
+      <Alert severity="warning">
+        <Typography variant="subtitle1">{alertText}</Typography>
+      </Alert>
+    </>
+  )
+};
 
 export default () => {
   const { orgInfo, OrgPage } = useOrgInfo();
 
+  const reviewProcess = _.get(orgInfo, 'review_process', 0) === 3;
   return (
     <OrgPage>
       <Typography variant="h4" sx={{ mb: 3 }}>
         Reviews of Submissions Assigned to Me
       </Typography>
-      <Paper>
+      {reviewProcess ? <Paper>
         <ReviewTaskList />
       </Paper>
+      : <NotStartAlert processIndex={_.get(orgInfo, 'review_process', 0)} />}
     </OrgPage>
   );
 };

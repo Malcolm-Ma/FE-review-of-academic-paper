@@ -109,9 +109,9 @@ export default () => {
     setLoading(false);
   }, [orgId]);
 
-  const handleActionClick = useCallback(() => {
-    console.log('click')
-  }, []);
+  const handleDetailClick = useCallback((id) => {
+    navigate(`/org/${orgId}/review_task/${id}/detail`);
+  }, [navigate, orgId]);
 
   const handleNewReviewClick = useCallback((id) => {
     navigate(`/org/${orgId}/review_task/${id}/new`);
@@ -120,13 +120,13 @@ export default () => {
   const actionList = useMemo(() => [
     {
       label: 'Show Reviews',
-      onClick: () => handleActionClick,
+      onClick: handleDetailClick,
     },
     {
       label: 'Add Review',
       onClick: handleNewReviewClick,
     }
-  ], [handleActionClick, handleNewReviewClick]);
+  ], [handleDetailClick, handleNewReviewClick]);
 
   useEffect(() => {
     getReviewTask();

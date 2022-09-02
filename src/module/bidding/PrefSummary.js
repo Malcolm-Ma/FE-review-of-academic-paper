@@ -120,7 +120,10 @@ export default (props) => {
       <Grid item xs={12} md={3} sm={6}>
         <Card sx={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <CardContent>
-            <Typography variant="h5">Sep. 7th, 2022</Typography>
+            {
+              orgInfo.review_process === 2 ? <Typography variant="h5">Sep. 7th, 2022</Typography>
+                : <Typography variant="h6">Bidding is over</Typography>
+            }
             <Typography variant="subtitle2" align="center" sx={{ pt: 2, opacity: 0.72 }}>Bidding Deadline</Typography>
           </CardContent>
         </Card>

@@ -49,4 +49,11 @@ export default [
     ),
     exact: true,
   },
+  {
+    path: '/org/:orgId/review_task/:reviewId/detail',
+    component: loadable(
+      () => import(/* webpackChunkName: 'review' */ /* webpackMode: 'lazy' */ 'src/module/review/detail')
+    ),
+    exact: true,
+  },
 ];
