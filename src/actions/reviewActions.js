@@ -27,3 +27,5 @@ export const getConflictInterestUsers = params => api.get(apiConfig.review.confl
 export const allocateBidding = params => api.post(apiConfig.review.allocateBidding, params);
 
 export const getBiddingResult = params => api.get(apiConfig.review.biddingResult, params);
+
+export const setBlindMode = params => api.post(apiConfig.review.blindMode, params);

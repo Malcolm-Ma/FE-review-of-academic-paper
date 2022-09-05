@@ -32,5 +32,6 @@ export default {
     reviewSummary: '/review/summary/get',
     conflictInterest: '/review/conflict_interest/get',
     biddingResult: '/review/allocation_result/get',
+    blindMode: '/org/double_blind/set',
   },
 };
