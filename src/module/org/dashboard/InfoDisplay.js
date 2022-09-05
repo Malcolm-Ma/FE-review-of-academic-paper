@@ -39,7 +39,7 @@ export default (props) => {
     <Card sx={rootStyle}>
       <CardHeader title={name} subheader={email} action={<ActiveStatusTag/>}/>
       <CardContent sx={{ pt: 0 }}>
-        <Typography variant="body1" component="div">
+        <Typography variant="body1" component="div" display={{ xs: 'none', sm: 'block' }}>
           {description}
         </Typography>
       </CardContent>

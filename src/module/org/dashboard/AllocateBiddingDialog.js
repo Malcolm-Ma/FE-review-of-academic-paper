@@ -29,9 +29,6 @@ export default forwardRef((props, ref) => {
   const handleSubmit = useCallback(async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log('--data--\n', {
-      review_demand: data.get('review_demand'),
-    });
     try {
       const res = await actions.allocateBidding({
         review_demand: data.get('review_demand'),
@@ -41,8 +38,8 @@ export default forwardRef((props, ref) => {
     } catch (e) {
       console.error(e.message);
     }
-    // closeDialog();
-  }, []);
+    closeDialog();
+  }, [closeDialog, orgInfo]);
 
   useImperativeHandle(ref, () => ({
     openDialog,

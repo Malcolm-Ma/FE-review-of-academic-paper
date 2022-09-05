@@ -7,6 +7,10 @@ import Typography from "@mui/material/Typography";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import actions from "../../../actions";
 import Box from "@mui/material/Box";
+import { useSelector } from "react-redux";
+import _ from "lodash";
+import moment from "moment";
+import { DATETIME_FORMAT } from "src/constants/constants";
 
 const PreparingDetail = () => (
   <>
@@ -15,7 +19,6 @@ const PreparingDetail = () => (
 );
 
 const SubmittingDetail = ({ orgInfo }) => {
-
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -38,6 +41,50 @@ const SubmittingDetail = ({ orgInfo }) => {
   );
 };
 
+const BiddingDetail = ({ orgInfo }) => {
+  const { userInfo } = useSelector(state => state.user);
+  const [summary, setSummary] = useState({});
+
+  useEffect(() => {
+    !_.isEmpty(userInfo) && (async () => {
+      try {
+        const res = await actions.getBiddingPrefSummary({
+          org_id: orgInfo.id,
+          user_id: userInfo.id,
+        });
+        setSummary(res);
+      } catch (e) {
+        console.error(e.message);
+      }
+    })();
+    return () => setSummary({});
+  }, [orgInfo, userInfo]);
+
+  const biddingDdl = useMemo(() => {
+    if (_.get(orgInfo, 'bidding_ddl')) {
+      return moment(_.get(orgInfo, 'bidding_ddl')).format(DATETIME_FORMAT);
+    }
+    return 'Unset';
+  }, [orgInfo]);
+  return (
+    <>
+      {!_.isEmpty(userInfo) && <Typography
+        variant="h6"
+        align="center"
+      >
+        {summary.total - summary.unsigned} / {summary.total}
+      </Typography>}
+      <Typography variant="subtitle1">DDL {biddingDdl}</Typography>
+    </>
+  );
+}
+
+const DETAIL_MAP = {
+  0: PreparingDetail,
+  1: SubmittingDetail,
+  2: BiddingDetail,
+};
+
 export default (props) => {
   const { orgInfo } = props;
   const {
@@ -52,17 +99,21 @@ export default (props) => {
     alignItems: 'center',
     textAlign: 'center',
     color: theme.palette.error.darker,
-    backgroundColor: theme.palette.error.lighter
+    backgroundColor: theme.palette.error.lighter,
+    padding: 2,
   }), []);
 
-  const DetailComponent = useMemo(() => ({
-    0: <PreparingDetail />,
-    1: <SubmittingDetail orgInfo={orgInfo} />,
-  }), [orgInfo]);
+  const DetailComponent = useMemo(() => {
+    const Component = DETAIL_MAP[process];
+    if (Component) {
+      return Component;
+    }
+    return () => <></>;
+  }, [process]);
 
   return (
     <Card sx={rootStyle}>
-      {DetailComponent[process]}
+      <DetailComponent orgInfo={orgInfo} />
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         Process Detail
       </Typography>

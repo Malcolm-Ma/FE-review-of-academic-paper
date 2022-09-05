@@ -31,6 +31,8 @@ export default (props) => {
   const dispatch = useDispatch();
   const { userInfo } = useSelector(state => state.user);
 
+  const isAdmin = _.some(_.get(orgInfo, 'manager_list', []), ({ id }) => id === userInfo.id);
+
   return (
     <OrgPage maxWidth="lg">
       <Box sx={{ pb: 5 }}>
@@ -38,18 +40,18 @@ export default (props) => {
           Welcome back, {_.get(userInfo, 'title', '')} {_.get(userInfo, 'full_name', '')}
         </Typography>
         <Grid container spacing={3}>
-          <Grid item xs={6} lg={8}>
+          <Grid item xs={12} md={6} lg={8}>
             <InfoDisplay orgInfo={orgInfo}/>
           </Grid>
-          <Grid item xs={3} lg={2}>
+          <Grid item xs={6} md={3} lg={2}>
             <ReviewStatus orgInfo={orgInfo}/>
           </Grid>
-          <Grid item xs={3} lg={2}>
+          <Grid item xs={6} md={3} lg={2}>
             <ProcessDetail orgInfo={orgInfo}/>
           </Grid>
-          <Grid item xs={12}>
+          {isAdmin && <Grid item xs={12}>
             <ManageOrg orgInfo={orgInfo}/>
-          </Grid>
+          </Grid>}
           <Grid item xs={12}>
             <SubmissionCard orgInfo={orgInfo}/>
           </Grid>

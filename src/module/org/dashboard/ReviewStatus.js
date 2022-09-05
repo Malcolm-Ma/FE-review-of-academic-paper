@@ -21,7 +21,8 @@ export default (props) => {
     alignItems: 'center',
     textAlign: 'center',
     color: theme.palette.warning.darker,
-    backgroundColor: theme.palette.warning.lighter
+    backgroundColor: theme.palette.warning.lighter,
+    padding: 2
   }), []);
 
   return (
