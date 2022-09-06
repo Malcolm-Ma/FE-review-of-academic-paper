@@ -43,6 +43,7 @@ export default () => {
   }, [orgInfo, userInfo]);
 
   const reviewProcess = _.get(orgInfo, 'review_process', 0) === 3;
+  const processIndex = _.get(orgInfo, 'review_process', 0);
   const blindMode = _.get(orgInfo, 'blind_mode', false);
   return (
     <OrgPage>
@@ -51,9 +52,9 @@ export default () => {
           Reviews of Submissions Assigned to Me
         </Typography>
       </OrgHeader>
-      {!reviewProcess && <NotStartAlert processIndex={_.get(orgInfo, 'review_process', 0)}/>}
+      {!reviewProcess && <NotStartAlert processIndex={processIndex}/>}
       <Paper>
-        <ReviewTaskList adminView={isAdmin} reviewProcess={reviewProcess}/>
+        <ReviewTaskList adminView={isAdmin} reviewProcess={reviewProcess} processIndex={processIndex}/>
       </Paper>
     </OrgPage>
   );

@@ -98,7 +98,7 @@ export default (props) => {
   }, [orgSelection, selectedOrgIdProps]);
 
   useEffect(() => {
-    (async () => {
+    userInfo.id && (async () => {
       try {
         const res = await actions.getOrgListByUserId({
           user_id: userInfo.id
@@ -152,14 +152,6 @@ export default (props) => {
                     );
                   })}
                 </TextField>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <DateTimePicker
-                  disablePast
-                  label="Deadline of Reviewing"
-                  {...deadlineProps}
-                  renderInput={(params) => <TextField {...params} fullWidth/>}
-                />
               </Grid>
               <Grid item xs={12} sx={{ mt: 1 }}>
                 <Typography variant="h6" align="center">

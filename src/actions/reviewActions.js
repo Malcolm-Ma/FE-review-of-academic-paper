@@ -29,3 +29,5 @@ export const allocateBidding = params => api.post(apiConfig.review.allocateBiddi
 export const getBiddingResult = params => api.get(apiConfig.review.biddingResult, params);
 
 export const setBlindMode = params => api.post(apiConfig.review.blindMode, params);
+
+export const generateReviewingResult = params => api.post(apiConfig.review.generateReviewingResult, params);

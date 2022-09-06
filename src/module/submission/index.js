@@ -29,6 +29,7 @@ export default (props) => {
     navigate(`/submission/create`);
   }, [navigate, orgInfo]);
 
+  const processIndex = _.get(orgInfo, 'review_process', 0);
   return (
     <OrgPage maxWidth="xl">
       <OrgHeader action={
@@ -36,6 +37,7 @@ export default (props) => {
           variant="contained"
           onClick={handleCreateSubmissionNavigate}
           sx={{ display: { xs: 'none', md: 'flex' } }}
+          disabled={processIndex > 1}
         >
           New Submission
         </Button>

@@ -25,6 +25,7 @@ const columns = (payloads) => {
     reviewProcess,
     adminView,
     showDrawer,
+    processIndex,
   } = payloads;
 
   return [
@@ -67,7 +68,7 @@ const columns = (payloads) => {
       width: 100,
       fixed: 'right',
       render: (text, record) => {
-        const disabled = adminView ? false : (!reviewProcess)
+        const disabled = adminView ? false : (processIndex < 3)
         return (
           <DropDownAction disabled={disabled} actionList={actionList} id={record.id}/>
         );
@@ -77,7 +78,7 @@ const columns = (payloads) => {
 }
 
 export default (props) => {
-  const { reviewProcess, adminView } = props;
+  const { reviewProcess, adminView, processIndex } = props;
   const { orgId } = useParams();
   const navigate = useNavigate();
 
@@ -130,9 +131,9 @@ export default (props) => {
     {
       label: 'Add Review',
       onClick: handleNewReviewClick,
-      disabled: adminView,
+      disabled: adminView || processIndex !== 3,
     }
-  ], [adminView, handleDetailClick, handleNewReviewClick]);
+  ], [adminView, handleDetailClick, handleNewReviewClick, processIndex]);
 
   useEffect(() => {
     getReviewTask();
@@ -147,6 +148,7 @@ export default (props) => {
     actionList,
     reviewProcess,
     adminView,
+    processIndex,
     // custom functions
     showDrawer,
   };

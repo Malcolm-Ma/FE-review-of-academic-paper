@@ -39,11 +39,11 @@ export default (props) => {
       return;
     }
     try {
-      const res = await actions.changeReviewProcess({ org_id: orgInfo.id });
+      const res = await actions.generateReviewingResult({ org_id: orgInfo.id });
       message.success(
-        `Forward reviewing process to ${REVIEW_PROCESS[_.get(res, 'current_review_process')]} successfully`
+        `You have successfully generated decisions for all submissions, the review flow is over`
       );
-      window.location.reload();
+      setTimeout(() => window.location.reload(), 2000);
     } catch (e) {
       message.error(e.message);
     }
@@ -74,13 +74,16 @@ export default (props) => {
                     variant="contained"
                     onClick={handleForwardProcess}
                     disabled={reviewProcess >= 4}
-                  >Forward Progress</Button>
+                  >
+                    {reviewProcess < 3 ? 'Forward Progress' : 'Generate Decision'}
+                  </Button>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <FormControlLabel
                     control={<Switch
                       checked={blindMode}
                       onChange={handleBlindModeChange}
+                      disabled={reviewProcess === 4}
                     />}
                     label={<Typography variant="subtitle1" sx={{ opacity: 0.8 }}>Double-blind</Typography>}
                   />
