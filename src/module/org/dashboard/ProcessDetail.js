@@ -79,10 +79,27 @@ const BiddingDetail = ({ orgInfo }) => {
   );
 }
 
+const ReviewingDetail = ({ orgInfo }) => {
+
+  const reviewingDdl = useMemo(() => {
+    if (_.get(orgInfo, 'bidding_ddl')) {
+      return moment(_.get(orgInfo, 'bidding_ddl')).format(DATETIME_FORMAT);
+    }
+    return 'Unset';
+  }, [orgInfo]);
+
+  return (
+    <Box>
+      <Typography variant="subtitle1">DDL {reviewingDdl}</Typography>
+    </Box>
+  );
+};
+
 const DETAIL_MAP = {
   0: PreparingDetail,
   1: SubmittingDetail,
   2: BiddingDetail,
+  3: ReviewingDetail,
 };
 
 export default (props) => {

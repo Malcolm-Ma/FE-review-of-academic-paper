@@ -34,8 +34,8 @@ export default forwardRef((props, ref) => {
         org_id: orgInfo.id,
         status: !blindMode,
       });
-      message.success(`Turn ${!blindMode ? 'on' : 'off'} the double-blind mode successfully`);
       closeDialog();
+      message.success(`Turn ${!blindMode ? 'on' : 'off'} the double-blind mode successfully`);
     } catch (e) {
       message.error(e.message);
       console.error(e.message);

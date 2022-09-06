@@ -23,8 +23,9 @@ const columns = (payloads) => {
     isAdmin,
     isManager,
     changeMemberType,
+    fullDetail,
   } = payloads;
-  return [
+  const config = [
     {
       title: 'Full Name',
       dataIndex: 'full_name',
@@ -75,15 +76,15 @@ const columns = (payloads) => {
       title: 'Title',
       dataIndex: 'title',
     },
-    {
+    fullDetail && {
       title: 'Last Name',
       dataIndex: 'last_name',
     },
-    {
+    fullDetail && {
       title: 'First Name',
       dataIndex: 'first_name',
     },
-    {
+    (isManager && fullDetail) && {
       title: 'Operations',
       key: 'action',
       align: 'center',
@@ -115,9 +116,11 @@ const columns = (payloads) => {
       },
     },
   ];
+  return _.compact(config);
 }
 
 export default (props) => {
+  const { fullDetail = true } = props;
   const { orgId } = useParams();
   const navigate = useNavigate();
 
@@ -191,11 +194,12 @@ export default (props) => {
           loading={loading}
           rowKey="id"
           scroll={{ x: 'max-content' }}
+          size={fullDetail ? 'default' : 'middle'}
           pagination={{
             style: { paddingRight: '16px' },
             total: _.get(list, 'length'),
-            showTotal: total => `Total ${total} submissions`,
-            defaultPageSize: 20,
+            showTotal: total => `Total ${total} members`,
+            defaultPageSize: fullDetail ? 20 : 10,
           }}
         />
       </Box>
