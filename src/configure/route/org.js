@@ -28,4 +28,18 @@ export default [
     ),
     exact: true,
   },
+  {
+    path: '/org/:orgId/user',
+    component: loadable(
+      () => import(/* webpackChunkName: 'org' */ /* webpackMode: 'lazy' */ 'src/module/org/user')
+    ),
+    exact: true,
+  },
+  {
+    path: '/org/:orgId/user/create',
+    component: loadable(
+      () => import(/* webpackChunkName: 'org' */ /* webpackMode: 'lazy' */ 'src/module/org/user')
+    ),
+    exact: true,
+  },
 ];
