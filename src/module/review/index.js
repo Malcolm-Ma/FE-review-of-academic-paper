@@ -11,6 +11,8 @@ import Paper from "@mui/material/Paper";
 import { Alert } from "@mui/material";
 import Box from "@mui/material/Box";
 import { Tag } from "antd";
+import { useSelector } from "react-redux";
+import { useMemo } from "react";
 
 const NotStartAlert = ({ processIndex }) => {
   const alertText = (() => {
@@ -32,7 +34,13 @@ const NotStartAlert = ({ processIndex }) => {
 };
 
 export default () => {
+  const { userInfo } = useSelector(state => state.user);
   const { orgInfo, OrgPage, OrgHeader } = useOrgInfo();
+
+  const isAdmin = useMemo(() => {
+    const { manager_list: managers } = orgInfo;
+    return _.some(managers, ({id}) => id === userInfo.id);
+  }, [orgInfo, userInfo]);
 
   const reviewProcess = _.get(orgInfo, 'review_process', 0) === 3;
   const blindMode = _.get(orgInfo, 'blind_mode', false);
@@ -45,7 +53,7 @@ export default () => {
       </OrgHeader>
       {!reviewProcess && <NotStartAlert processIndex={_.get(orgInfo, 'review_process', 0)}/>}
       <Paper>
-        <ReviewTaskList reviewProcess={reviewProcess}/>
+        <ReviewTaskList adminView={isAdmin} reviewProcess={reviewProcess}/>
       </Paper>
     </OrgPage>
   );

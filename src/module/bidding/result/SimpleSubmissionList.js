@@ -60,13 +60,12 @@ export default (props) => {
     <ProTable
       columns={columnConfig}
       dataSource={dataSource}
-      defaultSize="middle"
+      defaultSize="small"
       rowKey="id"
       options={false}
       search={false}
       toolbar={false}
       rowClassName={(record) => {
-        const a = _.get(record, 'submission_info.id') === item.id
         return _.get(record, 'submission_info.id') === item.id ? 'split-row-select-active' : '';
       }}
       onRow={(record) => {

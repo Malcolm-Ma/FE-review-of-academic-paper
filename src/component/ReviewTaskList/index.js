@@ -23,6 +23,7 @@ const columns = (payloads) => {
   const {
     actionList,
     reviewProcess,
+    adminView,
     showDrawer,
   } = payloads;
 
@@ -66,8 +67,9 @@ const columns = (payloads) => {
       width: 100,
       fixed: 'right',
       render: (text, record) => {
+        const disabled = adminView ? false : (!reviewProcess)
         return (
-          <DropDownAction disabled={!reviewProcess} actionList={actionList} id={record.id}/>
+          <DropDownAction disabled={disabled} actionList={actionList} id={record.id}/>
         );
       },
     },
@@ -75,7 +77,7 @@ const columns = (payloads) => {
 }
 
 export default (props) => {
-  const { reviewProcess } = props;
+  const { reviewProcess, adminView } = props;
   const { orgId } = useParams();
   const navigate = useNavigate();
 
@@ -103,13 +105,14 @@ export default (props) => {
       setLoading(true);
       const res = await actions.getReviewTask({
         org_id: orgId,
+        admin_view: adminView,
       });
       setList(res);
     } catch (e) {
       console.error(e.message);
     }
     setLoading(false);
-  }, [orgId]);
+  }, [adminView, orgId]);
 
   const handleDetailClick = useCallback((id) => {
     navigate(`/org/${orgId}/review_task/${id}/detail`);
@@ -142,6 +145,7 @@ export default (props) => {
     // payloads
     actionList,
     reviewProcess,
+    adminView,
     // custom functions
     showDrawer,
   };

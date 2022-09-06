@@ -91,10 +91,10 @@ const columnConfig = (payloads = {}) => {
 
 const NotStartAlert = ({ processIndex }) => {
   const alertText = (() => {
-    if (processIndex < 2) {
+    if (processIndex < 3) {
       return 'The organization is not ready for reviewing papers. Please come back later'
     }
-    if (processIndex > 2) {
+    if (processIndex > 3) {
       return 'Paper reviewing is over'
     }
   })();
