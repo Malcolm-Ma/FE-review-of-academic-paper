@@ -20,3 +20,5 @@ export const getOrgInfo = createAsyncThunk(
 export const getSubmissionCount = params => api.get(apiConfig.org.submissionCount, params);
 
 export const changeReviewProcess = params => api.post(apiConfig.org.changeProcess, params);
+
+export const changeMemberType = params => api.post(apiConfig.org.changeMemberType, params);

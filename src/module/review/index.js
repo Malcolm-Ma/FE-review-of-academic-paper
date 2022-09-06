@@ -39,7 +39,7 @@ export default () => {
 
   const isAdmin = useMemo(() => {
     const { manager_list: managers } = orgInfo;
-    return _.some(managers, ({id}) => id === userInfo.id);
+    return _.some(managers, ({ id }) => id === userInfo.id);
   }, [orgInfo, userInfo]);
 
   const reviewProcess = _.get(orgInfo, 'review_process', 0) === 3;

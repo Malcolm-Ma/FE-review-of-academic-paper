@@ -20,6 +20,7 @@ export default {
     orgInfo: 'org/detail/get',
     submissionCount: '/org/submission_count/get',
     changeProcess: '/org/process/change',
+    changeMemberType: '/org/member/change',
   },
   review: {
     createSubmission: '/review/submission/create',
