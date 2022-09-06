@@ -9,6 +9,8 @@ import Typography from "@mui/material/Typography";
 import ReviewTaskList from "src/component/ReviewTaskList";
 import Paper from "@mui/material/Paper";
 import { Alert } from "@mui/material";
+import Box from "@mui/material/Box";
+import { Tag } from "antd";
 
 const NotStartAlert = ({ processIndex }) => {
   const alertText = (() => {
@@ -30,14 +32,17 @@ const NotStartAlert = ({ processIndex }) => {
 };
 
 export default () => {
-  const { orgInfo, OrgPage } = useOrgInfo();
+  const { orgInfo, OrgPage, OrgHeader } = useOrgInfo();
 
   const reviewProcess = _.get(orgInfo, 'review_process', 0) === 3;
+  const blindMode = _.get(orgInfo, 'blind_mode', false);
   return (
     <OrgPage>
-      <Typography variant="h4" sx={{ mb: 3 }}>
-        Reviews of Submissions Assigned to Me
-      </Typography>
+      <OrgHeader action={blindMode && <Tag color="volcano">Double-blind Mode</Tag>}>
+        <Typography variant="h4">
+          Reviews of Submissions Assigned to Me
+        </Typography>
+      </OrgHeader>
       {!reviewProcess && <NotStartAlert processIndex={_.get(orgInfo, 'review_process', 0)}/>}
       <Paper>
         <ReviewTaskList reviewProcess={reviewProcess}/>

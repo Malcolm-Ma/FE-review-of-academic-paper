@@ -9,19 +9,44 @@ import Typography from "@mui/material/Typography";
 import _ from "lodash";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
+import useOrgInfo from "src/hook/useOrgInfo";
+import { Tag } from "antd";
+import Button from "@mui/material/Button";
+import * as React from "react";
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default (props) => {
+  const navigate = useNavigate();
+  const { orgInfo, OrgPage, OrgHeader } = useOrgInfo();
+
+  const handleCreateSubmissionNavigate = useCallback(() => {
+    const orgId = _.get(orgInfo, 'id', null);
+    if (orgId) {
+      navigate(`/org/${orgId}/submission/create`);
+      return;
+    }
+    navigate(`/submission/create`);
+  }, [navigate, orgInfo]);
 
   return (
-    <Container maxWidth="xl">
-      <Box sx={{ pb: 4 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
+    <OrgPage maxWidth="xl">
+      <OrgHeader action={
+        <Button
+          variant="contained"
+          onClick={handleCreateSubmissionNavigate}
+          sx={{ display: { xs: 'none', md: 'flex' } }}
+        >
+          New Submission
+        </Button>
+      }>
+        <Typography variant="h4">
           List of Submissions
         </Typography>
-        <Paper>
-          <SubmissionList fullHeight={true} />
-        </Paper>
-      </Box>
-    </Container>
+      </OrgHeader>
+      <Paper>
+        <SubmissionList fullHeight={true} />
+      </Paper>
+    </OrgPage>
   );
 };

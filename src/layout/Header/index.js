@@ -87,14 +87,9 @@ const ResponsiveAppBar = (props) => {
     }
   }, [dispatch, navigate]);
 
-  const handleCreateSubmissionNavigate = useCallback(() => {
-    const orgId = _.get(orgInfo, 'id', null);
-    if (orgId) {
-      navigate(`/org/${orgId}/submission/create`);
-      return;
-    }
-    navigate(`/submission/create`);
-  }, [navigate, orgInfo]);
+  const handleCreateOrgNavigate = useCallback(() => {
+    navigate('/org/create');
+  }, [navigate]);
 
   return (
     <AppBar>
@@ -206,10 +201,10 @@ const ResponsiveAppBar = (props) => {
                     <Button
                       color="inherit"
                       variant="outlined"
-                      onClick={handleCreateSubmissionNavigate}
+                      onClick={handleCreateOrgNavigate}
                       sx={{ display: { xs: 'none', md: 'flex' } }}
                     >
-                      New Submission
+                      Create Conference
                     </Button>
                     <Tooltip title="Open settings">
                       <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
