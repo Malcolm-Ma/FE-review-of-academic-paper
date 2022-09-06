@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import actions from "src/actions";
+import { message } from "antd";
 
 export default forwardRef((props, ref) => {
   const {
@@ -35,6 +36,7 @@ export default forwardRef((props, ref) => {
         min_task_per_user: data.get('min_task_per_user'),
         org_id: orgInfo.id,
       });
+      message.success("Allocate Bidding successfully");
     } catch (e) {
       console.error(e.message);
     }

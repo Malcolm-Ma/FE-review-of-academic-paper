@@ -16,14 +16,20 @@ import AllocateBiddingDialog from "src/module/org/dashboard/AllocateBiddingDialo
 import DeadlineDialog from "src/module/org/dashboard/DeadlineDialog";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import BlindConfirmDialog from "src/module/org/dashboard/BlindConfirmDialog";
+import AddMemberDialog from "src/component/AddMemberDialog";
+import { useNavigate } from "react-router-dom";
 
 export default (props) => {
   const { orgInfo } = props;
+
+  const navigate = useNavigate();
+
   const reviewProcess = _.get(orgInfo, 'review_process', 0);
 
   const makeBiddingRef = useRef(null);
   const changeProcessRef = useRef(null);
   const blindModeRef = useRef(null);
+  const addMemberRef = useRef(null);
 
   const [blindMode, setBlindMode] = useState(_.get(orgInfo, 'blind_mode', false));
 
@@ -49,6 +55,10 @@ export default (props) => {
 
   const handleAllocateBidding = useCallback(() => {
     makeBiddingRef && makeBiddingRef.current.openDialog();
+  }, []);
+
+  const handleAddMemberClick = useCallback(() => {
+    addMemberRef && addMemberRef.current.openDialog();
   }, []);
 
   return (
@@ -110,14 +120,14 @@ export default (props) => {
                 <Grid item xs={12} sm={6}>
                   <Button
                     variant="outlined"
-                    onClick={handleAllocateBidding}
+                    onClick={handleAddMemberClick}
                     disabled={reviewProcess > 1}
-                  >Add User</Button>
+                  >Add Members</Button>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Button
                     variant="text"
-                    onClick={handleAllocateBidding}
+                    onClick={() => navigate(`/org/${orgInfo.id}/user`)}
                   >Member List</Button>
                 </Grid>
               </Grid>
@@ -125,7 +135,7 @@ export default (props) => {
           </Card>
         </Grid>
       </Grid>
-      <AllocateBiddingDialog ref={makeBiddingRef} orgInfo={orgInfo} />
+      <AllocateBiddingDialog ref={makeBiddingRef} orgInfo={orgInfo}/>
       {reviewProcess < 3 && <DeadlineDialog ref={changeProcessRef} orgInfo={orgInfo}/>}
       <BlindConfirmDialog
         blindMode={blindMode}
@@ -133,6 +143,7 @@ export default (props) => {
         onSubmit={() => setBlindMode(!blindMode)}
         orgInfo={orgInfo}
       />
+      <AddMemberDialog ref={addMemberRef} orgInfo={orgInfo}/>
     </>
   );
 }

@@ -68,8 +68,8 @@ export default forwardRef((props, ref) => {
     } catch (e) {
       message.error(e.message);
     }
-    // closeDialog();
-  }, [curProcessContent.name, deadline, orgInfo.id]);
+    closeDialog();
+  }, [closeDialog, curProcessContent.name, deadline, orgInfo.id]);
 
   useImperativeHandle(ref, () => ({
     openDialog,

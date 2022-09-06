@@ -42,8 +42,8 @@ export default (props) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {_.map(actionList, ({ label, onClick }) => (
-          <MenuItem key={label} onClick={() => handleClose(onClick)}>
+        {_.map(actionList, ({ label, onClick, disabled }) => (
+          <MenuItem key={label} onClick={() => handleClose(onClick)} disabled={disabled}>
             {label}
           </MenuItem>
         ))}

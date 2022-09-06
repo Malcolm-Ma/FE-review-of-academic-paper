@@ -22,3 +22,5 @@ export const getSubmissionCount = params => api.get(apiConfig.org.submissionCoun
 export const changeReviewProcess = params => api.post(apiConfig.org.changeProcess, params);
 
 export const changeMemberType = params => api.post(apiConfig.org.changeMemberType, params);
+
+export const addMembers = params => api.post(apiConfig.org.addMember, params);

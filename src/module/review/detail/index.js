@@ -35,7 +35,7 @@ const columnConfig = (payloads = {}) => {
         const type = EVALUATION_TYPE[record.type] || 'Review';
         const href = `#${type}_${record.review_index}`
         return (
-          <a href={href}>{EVALUATION_TYPE[type] || 'Review'} {record.review_index}</a>
+          <a href={href}>{type} {record.review_index}</a>
         );
       },
     },

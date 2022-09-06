@@ -130,8 +130,9 @@ export default (props) => {
     {
       label: 'Add Review',
       onClick: handleNewReviewClick,
+      disabled: adminView,
     }
-  ], [handleDetailClick, handleNewReviewClick]);
+  ], [adminView, handleDetailClick, handleNewReviewClick]);
 
   useEffect(() => {
     getReviewTask();

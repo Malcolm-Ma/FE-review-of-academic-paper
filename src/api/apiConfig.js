@@ -21,6 +21,7 @@ export default {
     submissionCount: '/org/submission_count/get',
     changeProcess: '/org/process/change',
     changeMemberType: '/org/member/change',
+    addMember: '/org/member/set',
   },
   review: {
     createSubmission: '/review/submission/create',
