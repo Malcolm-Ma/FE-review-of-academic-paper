@@ -14,7 +14,7 @@ import IconButton from "@mui/material/IconButton";
 const { Item } = Descriptions;
 
 export default (props) => {
-  const { data } = props;
+  const { data, decision } = props;
 
   const [conflict, setConflict] = useState([]);
 
@@ -41,7 +41,7 @@ export default (props) => {
         <Item label="File" span={3} style={{ paddingTop: 4, paddingBottom: 4 }}>
           <IconButton onClick={() => window.open(_.get(data, 'resource_url', '#'))}><DriveFileMoveIcon/></IconButton>
         </Item>
-        <Item label="Current Decision" span={3}>{data.decision}</Item>
+        <Item label="Current Decision" span={3}>{decision}</Item>
 
       </Descriptions>
     </Card>

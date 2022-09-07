@@ -17,9 +17,11 @@ import ProcessDetail from "./ProcessDetail";
 import useOrgInfo from "src/hook/useOrgInfo";
 import ManageOrg from "src/module/org/dashboard/ManageOrg";
 import UserListCard from "src/module/org/dashboard/UserListCard";
+import Button from "@mui/material/Button";
+import * as React from "react";
 
 export default (props) => {
-  const { orgInfo, OrgPage } = useOrgInfo();
+  const { orgInfo, OrgPage, OrgHeader } = useOrgInfo();
 
   const navigate = useNavigate();
 
@@ -31,10 +33,20 @@ export default (props) => {
 
   return (
     <OrgPage maxWidth="lg">
-      <Box sx={{ pb: 5 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
+      <OrgHeader action={
+        <Button
+          variant="text"
+          onClick={() => navigate('/')}
+          sx={{ display: { xs: 'none', md: 'flex' } }}
+        >
+          Back to Home
+        </Button>
+      }>
+        <Typography variant="h4">
           Welcome back, {_.get(userInfo, 'title', '')} {_.get(userInfo, 'full_name', '')}
         </Typography>
+      </OrgHeader>
+      <Box sx={{ pb: 5 }}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={8}>
             <InfoDisplay orgInfo={orgInfo}/>

@@ -182,6 +182,7 @@ export default (props) => {
     // payloads
     isAdmin,
     isManager,
+    fullDetail,
     // custom functions
     changeMemberType,
   };

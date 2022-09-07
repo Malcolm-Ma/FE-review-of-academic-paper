@@ -147,7 +147,7 @@ export default () => {
     reviewerMap,
     userInfo
   };
-  const reviewProcess = _.get(orgInfo, 'review_process', 0) === 3;
+  const reviewProcess = _.get(orgInfo, 'review_process', 0) >= 3;
   return (
     <OrgPage maxWidth="lg">
       {reviewProcess ? <>{!_.isEmpty(data)
@@ -162,7 +162,7 @@ export default () => {
           </Alert>
           <Grid container spacing={3} sx={{ pt: 3 }}>
             <Grid item xs={12}>
-              <SubmissionBrief data={_.get(data, 'submission_info')}/>
+              <SubmissionBrief data={_.get(data, 'submission_info')} decision={_.get(data, 'decision', null)}/>
             </Grid>
             <Grid item xs={12}>
               <Card>

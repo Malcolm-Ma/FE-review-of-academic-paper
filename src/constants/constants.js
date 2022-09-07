@@ -22,7 +22,7 @@ export const APPBAR_DESKTOP = 72;
 
 export const DATE_FORMAT = 'MMM Do YY';
 
-export const DATETIME_FORMAT = 'DD/MM/YYYY hh:mm:ss';
+export const DATETIME_FORMAT = 'DD/MM/YYYY HH:mm';
 
 export const REVIEW_PROCESS = {
   0: 'Preparing',

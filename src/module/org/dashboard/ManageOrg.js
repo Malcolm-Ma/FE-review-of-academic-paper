@@ -69,7 +69,7 @@ export default (props) => {
             <CardContent>
               <Typography variant="h6">Main Control</Typography>
               <Grid container sx={{ pt: 2 }}>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={6}>
                   <Button
                     variant="contained"
                     onClick={handleForwardProcess}
@@ -78,7 +78,7 @@ export default (props) => {
                     {reviewProcess < 3 ? 'Forward Progress' : 'Generate Decision'}
                   </Button>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={6}>
                   <FormControlLabel
                     control={<Switch
                       checked={blindMode}
@@ -97,14 +97,14 @@ export default (props) => {
             <CardContent>
               <Typography variant="h6">Bidding Control</Typography>
               <Grid container sx={{ pt: 2 }}>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={6}>
                   <Button
                     variant="outlined"
                     onClick={handleAllocateBidding}
                     disabled={reviewProcess !== 2}
                   >Allocate Bidding</Button>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={6}>
                   <Button
                     variant="text"
                     onClick={() => window.open(`/org/${orgInfo.id}/bidding/result`)}
@@ -120,14 +120,14 @@ export default (props) => {
             <CardContent>
               <Typography variant="h6">Member Management</Typography>
               <Grid container sx={{ pt: 2 }}>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={6}>
                   <Button
                     variant="outlined"
                     onClick={handleAddMemberClick}
                     disabled={reviewProcess > 1}
                   >Add Members</Button>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={6} sm={6}>
                   <Button
                     variant="text"
                     onClick={() => navigate(`/org/${orgInfo.id}/user`)}

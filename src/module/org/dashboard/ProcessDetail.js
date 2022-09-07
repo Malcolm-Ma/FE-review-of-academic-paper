@@ -80,10 +80,9 @@ const BiddingDetail = ({ orgInfo }) => {
 }
 
 const ReviewingDetail = ({ orgInfo }) => {
-
   const reviewingDdl = useMemo(() => {
-    if (_.get(orgInfo, 'bidding_ddl')) {
-      return moment(_.get(orgInfo, 'bidding_ddl')).format(DATETIME_FORMAT);
+    if (_.get(orgInfo, 'review_ddl')) {
+      return moment(_.get(orgInfo, 'review_ddl')).format(DATETIME_FORMAT);
     }
     return 'Unset';
   }, [orgInfo]);
