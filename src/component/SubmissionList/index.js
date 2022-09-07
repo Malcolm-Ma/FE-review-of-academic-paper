@@ -47,7 +47,7 @@ const columnConfig = ({ payloads }) => {
       dataIndex: ['submission_info', 'published_time'],
       render: (text, record) => {
         return (
-          <p>{moment(text).format(DATE_FORMAT)}</p>
+          <span>{moment(text).format(DATE_FORMAT)}</span>
         );
       },
     },
@@ -72,7 +72,7 @@ const columnConfig = ({ payloads }) => {
         return (
           <>
             <Button variant="text" onClick={() => showDrawer(record)}>Details</Button>
-            {isAdmin && <Button variant="text">Manage</Button>}
+            {/*{isAdmin && <Button variant="text">Manage</Button>}*/}
           </>
         );
       },
@@ -104,7 +104,8 @@ export default forwardRef((props, ref) => {
     fullDetail = true,
     fixedAction = true,
     prefixColumns,
-    unsetColumns
+    unsetColumns,
+    scope,
   } = props;
 
   const { orgId } = useParams();
@@ -121,7 +122,10 @@ export default forwardRef((props, ref) => {
   const getSubmissionList = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await actions.getSubmissionList({ org_id: orgId });
+      const res = await actions.getSubmissionList({
+        org_id: orgId,
+        scope,
+      });
       if (_.get(res, 'length', 0) > 0) {
         const sortedList = _.sortBy(res, (item) => {
           return -moment(_.get(item, 'review_task.created_time')).valueOf();
@@ -184,13 +188,14 @@ export default forwardRef((props, ref) => {
         <Table
           loading={loading}
           dataSource={list}
+          size={fullDetail ? 'default' : 'middle'}
           columns={columnConfig({ payloads })}
           scroll={{ y: !fullHeight ? 400 : null, x: fullDetail ? 1500 : null }}
           pagination={{
-            showSizeChanger: fullHeight,
+            showSizeChanger: fullDetail,
             style: { paddingRight: '16px' },
             total: _.get(list, 'length'),
-            showTotal: total => `Total ${total} submissions`
+            showTotal: total => `Total ${total} submissions`,
           }}
         />
       </Box>

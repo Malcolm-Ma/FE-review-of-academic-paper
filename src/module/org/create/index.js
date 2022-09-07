@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import actions from "src/actions";
 import { useNavigate } from "react-router-dom";
 import SearchUser from "src/component/SearchUser";
-import { Box, Button } from "@mui/material";
+import { Box, Button, FormGroup } from "@mui/material";
 import BusinessIcon from '@mui/icons-material/Business';
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
@@ -18,6 +18,8 @@ import TextField from "@mui/material/TextField";
 import { useForm } from 'react-hook-form';
 import { EMAIL_PATTERN } from "src/constants/constants";
 import _ from "lodash";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
 export default () => {
 
@@ -28,6 +30,7 @@ export default () => {
   const [userList, setUserList] = useState([]);
 
   const handleSubmit = async (values) => {
+    console.log('--values--\n', values);
     try {
       const res = await actions.createOrg({
         ...values,
@@ -97,6 +100,13 @@ export default () => {
                 value={userList}
                 onChange={(val) => setUserList(val)}
               />
+            </Grid>
+            <Grid item xs={12}>
+              <FormGroup>
+                <FormControlLabel control={<Checkbox
+                  {...register('blind_mode')}
+                />} label="Using double-blind mode" />
+              </FormGroup>
             </Grid>
             <Grid item xs={12}>
               <Button

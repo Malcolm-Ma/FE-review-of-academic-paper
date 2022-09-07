@@ -10,6 +10,7 @@ const initialState = {
   orgInfo: {},
   hasError: false,
   fetched: false,
+  message: '',
 };
 
 const orgSlice = createSlice({
@@ -27,9 +28,11 @@ const orgSlice = createSlice({
         state.hasError = false;
       })
       .addCase(getOrgInfo.rejected, (state, action) => {
+        console.log('--action--\n', action);
         state.orgInfo = action.payload || {};
         state.fetched = true;
         state.hasError = true;
+        state.message = action.error.message;
       })
   },
 });

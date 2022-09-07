@@ -24,6 +24,7 @@ const columns = (payloads) => {
     isManager,
     changeMemberType,
     fullDetail,
+    reviewStage,
   } = payloads;
   const config = [
     {
@@ -92,23 +93,32 @@ const columns = (payloads) => {
       fixed: 'right',
       render: (text, record) => {
         const recordRole = record.type;
+        const disabled = reviewStage >1;
         return (
           <>
             {(isAdmin && recordRole === 1) && <Button
               variant="text"
               onClick={() => changeMemberType(record.id, 2)}
+              disabled={disabled}
+              size="small"
             >Set as manager</Button>}
             {(isAdmin && recordRole === 2) && <Button
+              size="small"
               variant="text"
               onClick={() => changeMemberType(record.id, 1)}
+              disabled={disabled}
             >Set as member</Button>}
             {(isManager && recordRole === 1) && <Button
+              size="small"
               variant="text"
               onClick={() => changeMemberType(record.id, 0)}
+              disabled={recordRole > 2}
             >Block</Button>}
             {(isAdmin && recordRole === 0) && <Button
+              size="small"
               variant="text"
               onClick={() => changeMemberType(record.id, 1)}
+              disabled={recordRole > 2}
             >Unblock</Button>}
 
           </>
@@ -178,11 +188,13 @@ export default (props) => {
     getUserList();
   }, [getUserList]);
 
+  const reviewStage = _.get(orgInfo, 'review_process', 0);
   const payloads = {
     // payloads
     isAdmin,
     isManager,
     fullDetail,
+    reviewStage,
     // custom functions
     changeMemberType,
   };
@@ -195,12 +207,13 @@ export default (props) => {
           loading={loading}
           rowKey="id"
           scroll={{ x: 'max-content' }}
-          size={fullDetail ? 'default' : 'middle'}
+          size={fullDetail ? 'middle' : 'small'}
           pagination={{
             style: { paddingRight: '16px' },
             total: _.get(list, 'length'),
             showTotal: total => `Total ${total} members`,
-            defaultPageSize: fullDetail ? 20 : 10,
+            defaultPageSize: fullDetail ? 20 : 5,
+            showSizeChanger: fullDetail,
           }}
         />
       </Box>

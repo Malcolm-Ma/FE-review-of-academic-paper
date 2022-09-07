@@ -74,12 +74,14 @@ export default (props) => {
                     variant="contained"
                     onClick={handleForwardProcess}
                     disabled={reviewProcess >= 4}
+                    fullWidth
                   >
                     {reviewProcess < 3 ? 'Forward Progress' : 'Generate Decision'}
                   </Button>
                 </Grid>
                 <Grid item xs={6}>
                   <FormControlLabel
+                    sx={{ mr: 0, ml: 1 }}
                     control={<Switch
                       checked={blindMode}
                       onChange={handleBlindModeChange}
@@ -102,6 +104,7 @@ export default (props) => {
                     variant="outlined"
                     onClick={handleAllocateBidding}
                     disabled={reviewProcess !== 2}
+                    fullWidth
                   >Allocate Bidding</Button>
                 </Grid>
                 <Grid item xs={6}>
@@ -109,6 +112,7 @@ export default (props) => {
                     variant="text"
                     onClick={() => window.open(`/org/${orgInfo.id}/bidding/result`)}
                     disabled={reviewProcess < 2}
+                    fullWidth
                   >Bidding Result</Button>
                 </Grid>
               </Grid>
@@ -125,12 +129,14 @@ export default (props) => {
                     variant="outlined"
                     onClick={handleAddMemberClick}
                     disabled={reviewProcess > 1}
+                    fullWidth
                   >Add Members</Button>
                 </Grid>
                 <Grid item xs={6} sm={6}>
                   <Button
                     variant="text"
                     onClick={() => navigate(`/org/${orgInfo.id}/user`)}
+                    fullWidth
                   >Member List</Button>
                 </Grid>
               </Grid>

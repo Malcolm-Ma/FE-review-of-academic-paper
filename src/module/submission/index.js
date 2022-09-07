@@ -14,16 +14,17 @@ import { Tag } from "antd";
 import Button from "@mui/material/Button";
 import * as React from "react";
 import { useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default (props) => {
   const navigate = useNavigate();
   const { orgInfo, OrgPage, OrgHeader } = useOrgInfo();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleCreateSubmissionNavigate = useCallback(() => {
     const orgId = _.get(orgInfo, 'id', null);
     if (orgId) {
-      navigate(`/org/${orgId}/submission/create`);
+      navigate(`/org/${orgId}/submissions/create`);
       return;
     }
     navigate(`/submission/create`);
@@ -43,11 +44,11 @@ export default (props) => {
         </Button>
       }>
         <Typography variant="h4">
-          List of Submissions
+          {searchParams.get('scope') !== 'my' ? 'List of Submissions' : 'My Submissions'} in <i>{orgInfo.name}</i>
         </Typography>
       </OrgHeader>
       <Paper>
-        <SubmissionList fullHeight={true} />
+        <SubmissionList fullHeight={true} scope={searchParams.get('scope')} />
       </Paper>
     </OrgPage>
   );

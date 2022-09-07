@@ -6,10 +6,11 @@ import { Card } from "@mui/material";
 import { Descriptions } from "antd";
 import _ from "lodash";
 import Typography from "@mui/material/Typography";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import actions from "src/actions";
 import DriveFileMoveIcon from "@mui/icons-material/DriveFileMove";
 import IconButton from "@mui/material/IconButton";
+import { OVERALL_EVALUATION } from "src/constants/evaluation";
 
 const { Item } = Descriptions;
 
@@ -29,6 +30,15 @@ export default (props) => {
     })();
   }, [data, setConflict]);
 
+  const decisionDisplay = useMemo(() => {
+    if (!decision) {
+      return 'No reviews'
+    }
+    const floorScore = _.floor(decision);
+    const label = _.find(OVERALL_EVALUATION, (item) => item.value === floorScore).label || '-';
+    return <apan><b>{decision}</b>: {label}</apan>;
+  }, [decision]);
+
   return (
     <Card>
       <Typography variant="h6" sx={{p: 2}}>
@@ -41,7 +51,7 @@ export default (props) => {
         <Item label="File" span={3} style={{ paddingTop: 4, paddingBottom: 4 }}>
           <IconButton onClick={() => window.open(_.get(data, 'resource_url', '#'))}><DriveFileMoveIcon/></IconButton>
         </Item>
-        <Item label="Current Decision" span={3}>{decision}</Item>
+        <Item label="Current Decision" span={3}>{decisionDisplay}</Item>
 
       </Descriptions>
     </Card>

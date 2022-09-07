@@ -9,7 +9,7 @@ import actions from "src/actions";
 import { useParams } from "react-router-dom";
 import _ from "lodash";
 import Box from "@mui/material/Box";
-import { BackTop, Spin, Table } from "antd";
+import { BackTop, message, Spin, Table } from "antd";
 import Typography from "@mui/material/Typography";
 import { Alert, AlertTitle, Card } from "@mui/material";
 import Grid from "@mui/material/Grid";
@@ -22,9 +22,10 @@ import Button from "@mui/material/Button";
 import './index.less';
 import { useSelector } from "react-redux";
 import ReviewDetailList from "src/module/review/detail/ReviewDetailList";
+import * as React from "react";
 
 const columnConfig = (payloads = {}) => {
-  const { reviewerMap, userInfo } = payloads;
+  const { reviewerMap, userInfo, reviseReview } = payloads;
 
   return [
     {
@@ -81,7 +82,7 @@ const columnConfig = (payloads = {}) => {
           && (_.get(record, 'active_status', 0) === 0);
         return (
           <>
-            {showRevise && <Button variant="text">Revise</Button>}
+            {showRevise && <Button variant="text" onClick={() => reviseReview(record.id)}>Revise</Button>}
           </>
         );
       }
@@ -110,7 +111,7 @@ const NotStartAlert = ({ processIndex }) => {
 
 
 export default () => {
-  const { orgInfo, OrgPage, fetched } = useOrgInfo();
+  const { orgInfo, OrgPage, fetched, OrgHeader } = useOrgInfo();
   const { reviewId } = useParams();
 
   const { userInfo } = useSelector(state => state.user);
@@ -127,6 +128,19 @@ export default () => {
   }, [orgInfo.id, reviewId]);
 
   const reviewInfoList = useMemo(() => _.get(data, 'review_evaluation_list', []), [data]);
+
+  const reviseReview = useCallback(async (evaluationId) => {
+    try {
+      const res = await actions.reviseReview({
+        review_id: reviewId,
+        revise_evaluation_id: evaluationId
+      });
+      window.location.reload();
+      message.success('Revise evaluation successfully');
+    } catch (e) {
+      message.error(e.message);
+    }
+  }, [reviewId]);
 
   const reviewerMap = useMemo(() => {
     const reviewerList = _.get(data, 'reviewer_list', []);
@@ -145,7 +159,8 @@ export default () => {
 
   const payloads = {
     reviewerMap,
-    userInfo
+    userInfo,
+    reviseReview
   };
   const reviewProcess = _.get(orgInfo, 'review_process', 0) >= 3;
   return (
@@ -153,9 +168,20 @@ export default () => {
       {reviewProcess ? <>{!_.isEmpty(data)
         ? <Box>
           <BackTop />
-          <Typography variant="h5" sx={{ mb: 3 }}>
-            Reviews and Comments on <i>{_.get(data, 'submission_info.title')}</i>
-          </Typography>
+            <OrgHeader action={
+              <Button
+                variant="contained"
+                onClick={() => window.open(`/org/${orgInfo.id}/review_task/${reviewId}/new`)}
+                sx={{ display: { xs: 'none', md: 'flex' } }}
+                disabled={_.get(orgInfo, 'review_process', 0) !== 3}
+              >
+                New Review
+              </Button>
+            }>
+              <Typography variant="h5" sx={{ mb: 3 }}>
+                Reviews and Comments on <i>{_.get(data, 'submission_info.title')}</i>
+              </Typography>
+            </OrgHeader>
           <Alert severity="info" color="info">
             Click "revise" to <b>revise a review</b><br/>
             Click "Add Comment" to <b>submit a comment</b> on this submission.
@@ -183,8 +209,7 @@ export default () => {
               <Typography variant="h6" sx={{ mb: 2 }}>
                 Reviews and Comments
               </Typography>
-              <ReviewDetailList reviewerMap={reviewerMap} data={reviewInfoList} />
-
+              <ReviewDetailList reviewerMap={reviewerMap} data={reviewInfoList} orgInfo={orgInfo} />
             </Grid>
           </Grid>
         </Box>

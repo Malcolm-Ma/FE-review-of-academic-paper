@@ -8,11 +8,20 @@ import ReviewDetailItem from "src/module/review/detail/ReviewDetailItem";
 import { Empty } from "antd";
 import Button from "@mui/material/Button";
 import { useParams } from "react-router-dom";
+import { useMemo } from "react";
+import { useSelector } from "react-redux";
 
 export default (props) => {
-  const { data = [], reviewerMap } = props;
+  const { data = [], reviewerMap, orgInfo } = props;
+  const reviewStage = _.get(orgInfo, 'review_process', 0);
+
+  const userInfo = useSelector(state => state.user.userInfo);
 
   const { orgId, reviewId } = useParams();
+
+  const editable = useMemo(() => {
+    return _.has(reviewerMap, userInfo.id);
+  }, [reviewerMap, userInfo.id]);
 
   return (
     <Grid container spacing={2}>
@@ -32,6 +41,7 @@ export default (props) => {
             >
               <Button
                 variant="contained"
+                disabled={reviewStage !== 3 || !editable}
                 onClick={() => window.open(`/org/${orgId}/review_task/${reviewId}/new`)}
               >
                 Create one</Button>

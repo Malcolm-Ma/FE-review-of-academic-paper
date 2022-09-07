@@ -18,6 +18,8 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import DropDownAction from "src/component/DropDownAction";
+import { EVALUATION_TYPE } from "src/constants/constants";
+import { OVERALL_EVALUATION } from "src/constants/evaluation";
 
 const columns = (payloads) => {
   const {
@@ -38,6 +40,19 @@ const columns = (payloads) => {
       title: 'Authors',
       dataIndex: ['submission_info', 'authors'],
       width: 400,
+    },
+    {
+      title: 'Current Decision',
+      dataIndex: ['decision'],
+      align: 'right',
+      render: (text, record) => {
+        if (!text) {
+          return 'No reviews'
+        }
+        const floorScore = _.floor(text);
+        const label = _.find(OVERALL_EVALUATION, (item) => item.value === floorScore).label || '-';
+        return <apan><b>{text}</b>: {label}</apan>;
+      },
     },
     {
       title: 'Paper',

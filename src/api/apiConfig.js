@@ -36,5 +36,6 @@ export default {
     biddingResult: '/review/allocation_result/get',
     blindMode: '/org/double_blind/set',
     generateReviewingResult: '/review/result/generate',
+    reviseReview: '/review/revise',
   },
 };

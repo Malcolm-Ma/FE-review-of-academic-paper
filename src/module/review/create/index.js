@@ -31,8 +31,8 @@ export default (props) => {
   const [reviewInfo, setReviewInfo] = useState({});
 
   const handleBack = useCallback(() => {
-    navigate(`/org/${orgInfo.id}/review_task`);
-  }, [navigate, orgInfo]);
+    navigate(`/org/${orgInfo.id}/review_task/${reviewId}/detail`);
+  }, [navigate, orgInfo.id, reviewId]);
 
   const handleSubmit = useCallback(async () => {
     const values = formRef.current || {};

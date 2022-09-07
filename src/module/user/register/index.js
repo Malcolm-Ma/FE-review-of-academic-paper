@@ -19,6 +19,11 @@ import Container from '@mui/material/Container';
 import { message } from "antd";
 import actions from "src/actions";
 import { useNavigate } from "react-router-dom";
+import { FormControl, InputLabel, Select } from "@mui/material";
+import MenuItem from "@mui/material/MenuItem";
+import _ from "lodash";
+
+const TITLE_LIST = ['Mr.', 'Ms.', 'Prof.', 'Dr.', 'Mrs.', 'Miss.'];
 
 function Copyright(props) {
   return (
@@ -98,6 +103,17 @@ export default function SignUp() {
                 name="lastName"
                 autoComplete="family-name"
               />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth>
+                <InputLabel>Title</InputLabel>
+                <Select
+                  name="title"
+                  label="Title"
+                >
+                  {_.map(TITLE_LIST, (item) => <MenuItem key={item} value={item}>{item}</MenuItem>)}
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item xs={12}>
               <TextField

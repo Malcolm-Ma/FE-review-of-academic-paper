@@ -34,16 +34,16 @@ const pages = [
     name: 'Reviews',
     url: 'review_task',
   },
-  {
-    name: 'Status',
-    url: 'status',
-  },
+  // {
+  //   name: 'Status',
+  //   url: 'status',
+  // },
   {
     name: 'Bidding',
     url: 'bidding',
   },
 ];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile', 'Logout'];
 
 const ResponsiveAppBar = (props) => {
   const { userInfo } = props;
@@ -78,8 +78,8 @@ const ResponsiveAppBar = (props) => {
       case 'Logout': {
         try {
           await dispatch(actions.logout());
+          window.location.href = '/login';
           message.success('Sign out successfully')
-          navigate('/login');
         } catch (e) {
           console.error(e);
         }

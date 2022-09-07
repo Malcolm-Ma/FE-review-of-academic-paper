@@ -19,6 +19,7 @@ import ManageOrg from "src/module/org/dashboard/ManageOrg";
 import UserListCard from "src/module/org/dashboard/UserListCard";
 import Button from "@mui/material/Button";
 import * as React from "react";
+import MyReview from "src/module/org/dashboard/MyReview";
 
 export default (props) => {
   const { orgInfo, OrgPage, OrgHeader } = useOrgInfo();
@@ -60,6 +61,9 @@ export default (props) => {
           {isAdmin && <Grid item xs={12}>
             <ManageOrg orgInfo={orgInfo}/>
           </Grid>}
+          <Grid item xs={12}>
+            <MyReview orgInfo={orgInfo} />
+          </Grid>
           <Grid item xs={12}>
             <SubmissionCard orgInfo={orgInfo}/>
           </Grid>

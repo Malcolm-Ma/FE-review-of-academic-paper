@@ -15,7 +15,7 @@ import OrgHeader from "./OrgHeader";
 export default () => {
   const { orgId } = useParams();
   const dispatch = useDispatch();
-  const { orgInfo, hasError, fetched } = useSelector(state => state.org);
+  const { orgInfo, hasError, fetched, message } = useSelector(state => state.org);
 
   useEffect(() => {
     dispatch(actions.getOrgInfo({ org_id: orgId }));
@@ -32,7 +32,7 @@ export default () => {
               !hasError ? <>
                   {children}
                 </>
-                : <Alert severity="error">Invalid organization id, please try again.</Alert>
+                : <Alert severity="error">{message}</Alert>
             }</>
             : <Loading/>
         }
