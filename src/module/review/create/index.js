@@ -66,7 +66,7 @@ export default (props) => {
       message.success('Your review has been submitted successfully');
       handleBack();
     } catch (e) {
-      message.error(e.message);
+      console.error(e.message);
     }
   }, [handleBack, reviewId]);
 
@@ -102,7 +102,7 @@ export default (props) => {
             }}
           >
             <Grid item xs={12}>
-              <PaperDesc submissionInfo={_.get(reviewInfo, 'submission_info')} />
+              <PaperDesc submissionInfo={_.get(reviewInfo, 'submission_info', {})} />
             </Grid>
             <Grid item xs={12}>
               <EvaluationForm ref={formRef} />

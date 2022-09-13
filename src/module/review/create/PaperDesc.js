@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardMedia } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
 export default (props) => {
-  const { submissionInfo } = props;
+  const { submissionInfo = {} } = props;
 
   return (
     <Card>

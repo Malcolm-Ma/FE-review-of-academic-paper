@@ -51,7 +51,7 @@ const columns = (payloads) => {
         }
         const floorScore = _.floor(text);
         const label = _.find(OVERALL_EVALUATION, (item) => item.value === floorScore).label || '-';
-        return <apan><b>{text}</b>: {label}</apan>;
+        return <span><b>{text}</b>: {label}</span>;
       },
     },
     {

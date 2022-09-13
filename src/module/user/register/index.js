@@ -6,7 +6,6 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -49,7 +48,7 @@ export default function SignUp() {
       password: data.get('password'),
       first_name: data.get('firstName'),
       last_name: data.get('lastName'),
-      title: 'Mr.',
+      title: data.get('title') || 'Mr.',
     }).then(res => {
       message.success(`Sign up successfully.`);
       actions.login({
@@ -59,9 +58,7 @@ export default function SignUp() {
         navigate('/');
       });
     }).catch(err => {
-      message.error("Fail to register");
-      message.error(err.message);
-      // message.error(`${resMessage}, the email has been registered`);
+      message.error("Fail to register, ", err.message);
     });
   };
 

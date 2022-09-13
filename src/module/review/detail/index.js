@@ -127,6 +127,11 @@ export default () => {
     }
   }, [orgInfo.id, reviewId]);
 
+  const isAdmin = useMemo(() => {
+    const { manager_list: managers } = orgInfo;
+    return _.some(managers, ({ id }) => id === userInfo.id);
+  }, [orgInfo, userInfo]);
+
   const reviewInfoList = useMemo(() => _.get(data, 'review_evaluation_list', []), [data]);
 
   const reviseReview = useCallback(async (evaluationId) => {
@@ -173,7 +178,7 @@ export default () => {
                 variant="contained"
                 onClick={() => window.open(`/org/${orgInfo.id}/review_task/${reviewId}/new`)}
                 sx={{ display: { xs: 'none', md: 'flex' } }}
-                disabled={_.get(orgInfo, 'review_process', 0) !== 3}
+                disabled={_.get(orgInfo, 'review_process', 0) !== 3 || isAdmin}
               >
                 New Review
               </Button>

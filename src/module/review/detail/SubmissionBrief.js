@@ -36,7 +36,7 @@ export default (props) => {
     }
     const floorScore = _.floor(decision);
     const label = _.find(OVERALL_EVALUATION, (item) => item.value === floorScore).label || '-';
-    return <apan><b>{decision}</b>: {label}</apan>;
+    return <span><b>{decision}</b>: {label}</span>;
   }, [decision]);
 
   return (
