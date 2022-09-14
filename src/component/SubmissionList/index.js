@@ -42,16 +42,6 @@ const columnConfig = ({ payloads }) => {
       ellipsis: true,
     },
     {
-      title: 'Published Time',
-      width: 120,
-      dataIndex: ['submission_info', 'published_time'],
-      render: (text, record) => {
-        return (
-          <span>{moment(text).format(DATE_FORMAT)}</span>
-        );
-      },
-    },
-    {
       title: 'Paper',
       dataIndex: ['submission_info', 'resource_url'],
       align: 'center',
@@ -59,6 +49,16 @@ const columnConfig = ({ payloads }) => {
       render: (text, record) => {
         return (
           <IconButton onClick={() => window.open(text)}><DriveFileMoveIcon/></IconButton>
+        );
+      },
+    },
+    {
+      title: 'Published Time',
+      width: 120,
+      dataIndex: ['submission_info', 'published_time'],
+      render: (text, record) => {
+        return (
+          <span>{moment(text).format(DATE_FORMAT)}</span>
         );
       },
     },
