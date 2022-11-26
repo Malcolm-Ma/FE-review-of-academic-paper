@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Front End of Apex - Academic Paper Review System for Conference & University
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A web-based software system to support the review of academic papers for conferences and universities.
 
 ## Available Scripts
 
