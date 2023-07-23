@@ -19,9 +19,9 @@ export default [
     exact: true,
   },
   {
-    path: '/apex',
+    path: '/home',
     component: loadable(
-      () => import(/* webpackChunkName: 'home' */ /* webpackMode: 'lazy' */ 'src/module/HomeNew'),
+      () => import(/* webpackChunkName: 'home' */ /* webpackMode: 'lazy' */ 'src/module/home/HomeNew'),
     ),
     exact: true,
   },

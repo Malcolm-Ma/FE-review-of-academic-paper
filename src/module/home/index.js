@@ -13,6 +13,7 @@ import actions from "src/actions";
 import { message } from "antd";
 import OrgInfoCard from "src/component/OrgInfoCard";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import HomeNew from "./HomeNew";
 
 const theme = createTheme();
 
@@ -26,7 +27,7 @@ export default () => {
   useEffect(() => {
     loginStatus && (async () => {
       try {
-        const res = await actions.getOrgListByUserId({user_id: _.get(userInfo, 'id')});
+        const res = await actions.getOrgListByUserId({ user_id: _.get(userInfo, 'id') });
         setOrgList(res);
       } catch (e) {
         message.error(e.message);
@@ -36,36 +37,33 @@ export default () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container sx={{ pt: 3 }} maxWidth="lg">
-        {
-          loginStatus
-            ? <>
+      {
+        loginStatus
+          ? <>
+            <Container sx={{ pt: 3 }} maxWidth="lg">
               <Typography variant="h4">
                 Welcome, {_.get(userInfo, 'title')} {_.get(userInfo, 'full_name')}
               </Typography>
-              <Container disableGutters={true} sx={{pt: 3}}>
+              <Container disableGutters={true} sx={{ pt: 3 }}>
                 <Typography variant="h5">
                   Please select a conference to continue:
                 </Typography>
-                {!_.isEmpty(orgList) && <Grid container spacing={4} sx={{pt: 3}}>
+                {!_.isEmpty(orgList) && <Grid container spacing={4} sx={{ pt: 3 }}>
                   {_.map(orgList, (org) => {
                     return (
                       <Grid item key={org.id} xs={4}>
-                        <OrgInfoCard orgInfo={org} />
+                        <OrgInfoCard orgInfo={org}/>
                       </Grid>
                     );
                   })}
                 </Grid>}
               </Container>
-            </>
-            : <>
-              <Typography variant="h3">
-                Welcome to Apex, the App for review of academic papers.<br/>
-                Please Sign in first.
-              </Typography>
-            </>
-        }
-      </Container>
+            </Container>
+          </>
+          : <>
+            <HomeNew/>
+          </>
+      }
     </ThemeProvider>
   );
 }

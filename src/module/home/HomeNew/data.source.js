@@ -115,7 +115,7 @@ export const Banner01DataSource = {
     className: 'banner0-button',
     children: 'Learn More',
     onClick: () => {
-      window.location.href = '/login';
+      window.location.href = '/dashboard';
     }
   },
 };

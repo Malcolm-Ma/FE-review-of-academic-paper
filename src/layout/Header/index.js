@@ -79,7 +79,7 @@ const ResponsiveAppBar = (props) => {
       case 'Logout': {
         try {
           await dispatch(actions.logout());
-          window.location.href = '/login';
+          // window.location.href = '/login';
           message.success('Sign out successfully')
         } catch (e) {
           console.error(e);
