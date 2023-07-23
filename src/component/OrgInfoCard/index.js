@@ -24,7 +24,7 @@ export default (props) => {
 
   const navigate = useNavigate();
 
-  const orgUrl = useMemo(() => (`/org/${_.get(orgInfo, 'id')}/dashboard`), []);
+  const orgUrl = useMemo(() => (`/org/${_.get(orgInfo, 'id')}/dashboard`), [orgInfo]);
 
   const color = (() => {
     const text = _.get(orgInfo, 'user_type');

@@ -13,13 +13,14 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import _ from "lodash";
-import { Divider, Stack } from "@mui/material";
+import { Divider, Stack, SvgIcon } from "@mui/material";
 import { useCallback } from "react";
 import actions from "src/actions";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { message } from "antd";
 import { APPBAR_DESKTOP, APPBAR_MOBILE } from "src/constants/constants";
+import {ReactComponent as LogoIcon} from "src/assets/logo.svg"
 
 const pages = [
   {
@@ -85,7 +86,7 @@ const ResponsiveAppBar = (props) => {
         }
       }
     }
-  }, [dispatch, navigate]);
+  }, [dispatch]);
 
   const handleCreateOrgNavigate = useCallback(() => {
     navigate('/org/create');
@@ -103,7 +104,9 @@ const ResponsiveAppBar = (props) => {
             },
           })}
         >
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}/>
+          <SvgIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, fontSize: '3rem' }}>
+            <LogoIcon/>
+          </SvgIcon>
           <Typography
             variant="h6"
             noWrap

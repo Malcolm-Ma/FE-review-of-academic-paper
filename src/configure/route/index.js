@@ -18,6 +18,13 @@ export default [
     ),
     exact: true,
   },
+  {
+    path: '/apex',
+    component: loadable(
+      () => import(/* webpackChunkName: 'home' */ /* webpackMode: 'lazy' */ 'src/module/HomeNew'),
+    ),
+    exact: true,
+  },
   ...user,
   ...org,
   ...review,

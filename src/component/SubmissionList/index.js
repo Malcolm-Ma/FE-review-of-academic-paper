@@ -139,7 +139,7 @@ export default forwardRef((props, ref) => {
     } finally {
       setLoading(false);
     }
-  }, [orgId]);
+  }, [orgId, scope]);
 
   const showDrawer = useCallback((item) => {
     setFocusedItem(item);
