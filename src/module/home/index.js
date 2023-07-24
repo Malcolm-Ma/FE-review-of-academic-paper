@@ -44,7 +44,7 @@ export default () => {
         init ? <>{
         loginStatus
           ? <>
-            <Container sx={{ pt: 3 }} maxWidth="lg">
+            <Container sx={{ pt: 3, pb: 4 }} maxWidth="lg">
               <Typography variant="h4">
                 Welcome, {_.get(userInfo, 'title')} {_.get(userInfo, 'full_name')}
               </Typography>
@@ -55,7 +55,7 @@ export default () => {
                 {!_.isEmpty(orgList) && <Grid container spacing={4} sx={{ pt: 3 }}>
                   {_.map(orgList, (org) => {
                     return (
-                      <Grid item key={org.id} xs={4}>
+                      <Grid item key={org.id} xs={12} sm={6} md={4} xl={3}>
                         <OrgInfoCard orgInfo={org}/>
                       </Grid>
                     );

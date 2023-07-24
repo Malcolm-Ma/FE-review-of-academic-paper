@@ -115,7 +115,7 @@ export const Banner01DataSource = {
     className: 'banner0-button',
     children: 'Learn More',
     onClick: () => {
-      window.location.href = '/dashboard';
+      window.location.href = '/login';
     }
   },
 };
@@ -126,11 +126,11 @@ export const Feature80DataSource = {
   titleWrapper: {
     className: 'feature8-title-wrapper',
     children: [
-      { name: 'title', className: 'feature8-title-h1', children: '使用流程' },
+      { name: 'title', className: 'feature8-title-h1', children: 'Review Workflow' },
       {
         name: 'content',
         className: 'feature8-title-content',
-        children: '流程简单清晰，快速响应需求',
+        children: 'Provide full-process services for academic paper review',
       },
     ],
   },
@@ -140,7 +140,7 @@ export const Feature80DataSource = {
       {
         name: 'button',
         className: 'feature8-button',
-        children: { href: '#', children: '立即体验' },
+        children: { href: '/login', children: 'Try Now' },
       },
     ],
   },
@@ -161,7 +161,7 @@ export const Feature80DataSource = {
           gutter: 120,
           title: {
             className: 'feature8-carousel-title-block',
-            children: '平台自主训练流程',
+            children: '#',
           },
           children: [
             {
@@ -186,45 +186,12 @@ export const Feature80DataSource = {
                   {
                     name: 'title',
                     className: 'feature8-block-title',
-                    children: '需求沟通',
+                    children: 'Register Conference',
                   },
                   {
                     name: 'content',
                     className: 'feature8-block-content',
-                    children: '沟通业务需求，对接人：诚凡、芸彩',
-                  },
-                ],
-              },
-            },
-            {
-              className: 'feature8-block-col',
-              md: 6,
-              xs: 24,
-              name: 'child1',
-              arrow: {
-                className: 'feature8-block-arrow',
-                children:
-                  'https://gw.alipayobjects.com/zos/basement_prod/167bee48-fbc0-436a-ba9e-c116b4044293.svg',
-              },
-              children: {
-                className: 'feature8-block-child',
-                children: [
-                  {
-                    name: 'image',
-                    className: 'feature8-block-image',
-                    children:
-                      'https://gw.alipayobjects.com/zos/basement_prod/d8933673-1463-438a-ac43-1a8f193ebf34.svg',
-                  },
-                  {
-                    name: 'title',
-                    className: 'feature8-block-title',
-                    children: '需求沟通',
-                  },
-                  {
-                    name: 'content',
-                    className: 'feature8-block-content',
-                    children:
-                      '沟通业务需求，对接人：诚凡、芸彩沟通业务需求，对接人：诚凡、芸彩',
+                    children: 'Create a reference, invite reviewers and upload papers',
                   },
                 ],
               },
@@ -251,13 +218,13 @@ export const Feature80DataSource = {
                   {
                     name: 'title',
                     className: 'feature8-block-title',
-                    children: '需求沟通',
+                    children: 'Bidding Interest',
                   },
                   {
                     name: 'content',
                     className: 'feature8-block-content',
                     children:
-                      '沟通业务需求，对接人：诚凡、芸彩沟通业务需求，对接人：诚凡、芸彩',
+                      'Declare and bid interest or conflict of interest for papers. Server will do automatic allocation',
                   },
                 ],
               },
@@ -284,13 +251,46 @@ export const Feature80DataSource = {
                   {
                     name: 'title',
                     className: 'feature8-block-title',
-                    children: '需求沟通',
+                    children: 'Review Paper',
                   },
                   {
                     name: 'content',
                     className: 'feature8-block-content',
                     children:
-                      '沟通业务需求，对接人：诚凡、芸彩沟通业务需求，对接人：诚凡、芸彩',
+                      'Review papers and submit review results',
+                  },
+                ],
+              },
+            },
+            {
+              className: 'feature8-block-col',
+              md: 6,
+              xs: 24,
+              name: 'child1',
+              arrow: {
+                className: 'feature8-block-arrow',
+                children:
+                  'https://gw.alipayobjects.com/zos/basement_prod/167bee48-fbc0-436a-ba9e-c116b4044293.svg',
+              },
+              children: {
+                className: 'feature8-block-child',
+                children: [
+                  {
+                    name: 'image',
+                    className: 'feature8-block-image',
+                    children:
+                      'https://gw.alipayobjects.com/zos/basement_prod/d8933673-1463-438a-ac43-1a8f193ebf34.svg',
+                  },
+                  {
+                    name: 'title',
+                    className: 'feature8-block-title',
+                    children: 'Release Result',
+                  },
+                  {
+                    name: 'content',
+                    className: 'feature8-block-content',
+                    children:
+                      'Release results and generate review report for papers. Server will calculate the final score',
                   },
                 ],
               },
@@ -405,14 +405,14 @@ export const Footer10DataSource = {
         title: {
           className: 'logo',
           children:
-            'https://zos.alipayobjects.com/rmsportal/qqaimmXZVSwAhpL.svg',
+            LogoIcon,
         },
         childWrapper: {
           className: 'slogan',
           children: [
             {
               name: 'content0',
-              children: 'Animation specification and components of Ant Design.',
+              children: 'Apex specification and components of MalcolmPro.',
             },
           ],
         },
@@ -422,13 +422,12 @@ export const Footer10DataSource = {
         xs: 24,
         md: 6,
         className: 'block',
-        title: { children: '产品' },
+        title: { children: 'Product' },
         childWrapper: {
           children: [
-            { name: 'link0', href: '#', children: '产品更新记录' },
-            { name: 'link1', href: '#', children: 'API文档' },
-            { name: 'link2', href: '#', children: '快速入门' },
-            { name: 'link3', href: '#', children: '参考指南' },
+            { name: 'link0', href: 'https://github.com/Malcolm-Ma/Apex', children: 'Github Home Page' },
+            { name: 'link1', href: 'https://github.com/Malcolm-Ma/FE-review-of-academic-paper', children: 'Git Repo for Front End' },
+            { name: 'link2', href: 'https://github.com/Malcolm-Ma/BE-review-of-academic-paper', children: 'Git Repo for Back End' },
           ],
         },
       },
@@ -437,11 +436,10 @@ export const Footer10DataSource = {
         xs: 24,
         md: 6,
         className: 'block',
-        title: { children: '关于' },
+        title: { children: 'About' },
         childWrapper: {
           children: [
-            { href: '#', name: 'link0', children: 'FAQ' },
-            { href: '#', name: 'link1', children: '联系我们' },
+            { href: 'https://github.com/Malcolm-Ma', name: 'link1', children: 'Contact Me' },
           ],
         },
       },
@@ -450,11 +448,13 @@ export const Footer10DataSource = {
         xs: 24,
         md: 6,
         className: 'block',
-        title: { children: '资源' },
+        title: { children: 'Thanks To' },
         childWrapper: {
           children: [
-            { href: '#', name: 'link0', children: 'Ant Design' },
-            { href: '#', name: 'link1', children: 'Ant Motion' },
+            { href: '#', name: 'link0', children: 'React.js' },
+            { href: '#', name: 'link1', children: 'Spring Boot' },
+            { href: '#', name: 'link2', children: 'Material UI' },
+            { href: '#', name: 'link3', children: 'Ant Design' },
           ],
         },
       },
@@ -466,7 +466,7 @@ export const Footer10DataSource = {
     className: 'copyright',
     children: (
       <span>
-        ©2018 by <a href="https://motion.ant.design">Ant Motion</a> All Rights
+        ©2023 by <a href="https://malcolmpro.com">Apex</a> All Rights
         Reserved
       </span>
     ),
