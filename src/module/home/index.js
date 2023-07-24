@@ -10,7 +10,7 @@ import _ from "lodash";
 import Grid from "@mui/material/Grid";
 import { useEffect, useState } from "react";
 import actions from "src/actions";
-import { message } from "antd";
+import { message, Spin } from "antd";
 import OrgInfoCard from "src/component/OrgInfoCard";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import HomeNew from "./HomeNew";
@@ -21,6 +21,8 @@ export default () => {
 
   const dispatch = useDispatch();
   const { userInfo, loginStatus } = useSelector(state => state.user);
+
+  const [init, setInit] = useState(false);
 
   const [orgList, setOrgList] = useState([]);
 
@@ -33,11 +35,13 @@ export default () => {
         message.error(e.message);
       }
     })();
+    setInit(true);
   }, [loginStatus, userInfo]);
 
   return (
     <ThemeProvider theme={theme}>
       {
+        init ? <>{
         loginStatus
           ? <>
             <Container sx={{ pt: 3 }} maxWidth="lg">
@@ -62,7 +66,9 @@ export default () => {
           </>
           : <>
             <HomeNew/>
-          </>
+          </>}
+        </>
+          : <Spin size="large" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}/>
       }
     </ThemeProvider>
   );
