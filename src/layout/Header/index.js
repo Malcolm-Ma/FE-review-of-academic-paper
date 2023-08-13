@@ -47,7 +47,7 @@ const pages = [
 const settings = ['Profile', 'Logout'];
 
 const ResponsiveAppBar = (props) => {
-  const { userInfo } = props;
+  const { userInfo, init } = props;
 
   const navigate = useNavigate();
 
@@ -79,7 +79,7 @@ const ResponsiveAppBar = (props) => {
       case 'Logout': {
         try {
           await dispatch(actions.logout());
-          // window.location.href = '/login';
+          window.location.href = '/';
           message.success('Sign out successfully')
         } catch (e) {
           console.error(e);
@@ -191,8 +191,8 @@ const ResponsiveAppBar = (props) => {
               </Button>
             ))}
           </Box>
-
           <Box sx={{ flexGrow: 0 }}>
+            {init ? <>
             {
               !_.get(userInfo, 'id', null)
                 ? <Stack spacing={1} direction="row">
@@ -251,6 +251,7 @@ const ResponsiveAppBar = (props) => {
                   </Stack>
                 </>
             }
+            </> : <Stack spacing={1} direction="row"></Stack>}
           </Box>
         </Toolbar>
       </Container>

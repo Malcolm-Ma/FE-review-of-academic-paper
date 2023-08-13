@@ -19,9 +19,9 @@ export default [
     exact: true,
   },
   {
-    path: '/home',
+    path: '/dashboard',
     component: loadable(
-      () => import(/* webpackChunkName: 'home' */ /* webpackMode: 'lazy' */ 'src/module/home/HomeNew'),
+      () => import(/* webpackChunkName: 'home' */ /* webpackMode: 'lazy' */ 'src/module/dashboard'),
     ),
     exact: true,
   },

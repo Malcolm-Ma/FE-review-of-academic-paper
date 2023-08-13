@@ -55,7 +55,7 @@ export default function SignUp() {
         email: data.get('email'),
         password: data.get('password'),
       }).then(() => {
-        navigate('/');
+        navigate('/dashboard');
       });
     }).catch(err => {
       message.error("Fail to register, ", err.message);

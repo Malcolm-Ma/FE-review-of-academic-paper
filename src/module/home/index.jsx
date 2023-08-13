@@ -2,6 +2,7 @@
 /* eslint arrow-parens: 0 */
 import React from 'react';
 import { enquireScreen } from 'enquire-js';
+import { connect } from 'react-redux'
 
 import Nav0 from './Nav0';
 import Banner0 from './Banner0';
@@ -25,7 +26,7 @@ enquireScreen((b) => {
 
 const { location = {} } = typeof window !== 'undefined' ? window : {};
 
-export default class Home extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -63,13 +64,13 @@ export default class Home extends React.Component {
       <Banner0
         id="Banner0_1"
         key="Banner0_1"
-        dataSource={Banner01DataSource}
+        dataSource={Banner01DataSource({ loginStatus: this.props.loginStatus})}
         isMobile={this.state.isMobile}
       />,
       <Feature8
         id="Feature8_0"
         key="Feature8_0"
-        dataSource={Feature80DataSource}
+        dataSource={Feature80DataSource({ loginStatus: this.props.loginStatus})}
         isMobile={this.state.isMobile}
       />,
       // <Content0
@@ -99,3 +100,9 @@ export default class Home extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  loginStatus: state.user.loginStatus
+})
+
+export default connect(mapStateToProps)(Home)

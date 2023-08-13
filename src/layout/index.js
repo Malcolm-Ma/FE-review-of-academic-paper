@@ -28,26 +28,28 @@ message.config({
 export default () => {
 
   const dispatch = useDispatch();
-  const userInfo = useSelector(state => state.user.userInfo);
+  const { userInfo, init } = useSelector(state => state.user);
 
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    dispatch(actions.getUserInfo()).unwrap()
-      .catch(e => {
-        authUtil.removeAuthToken();
-        if (!_.some(ignoredAuthCheckUrls, (item) => item === location.pathname)) {
-          message.warn('Account has timed out, please log in again');
-          navigate('/login');
-        }
-      })
+    if (!init) {
+      dispatch(actions.getUserInfo()).unwrap()
+        .catch(e => {
+          authUtil.removeAuthToken();
+          if (!_.some(ignoredAuthCheckUrls, (item) => item === location.pathname)) {
+            message.warn('Account has timed out, please log in again');
+            navigate('/login');
+          }
+        })
+    }
   }, [dispatch, location.pathname, navigate]);
 
   return (
     <MyThemeProvider>
       <div className="apr-frame">
-        <Header userInfo={userInfo} />
+        <Header userInfo={userInfo} init={init}/>
         <Box sx={(theme) => ({
           flexGrow: 1,
           overflow: 'auto',
@@ -61,7 +63,7 @@ export default () => {
             paddingRight: theme.spacing(2)
           }
         })}>
-          <Main />
+          <Main/>
         </Box>
       </div>
     </MyThemeProvider>

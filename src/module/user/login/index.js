@@ -51,7 +51,7 @@ export default function SignInSide() {
     }).then(res => {
       dispatch(actions.getUserInfo());
       message.success('Login successfully!');
-      navigate('/');
+      navigate('/dashboard');
 
     }).catch(err => message.error(err.message));
   };

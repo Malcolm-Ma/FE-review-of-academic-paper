@@ -3,8 +3,8 @@ import React from 'react';
 import LogoIcon from 'src/assets/logo-home.svg';
 
 export const Nav00DataSource = {
-  wrapper: { className: 'header0 home-page-wrapper' },
-  page: { className: 'home-page' },
+  wrapper: { className: 'header0 dashboard-page-wrapper' },
+  page: { className: 'dashboard-page' },
   logo: {
     className: 'header0-logo',
     children: LogoIcon,
@@ -100,7 +100,7 @@ export const Nav00DataSource = {
   },
   mobileMenu: { className: 'header0-mobile-menu' },
 };
-export const Banner01DataSource = {
+export const Banner01DataSource = (args = {}) => ({
   wrapper: { className: 'banner0' },
   textWrapper: { className: 'banner0-text-wrapper' },
   title: {
@@ -115,13 +115,13 @@ export const Banner01DataSource = {
     className: 'banner0-button',
     children: 'Learn More',
     onClick: () => {
-      window.location.href = '/login';
+      window.location.href = args.loginStatus ? '/dashboard' : '/login';
     }
   },
-};
-export const Feature80DataSource = {
-  wrapper: { className: 'home-page-wrapper feature8-wrapper' },
-  page: { className: 'home-page feature8' },
+});
+export const Feature80DataSource = (args = {}) => ({
+  wrapper: { className: 'dashboard-page-wrapper feature8-wrapper' },
+  page: { className: 'dashboard-page feature8' },
   OverPack: { playScale: 0.3 },
   titleWrapper: {
     className: 'feature8-title-wrapper',
@@ -140,7 +140,7 @@ export const Feature80DataSource = {
       {
         name: 'button',
         className: 'feature8-button',
-        children: { href: '/login', children: 'Try Now' },
+        children: { href: args.loginStatus ? '/dashboard' : '/login', children: 'Try Now' },
       },
     ],
   },
@@ -300,10 +300,10 @@ export const Feature80DataSource = {
       ],
     },
   },
-};
+});
 export const Content00DataSource = {
-  wrapper: { className: 'home-page-wrapper content0-wrapper' },
-  page: { className: 'home-page content0' },
+  wrapper: { className: 'dashboard-page-wrapper content0-wrapper' },
+  page: { className: 'dashboard-page content0' },
   OverPack: { playScale: 0.3, className: '' },
   titleWrapper: {
     className: 'title-wrapper',
@@ -391,10 +391,10 @@ export const Content00DataSource = {
   },
 };
 export const Footer10DataSource = {
-  wrapper: { className: 'home-page-wrapper footer1-wrapper' },
+  wrapper: { className: 'dashboard-page-wrapper footer1-wrapper' },
   OverPack: { className: 'footer1', playScale: 0.2 },
   block: {
-    className: 'home-page',
+    className: 'dashboard-page',
     gutter: 0,
     children: [
       {
@@ -405,7 +405,7 @@ export const Footer10DataSource = {
         title: {
           className: 'logo',
           children:
-            LogoIcon,
+          LogoIcon,
         },
         childWrapper: {
           className: 'slogan',
@@ -426,8 +426,16 @@ export const Footer10DataSource = {
         childWrapper: {
           children: [
             { name: 'link0', href: 'https://github.com/Malcolm-Ma/Apex', children: 'Github Home Page' },
-            { name: 'link1', href: 'https://github.com/Malcolm-Ma/FE-review-of-academic-paper', children: 'Git Repo for Front End' },
-            { name: 'link2', href: 'https://github.com/Malcolm-Ma/BE-review-of-academic-paper', children: 'Git Repo for Back End' },
+            {
+              name: 'link1',
+              href: 'https://github.com/Malcolm-Ma/FE-review-of-academic-paper',
+              children: 'Git Repo for Front End'
+            },
+            {
+              name: 'link2',
+              href: 'https://github.com/Malcolm-Ma/BE-review-of-academic-paper',
+              children: 'Git Repo for Back End'
+            },
           ],
         },
       },
@@ -461,7 +469,7 @@ export const Footer10DataSource = {
     ],
   },
   copyrightWrapper: { className: 'copyright-wrapper' },
-  copyrightPage: { className: 'home-page' },
+  copyrightPage: { className: 'dashboard-page' },
   copyright: {
     className: 'copyright',
     children: (
